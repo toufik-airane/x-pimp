@@ -78,20 +78,25 @@ header[role="banner"] [data-testid="SideNav_NewTweet_Button"] {
   right: 24px;
   bottom: 24px;
   display: grid;
-  width: 44px;
-  height: 44px;
+  width: 46px;
+  height: 46px;
   padding: 0;
   place-items: center;
-  border: 0;
-  border-radius: 0;
-  background: transparent;
-  box-shadow: none;
+  border: 1px solid color-mix(in srgb, currentColor 16%, transparent);
+  border-radius: 999px;
+  background: color-mix(in srgb, currentColor 7%, transparent);
+  backdrop-filter: blur(12px) saturate(130%);
+  box-shadow: 0 4px 18px rgb(0 0 0 / 10%);
   color: inherit;
   cursor: pointer;
-  transition: color 140ms ease, opacity 140ms ease;
+  transition: color 140ms ease, opacity 140ms ease, background 140ms ease,
+    border-color 140ms ease, box-shadow 140ms ease;
 }
 
 #x-pimp-refresh:hover {
+  border-color: rgb(29 155 240 / 28%);
+  background: rgb(29 155 240 / 11%);
+  box-shadow: 0 5px 20px rgb(29 155 240 / 12%);
   color: rgb(29 155 240);
 }
 

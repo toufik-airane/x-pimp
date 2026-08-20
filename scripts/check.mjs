@@ -27,6 +27,7 @@ assert.match(styles, /--x-pimp-gadget-width/);
 assert.match(styles, /@media \(min-width: 600px\)/);
 assert.doesNotMatch(styles, /max-width: 1099px/);
 assert.match(styles, /#x-pimp-refresh/);
+assert.match(styles, /backdrop-filter: blur\(12px\)/);
 assert.match(styles, /AppTabBar_Home_Link/);
 assert.match(styles, /background: transparent/);
 assert.match(styles, /margin-left: -88px !important/);
@@ -87,6 +88,10 @@ assert.match(pomodoro, /x-pimp-clock-time/);
 assert.match(pomodoro, /Intl\.DateTimeFormat/);
 assert.match(pomodoro, /aria-keyshortcuts="Alt\+P"/);
 assert.match(pomodoro, /⌥R refresh/);
+assert.match(
+  pomodoro,
+  /x-pimp-pomodoro-actions">[\s\S]*x-pimp-pomodoro-reset[\s\S]*x-pimp-pomodoro-toggle/
+);
 assert.match(styles, /#x-pimp-pomodoro/);
 assert.match(styles, /box-sizing: border-box/);
 assert.match(styles, /opacity: 0\.72/);

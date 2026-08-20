@@ -154,8 +154,8 @@
         <button type="button" data-minutes="45" aria-pressed="false" aria-keyshortcuts="Alt+3" title="45 minutes (Alt/Option + 3)">45</button>
       </div>
       <div class="x-pimp-pomodoro-actions">
-        <button type="button" class="x-pimp-pomodoro-toggle" aria-keyshortcuts="Alt+P" title="Start or pause (Alt/Option + P)">Start</button>
         <button type="button" class="x-pimp-pomodoro-reset">Reset</button>
+        <button type="button" class="x-pimp-pomodoro-toggle" aria-keyshortcuts="Alt+P" title="Start or pause (Alt/Option + P)">Start</button>
       </div>
       <div class="x-pimp-shortcut-hint" aria-label="Keyboard shortcuts">
         ⌥R refresh · ⌥P timer<br>⌥1/2/3 length
