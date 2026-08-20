@@ -18,7 +18,9 @@ html[data-x-pimp-hide-right-rail="true"] {
 html[data-x-pimp-hide-right-rail="true"] body {
   background-color: #06100c !important;
   background-image:
-    linear-gradient(rgb(0 0 0 / 58%), rgb(0 0 0 / 72%)),
+    linear-gradient(rgb(0 0 0 / 42%), rgb(0 0 0 / 60%)),
+    radial-gradient(circle at 8% 26%, rgb(38 166 91 / 22%), transparent 34%),
+    radial-gradient(circle at 92% 70%, rgb(16 185 129 / 16%), transparent 38%),
     var(--x-pimp-peaceful-background) !important;
   background-attachment: fixed !important;
   background-position: center !important;

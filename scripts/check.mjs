@@ -36,6 +36,8 @@ assert.match(styles, /--x-pimp-responsive-feed-width/);
 assert.match(styles, /--x-pimp-gadget-width/);
 assert.match(styles, /--x-pimp-peaceful-background/);
 assert.match(styles, /background-attachment: fixed !important/);
+assert.match(styles, /circle at 8% 26%/);
+assert.match(styles, /circle at 92% 70%/);
 assert.match(styles, /@media \(min-width: 600px\)/);
 assert.doesNotMatch(styles, /max-width: 1099px/);
 assert.match(styles, /#x-pimp-refresh/);

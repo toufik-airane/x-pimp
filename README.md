@@ -65,8 +65,9 @@ The extension uses an original refresh-and-sparkle icon. It is not affiliated
 with X Corp. or Open-Meteo.
 
 The empty canvas around the feed uses an original, locally bundled background
-of softly blurred green foliage beneath a dark translucent veil. The feed stays
-opaque for readability, while the left-side cards use restrained backdrop blur.
+of softly blurred green foliage beneath a dark translucent veil and restrained
+emerald ambient light. The feed stays opaque for readability, while the
+left-side cards use restrained backdrop blur.
 
 ## Install locally
 
