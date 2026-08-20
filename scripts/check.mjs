@@ -130,6 +130,7 @@ assert.match(outline, /lastKnownTop/);
 assert.doesNotMatch(outline, /block: "center"/);
 assert.match(outline, /getArticleKey/);
 assert.match(outline, /dataset\.disconnected/);
+assert.doesNotMatch(outline, /keepActiveVisible|track\.scrollTop\s*=/);
 assert.doesNotMatch(outline, /trackedTweets\.delete/);
 assert.doesNotMatch(outline, /chrome\.storage|fetch\(/);
 assert.match(styles, /\.x-pimp-outline-anchor/);

@@ -46,7 +46,9 @@ Labels exist only in the live page DOM; they are not stored or transmitted.
 The outline accumulates posts that remain part of the current timeline. It keeps
 anchors through brief X DOM replacements, then removes entries that do not
 reconnect so stale labels cannot remain. The list grows to half the screen
-height and then becomes an independently scrollable compact list.
+height and then becomes an independently scrollable compact list. It never
+auto-scrolls when the active post changes, so refreshed labels do not make the
+table run across the screen.
 
 The extension uses an original refresh-and-sparkle icon. It is not affiliated
 with X Corp. or Open-Meteo.

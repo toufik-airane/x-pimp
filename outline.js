@@ -15,7 +15,6 @@
   let scanTimer;
   let staleCleanupTimer;
   let activeFrame;
-  let activeButton;
 
   function isTrackable(article) {
     return (
@@ -136,17 +135,6 @@
     return entry;
   }
 
-  function keepActiveVisible(button) {
-    const track = document.querySelector(".x-pimp-outline-track");
-    if (!track || !button) return;
-    const top = button.offsetTop;
-    const bottom = top + button.offsetHeight;
-    if (top < track.scrollTop) track.scrollTop = top;
-    else if (bottom > track.scrollTop + track.clientHeight) {
-      track.scrollTop = bottom - track.clientHeight;
-    }
-  }
-
   function removeEntry(entry) {
     entry.button.remove();
     entriesByKey.delete(entry.key);
@@ -182,8 +170,6 @@
       if (active) button.setAttribute("aria-current", "true");
       else button.removeAttribute("aria-current");
     }
-    if (nearestButton !== activeButton) keepActiveVisible(nearestButton);
-    activeButton = nearestButton;
   }
 
   function scheduleActiveUpdate() {
