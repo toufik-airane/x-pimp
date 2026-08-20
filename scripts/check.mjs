@@ -231,4 +231,15 @@ const packageScript = await readFile(
 );
 assert.match(packageScript, /"README\.md"/);
 
+const releaseWorkflow = await readFile(
+  new URL(".github/workflows/release.yml", root),
+  "utf8"
+);
+assert.match(releaseWorkflow, /actions\/checkout@[a-f0-9]{40}/);
+assert.match(releaseWorkflow, /actions\/setup-node@[a-f0-9]{40}/);
+assert.doesNotMatch(releaseWorkflow, /uses: [^\n]+@v\d/);
+assert.match(releaseWorkflow, /semgrep==1\.174\.0/);
+assert.match(releaseWorkflow, /\.verification\.verified/);
+assert.match(releaseWorkflow, /gh release create/);
+
 console.log("x-pimp checks passed.");

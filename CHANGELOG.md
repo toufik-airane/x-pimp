@@ -3,6 +3,11 @@
 All notable changes to x-pimp are documented here. Versions follow
 [Semantic Versioning](https://semver.org/).
 
+## 1.0.2 — 2026-08-20
+
+- Added a pinned GitHub Actions workflow that verifies, security-scans, builds,
+  checksums, and publishes releases from matching signed version tags.
+
 ## 1.0.1 — 2026-08-20
 
 - Included `README.md` in the downloadable extension ZIP so installation and

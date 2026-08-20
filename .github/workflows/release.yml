@@ -1,0 +1,119 @@
+name: Release
+
+on:
+  push:
+    tags:
+      - "v*.*.*"
+
+permissions:
+  contents: write
+
+concurrency:
+  group: release-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  release:
+    name: Verify, build, and release
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+
+    steps:
+      - name: Check out the signed tag
+        uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+        with:
+          persist-credentials: false
+
+      - name: Set up Node.js
+        uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4
+        with:
+          node-version: 22
+
+      - name: Validate tag and manifest version
+        id: release
+        shell: bash
+        run: |
+          set -euo pipefail
+          version=$(node -p 'require("./manifest.json").version')
+          expected_tag="v${version}"
+          if [[ "${GITHUB_REF_NAME}" != "${expected_tag}" ]]; then
+            echo "Tag ${GITHUB_REF_NAME} does not match manifest version ${version}." >&2
+            exit 1
+          fi
+          echo "version=${version}" >> "${GITHUB_OUTPUT}"
+          echo "zip=dist/x-pimp-${version}.zip" >> "${GITHUB_OUTPUT}"
+          echo "checksum=dist/x-pimp-${version}.sha256" >> "${GITHUB_OUTPUT}"
+
+      - name: Verify the annotated tag signature
+        shell: bash
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+          tag_object=$(git rev-parse "${GITHUB_REF_NAME}^{tag}")
+          verified=$(gh api \
+            "repos/${GITHUB_REPOSITORY}/git/tags/${tag_object}" \
+            --jq '.verification.verified')
+          if [[ "${verified}" != "true" ]]; then
+            echo "Tag ${GITHUB_REF_NAME} does not have a verified signature." >&2
+            exit 1
+          fi
+
+      - name: Verify source
+        run: node scripts/verify.mjs
+
+      - name: Install Semgrep
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 -m venv "${RUNNER_TEMP}/semgrep"
+          "${RUNNER_TEMP}/semgrep/bin/pip" install --disable-pip-version-check semgrep==1.174.0
+
+      - name: Scan source with Semgrep
+        shell: bash
+        run: |
+          set -euo pipefail
+          "${RUNNER_TEMP}/semgrep/bin/semgrep" scan \
+            --config p/javascript \
+            --config p/security-audit \
+            --config p/secrets \
+            --metrics=off \
+            .
+
+      - name: Build and verify extension bundle
+        shell: bash
+        env:
+          CHECKSUM_FILE: ${{ steps.release.outputs.checksum }}
+          VERSION: ${{ steps.release.outputs.version }}
+          ZIP_FILE: ${{ steps.release.outputs.zip }}
+        run: |
+          set -euo pipefail
+          node scripts/package.mjs
+          unzip -t "${ZIP_FILE}"
+          (
+            cd dist
+            sha256sum "x-pimp-${VERSION}.zip"
+          ) > "${CHECKSUM_FILE}"
+
+      - name: Publish GitHub release
+        shell: bash
+        env:
+          CHECKSUM_FILE: ${{ steps.release.outputs.checksum }}
+          GH_TOKEN: ${{ github.token }}
+          ZIP_FILE: ${{ steps.release.outputs.zip }}
+        run: |
+          set -euo pipefail
+          gh release create "${GITHUB_REF_NAME}" \
+            "${ZIP_FILE}" \
+            "${CHECKSUM_FILE}" \
+            --generate-notes \
+            --repo "${GITHUB_REPOSITORY}" \
+            --title "x-pimp ${{ steps.release.outputs.version }}" \
+            --verify-tag
+
+      - name: Write job summary
+        env:
+          VERSION: ${{ steps.release.outputs.version }}
+        run: |
+          echo "Released x-pimp ${VERSION}." >> "${GITHUB_STEP_SUMMARY}"
+          echo "Tag: ${GITHUB_REF_NAME}" >> "${GITHUB_STEP_SUMMARY}"
