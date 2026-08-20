@@ -28,6 +28,8 @@ assert.match(styles, /@media \(min-width: 600px\)/);
 assert.doesNotMatch(styles, /max-width: 1099px/);
 assert.match(styles, /#x-pimp-refresh/);
 assert.match(styles, /#x-pimp-home/);
+assert.match(styles, /calc\(100vw - 62px\)/);
+assert.match(styles, /top: 32px/);
 assert.match(styles, /backdrop-filter: blur\(12px\)/);
 assert.match(styles, /AppTabBar_Home_Link/);
 assert.match(styles, /background: transparent/);

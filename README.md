@@ -17,9 +17,9 @@ overlap. Promoted posts, the Grok navigation entry, the Grok drawer, Grok action
 buttons, and the floating Chat drawer button are removed.
 
 The left navigation is reduced to an 88-pixel strip that keeps the account
-avatar at the bottom. A translucent Home control sits above the focus card and
-shows X blue on the Home route. X's logo, navigation links, and Post control are
-hidden.
+avatar at the bottom. A translucent Home control sits beside the upper-right
+edge of the feed and shows X blue on the Home route. X's logo, navigation links,
+and Post control are hidden.
 
 An X-style Pomodoro card uses the upper-left space with 15, 30, and 45-minute
 presets, Start/Pause, and Reset controls. Its state is stored locally so an X

@@ -98,8 +98,15 @@ header[role="banner"] [data-testid="SideNav_NewTweet_Button"] {
 }
 
 #x-pimp-home {
-  top: 20px;
-  left: 16px;
+  top: 32px;
+  left: min(
+    calc(
+      50vw +
+        var(--x-pimp-responsive-feed-width, var(--x-pimp-feed-width, 720px)) /
+        2 + 16px
+    ),
+    calc(100vw - 62px)
+  );
 }
 
 #x-pimp-refresh:hover,
