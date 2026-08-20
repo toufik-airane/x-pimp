@@ -417,7 +417,7 @@ header[role="banner"] [data-testid="SideNav_NewTweet_Button"] {
 #x-pimp-weather {
   position: fixed;
   z-index: 1000;
-  top: 322px;
+  top: 376px;
   left: 16px;
   width: var(--x-pimp-gadget-width, 200px);
   box-sizing: border-box;

@@ -113,6 +113,9 @@ assert.match(weather, /x-pimp-weather/);
 assert.match(weather, /Share approximate location/);
 assert.match(weather, /x-pimp-weather-disable/);
 assert.match(weather, /chrome\.storage\.local\.remove/);
+assert.match(weather, /WIDGET_GAP_PX = 14/);
+assert.match(weather, /ResizeObserver/);
+assert.match(weather, /getBoundingClientRect\(\)\.bottom/);
 assert.doesNotMatch(weather, /weatherState\.(latitude|longitude)/);
 assert.match(styles, /#x-pimp-weather/);
 

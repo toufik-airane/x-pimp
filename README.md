@@ -36,7 +36,9 @@ An opt-in weather card appears below the timer. Chrome requests location
 access, coordinates are rounded before an Open-Meteo request, and no coordinates
 are stored. Only the latest conditions are cached locally and treated as stale
 after 30 minutes. Weather can be turned off from the card. Both left-side cards
-stay slightly transparent until hovered or focused.
+stay slightly transparent until hovered or focused. Weather follows Pomodoro's
+measured height with a consistent gap, so the cards cannot overlap at narrower
+feed layouts.
 
 A slim tweet outline stays fixed along the right edge of the viewport. Its
 anchors refresh without moving the rail. Each small anchor uses the first five

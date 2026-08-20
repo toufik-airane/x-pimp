@@ -3,8 +3,37 @@
 
   const STORAGE_KEY = "weather";
   const STALE_AFTER_MS = 30 * 60 * 1000;
+  const WIDGET_GAP_PX = 14;
   let weatherState = { data: null, enabled: false };
   let loading = false;
+  let observedPomodoro;
+  let positionFrame;
+  let widgetResizeObserver;
+
+  function scheduleWidgetPosition() {
+    if (positionFrame !== undefined) return;
+    positionFrame = window.requestAnimationFrame(() => {
+      positionFrame = undefined;
+      const pomodoro = document.querySelector("#x-pimp-pomodoro");
+      const weather = document.querySelector("#x-pimp-weather");
+      if (!pomodoro || !weather) return;
+      weather.style.top = `${
+        pomodoro.getBoundingClientRect().bottom + WIDGET_GAP_PX
+      }px`;
+    });
+  }
+
+  function observeWidgetPosition() {
+    const pomodoro = document.querySelector("#x-pimp-pomodoro");
+    if (!pomodoro) return;
+    if (pomodoro !== observedPomodoro) {
+      widgetResizeObserver ??= new ResizeObserver(scheduleWidgetPosition);
+      widgetResizeObserver.disconnect();
+      widgetResizeObserver.observe(pomodoro);
+      observedPomodoro = pomodoro;
+    }
+    scheduleWidgetPosition();
+  }
 
   function describeWeather(code) {
     if (code === 0) return "Clear";
@@ -118,7 +147,11 @@
   }
 
   function ensureWidget() {
-    if (!document.body || document.querySelector("#x-pimp-weather")) return;
+    if (!document.body) return;
+    if (document.querySelector("#x-pimp-weather")) {
+      observeWidgetPosition();
+      return;
+    }
 
     const widget = document.createElement("aside");
     widget.id = "x-pimp-weather";
@@ -151,6 +184,7 @@
       }
     });
     document.body.append(widget);
+    observeWidgetPosition();
     render();
   }
 
@@ -173,6 +207,15 @@
     childList: true,
     subtree: true
   });
+  window.addEventListener("resize", scheduleWidgetPosition, { passive: true });
+  window.addEventListener(
+    "pagehide",
+    () => {
+      widgetResizeObserver?.disconnect();
+      if (positionFrame !== undefined) window.cancelAnimationFrame(positionFrame);
+    },
+    { once: true }
+  );
   ensureWidget();
   window.setInterval(() => {
     render();
