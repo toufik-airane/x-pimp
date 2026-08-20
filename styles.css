@@ -16,7 +16,7 @@ html[data-x-pimp-hide-right-rail="true"] {
 }
 
 /* Use part of the space released by the right rail on desktop screens. */
-@media (min-width: 760px) {
+@media (min-width: 600px) {
   html[data-x-pimp-hide-right-rail="true"] [data-testid="primaryColumn"] {
     width: var(--x-pimp-responsive-feed-width) !important;
     max-width: var(--x-pimp-responsive-feed-width) !important;
