@@ -71,6 +71,9 @@
       .addEventListener("click", () => {
         if (currentEntry) navigateToEntry(currentEntry);
       });
+    outline
+      .querySelector(".x-pimp-outline-track")
+      .addEventListener("scroll", scheduleActiveUpdate, { passive: true });
     document.body.append(outline);
     return outline;
   }
@@ -121,9 +124,17 @@
 
   function updateCurrentAnchor(entry) {
     const button = document.querySelector(".x-pimp-outline-current");
-    if (!button) return;
+    const track = document.querySelector(".x-pimp-outline-track");
+    if (!button || !track) return;
     currentEntry = entry;
-    button.hidden = !entry;
+    const entryIsVisible = Boolean(
+      entry &&
+        entry.button.dataset.disconnected !== "true" &&
+        entry.button.offsetTop >= track.scrollTop &&
+        entry.button.offsetTop + entry.button.offsetHeight <=
+          track.scrollTop + track.clientHeight
+    );
+    button.hidden = !entry || entryIsVisible;
     if (!entry) return;
 
     const label = entry.button.querySelector(".x-pimp-outline-label").textContent;

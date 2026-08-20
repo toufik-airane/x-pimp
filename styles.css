@@ -165,8 +165,8 @@ header[role="banner"] [data-testid="SideNav_NewTweet_Button"] {
 .x-pimp-outline-track {
   position: relative;
   display: flex;
-  height: min(calc(50vh - 16px), calc(var(--x-pimp-outline-count, 1) * 16px));
-  max-height: calc(50vh - 16px);
+  height: min(50vh, calc(var(--x-pimp-outline-count, 1) * 16px));
+  max-height: 50vh;
   flex-direction: column;
   align-items: stretch;
   justify-content: flex-start;
@@ -178,7 +178,11 @@ header[role="banner"] [data-testid="SideNav_NewTweet_Button"] {
 }
 
 .x-pimp-outline-current {
-  margin-bottom: 2px;
+  position: absolute;
+  z-index: 1;
+  top: 0;
+  right: 0;
+  background: color-mix(in srgb, Canvas 92%, transparent);
 }
 
 .x-pimp-outline-current[hidden] {

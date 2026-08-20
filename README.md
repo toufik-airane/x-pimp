@@ -52,7 +52,8 @@ immediately, so they cannot create temporary empty rows before cleanup. The list
 grows to half the screen height and then becomes an independently scrollable
 compact list. It never auto-scrolls when the active post changes, so refreshed
 labels do not make the table run across the screen. A small pinned row refreshes
-to show the current post while the ordered anchor list remains stationary.
+to show the current post only when its original anchor is outside the visible
+list, avoiding duplicate labels while the ordered anchor list remains stationary.
 
 The extension uses an original refresh-and-sparkle icon. It is not affiliated
 with X Corp. or Open-Meteo.
