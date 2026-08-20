@@ -17,10 +17,11 @@ narrower, the feed contracts enough to preserve the left-side gadgets without
 overlap. Promoted posts, the Grok navigation entry, the Grok drawer, Grok action
 buttons, and the floating Chat drawer button are removed.
 
-The left navigation is reduced to an 88-pixel strip that keeps the account
-avatar at the bottom. A translucent Home control sits above the clock, aligned
-to the right edge of the left gadget card, and shows X blue on the Home route.
-X's logo, navigation links, and Post control are hidden.
+The left navigation is reduced to an 88-pixel strip. The account avatar remains
+at the bottom but moves to the bottom-right of the left column, centered beneath
+Home and separated from the feed by a lean gap. Home keeps its horizontal
+position above the clock with more space from the viewport's top edge and shows
+X blue on the Home route. X's logo, navigation links, and Post control are hidden.
 
 An X-style Pomodoro card uses the upper-left space with 15, 30, and 45-minute
 presets, Start/Pause, and Reset controls. Its state is stored locally so an X

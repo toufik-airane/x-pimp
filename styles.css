@@ -72,6 +72,17 @@ header[role="banner"] [data-testid="SideNav_NewTweet_Button"] {
   display: none !important;
 }
 
+header[role="banner"] [data-testid="SideNav_AccountSwitcher_Button"] {
+  position: fixed !important;
+  width: 64px !important;
+  min-width: 64px !important;
+  max-width: 64px !important;
+  right: auto !important;
+  bottom: 12px !important;
+  left: calc(16px + var(--x-pimp-gadget-width, 200px) - 55px) !important;
+  transform: none !important;
+}
+
 #x-pimp-refresh,
 #x-pimp-home {
   position: fixed;
@@ -105,7 +116,7 @@ header[role="banner"] [data-testid="SideNav_NewTweet_Button"] {
 }
 
 #x-pimp-home {
-  top: 20px;
+  top: 32px;
   left: calc(16px + var(--x-pimp-gadget-width, 200px) - 46px);
 }
 
@@ -275,7 +286,7 @@ header[role="banner"] [data-testid="SideNav_NewTweet_Button"] {
 #x-pimp-pomodoro {
   position: fixed;
   z-index: 1000;
-  top: 80px;
+  top: 92px;
   left: 16px;
   width: var(--x-pimp-gadget-width, 200px);
   box-sizing: border-box;

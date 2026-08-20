@@ -8,6 +8,14 @@
   const HOME_BUTTON_ID = "x-pimp-home";
   const REFRESH_BUTTON_ID = "x-pimp-refresh";
   const REFRESH_COOLDOWN_KEY = "refreshCooldownUntil";
+  const POMODORO_DURATION_BY_CODE = Object.freeze({
+    Digit1: 15,
+    Digit2: 30,
+    Digit3: 45,
+    Numpad1: 15,
+    Numpad2: 30,
+    Numpad3: 45
+  });
   const AD_LABELS = new Set([
     "Ad",
     "Promoted",
@@ -221,15 +229,7 @@
     } else if (event.code === "KeyP") {
       handled = clickPomodoroControl(".x-pimp-pomodoro-toggle");
     } else {
-      const durationByCode = {
-        Digit1: 15,
-        Digit2: 30,
-        Digit3: 45,
-        Numpad1: 15,
-        Numpad2: 30,
-        Numpad3: 45
-      };
-      const duration = durationByCode[event.code];
+      const duration = POMODORO_DURATION_BY_CODE[event.code];
       if (duration) {
         handled = clickPomodoroControl(`[data-minutes="${duration}"]`);
       }

@@ -5,7 +5,17 @@
   const DEFAULT_MINUTES = 15;
   const VALID_DURATIONS = new Set([15, 30, 45]);
   const SECOND = 1000;
+  const CLOCK_FORMATTER = new Intl.DateTimeFormat(undefined, {
+    hour: "2-digit",
+    minute: "2-digit"
+  });
+  const DATE_FORMATTER = new Intl.DateTimeFormat(undefined, {
+    day: "numeric",
+    month: "short",
+    weekday: "short"
+  });
   let state = createResetState(DEFAULT_MINUTES);
+  let bootObserver;
   let tickTimer;
   let completionSaved = false;
 
@@ -49,16 +59,9 @@
     const now = new Date();
     const clock = widget.querySelector(".x-pimp-clock-time");
     clock.dateTime = now.toISOString();
-    clock.textContent = new Intl.DateTimeFormat(undefined, {
-      hour: "2-digit",
-      minute: "2-digit"
-    }).format(now);
+    clock.textContent = CLOCK_FORMATTER.format(now);
     widget.querySelector(".x-pimp-clock-date").textContent =
-      new Intl.DateTimeFormat(undefined, {
-        day: "numeric",
-        month: "short",
-        weekday: "short"
-      }).format(now);
+      DATE_FORMATTER.format(now);
   }
 
   function persistState() {
@@ -133,7 +136,8 @@
   }
 
   function ensureWidget() {
-    if (!document.body || document.querySelector("#x-pimp-pomodoro")) return;
+    if (!document.body) return false;
+    if (document.querySelector("#x-pimp-pomodoro")) return true;
 
     const widget = document.createElement("aside");
     widget.id = "x-pimp-pomodoro";
@@ -175,6 +179,11 @@
 
     document.body.append(widget);
     render();
+    return true;
+  }
+
+  function bootWidget() {
+    if (ensureWidget()) bootObserver?.disconnect();
   }
 
   chrome.storage.local.get(STORAGE_KEY).then((result) => {
@@ -191,13 +200,19 @@
     }
   });
 
-  new MutationObserver(ensureWidget).observe(document.documentElement, {
+  bootObserver = new MutationObserver(bootWidget);
+  bootObserver.observe(document.documentElement, {
     childList: true,
     subtree: true
   });
-  ensureWidget();
+  bootWidget();
   tickTimer = window.setInterval(render, 250);
-  window.addEventListener("pagehide", () => window.clearInterval(tickTimer), {
-    once: true
-  });
+  window.addEventListener(
+    "pagehide",
+    () => {
+      bootObserver.disconnect();
+      window.clearInterval(tickTimer);
+    },
+    { once: true }
+  );
 })();

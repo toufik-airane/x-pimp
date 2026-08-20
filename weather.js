@@ -5,9 +5,11 @@
   const STALE_AFTER_MS = 30 * 60 * 1000;
   const WIDGET_GAP_PX = 14;
   let weatherState = { data: null, enabled: false };
+  let bootObserver;
   let loading = false;
   let observedPomodoro;
   let positionFrame;
+  let weatherTimer;
   let widgetResizeObserver;
 
   function scheduleWidgetPosition() {
@@ -25,7 +27,7 @@
 
   function observeWidgetPosition() {
     const pomodoro = document.querySelector("#x-pimp-pomodoro");
-    if (!pomodoro) return;
+    if (!pomodoro) return false;
     if (pomodoro !== observedPomodoro) {
       widgetResizeObserver ??= new ResizeObserver(scheduleWidgetPosition);
       widgetResizeObserver.disconnect();
@@ -33,6 +35,7 @@
       observedPomodoro = pomodoro;
     }
     scheduleWidgetPosition();
+    return true;
   }
 
   function describeWeather(code) {
@@ -147,11 +150,8 @@
   }
 
   function ensureWidget() {
-    if (!document.body) return;
-    if (document.querySelector("#x-pimp-weather")) {
-      observeWidgetPosition();
-      return;
-    }
+    if (!document.body) return false;
+    if (document.querySelector("#x-pimp-weather")) return true;
 
     const widget = document.createElement("aside");
     widget.id = "x-pimp-weather";
@@ -184,8 +184,12 @@
       }
     });
     document.body.append(widget);
-    observeWidgetPosition();
     render();
+    return true;
+  }
+
+  function bootWidgets() {
+    if (ensureWidget() && observeWidgetPosition()) bootObserver?.disconnect();
   }
 
   chrome.storage.local.get(STORAGE_KEY).then((result) => {
@@ -193,7 +197,7 @@
       data: sanitizeData(result[STORAGE_KEY]?.data),
       enabled: result[STORAGE_KEY]?.enabled === true
     };
-    ensureWidget();
+    bootWidgets();
     render();
     if (
       weatherState.enabled &&
@@ -203,7 +207,8 @@
     }
   });
 
-  new MutationObserver(ensureWidget).observe(document.documentElement, {
+  bootObserver = new MutationObserver(bootWidgets);
+  bootObserver.observe(document.documentElement, {
     childList: true,
     subtree: true
   });
@@ -211,13 +216,15 @@
   window.addEventListener(
     "pagehide",
     () => {
+      bootObserver.disconnect();
       widgetResizeObserver?.disconnect();
       if (positionFrame !== undefined) window.cancelAnimationFrame(positionFrame);
+      window.clearInterval(weatherTimer);
     },
     { once: true }
   );
-  ensureWidget();
-  window.setInterval(() => {
+  bootWidgets();
+  weatherTimer = window.setInterval(() => {
     render();
     if (
       weatherState.enabled &&
