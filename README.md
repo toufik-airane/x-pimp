@@ -44,10 +44,12 @@ stay slightly transparent until hovered or focused. Weather follows Pomodoro's
 measured height with a consistent gap, so the cards cannot overlap at narrower
 feed layouts.
 
-A slim tweet outline stays fixed along the right edge of the viewport. Its
-anchors refresh without moving the rail. Each small anchor uses the first five
-words of its loaded post, and the blue anchor tracks the post at the top reading
-line below X's sticky header. Selecting an anchor scrolls smoothly to that post.
+A slim tweet outline stays fixed beside the feed at the left edge of the right
+panel. Its top aligns with Home, while its left-justified anchors extend outward
+from the feed. Anchors refresh without moving the rail. Each small anchor uses
+the first five words of its loaded post, and the blue anchor tracks the post at
+the top reading line below X's sticky header. Selecting an anchor scrolls
+smoothly to that post.
 Labels exist only in the live page DOM; they are not stored or transmitted.
 The outline accumulates posts that remain part of the current timeline. It keeps
 anchors through brief X DOM replacements, then removes entries that do not

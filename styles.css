@@ -188,9 +188,17 @@ header[role="banner"] [data-testid="SideNav_AccountSwitcher_Button"] {
 #x-pimp-outline {
   position: fixed;
   z-index: 1000;
-  top: 68px;
-  right: 6px;
+  top: 44px;
+  right: auto;
   bottom: 82px;
+  left: min(
+    calc(
+      50vw +
+        var(--x-pimp-responsive-feed-width, var(--x-pimp-feed-width, 720px)) /
+        2 + 16px
+    ),
+    calc(100vw - 156px)
+  );
   width: 150px;
   pointer-events: none;
   opacity: 0.72;
@@ -225,7 +233,8 @@ header[role="banner"] [data-testid="SideNav_AccountSwitcher_Button"] {
   position: absolute;
   z-index: 1;
   top: 0;
-  right: 0;
+  right: auto;
+  left: 0;
   background: color-mix(in srgb, Canvas 92%, transparent);
 }
 
@@ -240,7 +249,8 @@ header[role="banner"] [data-testid="SideNav_AccountSwitcher_Button"] {
 .x-pimp-outline-track::before {
   position: absolute;
   top: 0;
-  right: 5px;
+  right: auto;
+  left: 5px;
   width: 1px;
   height: min(100%, calc(var(--x-pimp-outline-count, 1) * 16px));
   background: color-mix(in srgb, currentColor 10%, transparent);
@@ -254,7 +264,7 @@ header[role="banner"] [data-testid="SideNav_AccountSwitcher_Button"] {
   min-height: 3px;
   max-height: 14px;
   flex: 0 0 14px;
-  flex-direction: row-reverse;
+  flex-direction: row;
   gap: 7px;
   align-items: center;
   justify-content: flex-start;
@@ -287,7 +297,7 @@ header[role="banner"] [data-testid="SideNav_AccountSwitcher_Button"] {
   color: rgb(113 118 123);
   font: 500 11px/1.25 ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
   opacity: 0.58;
-  text-align: right;
+  text-align: left;
   text-overflow: ellipsis;
   text-shadow: 0 1px 2px rgb(0 0 0 / 28%);
   transition: color 140ms ease, opacity 140ms ease;
