@@ -186,6 +186,12 @@ header[role="banner"] [data-testid="SideNav_NewTweet_Button"] {
   color: inherit;
   cursor: pointer;
   pointer-events: auto;
+  transition: opacity 140ms ease;
+}
+
+.x-pimp-outline-anchor[data-disconnected="true"] {
+  opacity: 0;
+  pointer-events: none;
 }
 
 .x-pimp-outline-anchor::before {
@@ -503,6 +509,10 @@ header[role="banner"] [data-testid="SideNav_NewTweet_Button"] {
   }
 
   .x-pimp-outline-anchor::before {
+    transition: none;
+  }
+
+  .x-pimp-outline-anchor {
     transition: none;
   }
 

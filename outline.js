@@ -3,6 +3,7 @@
 
   const OUTLINE_ID = "x-pimp-outline";
   const SCAN_DELAY_MS = 140;
+  const DISCONNECTED_GRACE_MS = 2000;
   const TOP_READING_OFFSET_PX = 96;
   const MAX_LABEL_WORDS = 5;
   const MAX_LABEL_CHARACTERS = 48;
@@ -12,6 +13,7 @@
   let nextAnchorNumber = 1;
   let nextFallbackKey = 1;
   let scanTimer;
+  let staleCleanupTimer;
   let activeFrame;
   let activeButton;
 
@@ -100,6 +102,7 @@
     const entry = {
       article,
       button: null,
+      disconnectedAt: null,
       key,
       lastKnownTop: null
     };
@@ -142,6 +145,13 @@
     else if (bottom > track.scrollTop + track.clientHeight) {
       track.scrollTop = bottom - track.clientHeight;
     }
+  }
+
+  function removeEntry(entry) {
+    entry.button.remove();
+    entriesByKey.delete(entry.key);
+    const index = outlineEntries.indexOf(entry);
+    if (index !== -1) outlineEntries.splice(index, 1);
   }
 
   function updateActiveAnchor() {
@@ -188,9 +198,11 @@
     if (!outline) return;
 
     const articles = getTrackableArticles();
+    const currentKeys = new Set();
     const currentEntries = [];
     articles.forEach((article, articleIndex) => {
       const key = getArticleKey(article);
+      currentKeys.add(key);
       let entry = entriesByKey.get(key);
       if (!entry) {
         entry = createEntry(article, key);
@@ -212,16 +224,34 @@
         entry.article = article;
       }
 
+      entry.disconnectedAt = null;
+      entry.button.dataset.disconnected = "false";
       updateAnchorLabel(entry);
       rememberPosition(entry);
       currentEntries.push(entry);
     });
 
+    window.clearTimeout(staleCleanupTimer);
+    let nextCleanupDelay = Number.POSITIVE_INFINITY;
+    const now = Date.now();
     for (const entry of [...outlineEntries]) {
-      if (!entry.article?.hasAttribute("data-x-pimp-ad")) continue;
-      entry.button.remove();
-      entriesByKey.delete(entry.key);
-      outlineEntries.splice(outlineEntries.indexOf(entry), 1);
+      if (entry.article?.hasAttribute("data-x-pimp-ad")) {
+        removeEntry(entry);
+        continue;
+      }
+      if (currentKeys.has(entry.key)) continue;
+
+      entry.disconnectedAt ??= now;
+      entry.button.dataset.disconnected = "true";
+      const remaining = DISCONNECTED_GRACE_MS - (now - entry.disconnectedAt);
+      if (remaining <= 0) removeEntry(entry);
+      else nextCleanupDelay = Math.min(nextCleanupDelay, remaining);
+    }
+    if (Number.isFinite(nextCleanupDelay)) {
+      staleCleanupTimer = window.setTimeout(
+        scheduleScan,
+        nextCleanupDelay + SCAN_DELAY_MS
+      );
     }
 
     const track = outline.querySelector(".x-pimp-outline-track");
@@ -263,6 +293,7 @@
     () => {
       observer.disconnect();
       window.clearTimeout(scanTimer);
+      window.clearTimeout(staleCleanupTimer);
       if (activeFrame !== undefined) window.cancelAnimationFrame(activeFrame);
     },
     { once: true }

@@ -39,9 +39,10 @@ A slim tweet outline appears on the right. Each small anchor uses the first five
 words of its loaded post, and the blue anchor tracks the post at the top reading
 line below X's sticky header. Selecting an anchor scrolls smoothly to that post.
 Labels exist only in the live page DOM; they are not stored or transmitted.
-The outline accumulates every post discovered during the current tab session,
-including posts that X temporarily removes from the DOM. It grows to half the
-screen height and then becomes an independently scrollable compact list.
+The outline accumulates posts that remain part of the current timeline. It keeps
+anchors through brief X DOM replacements, then removes entries that do not
+reconnect so stale labels cannot remain. The list grows to half the screen
+height and then becomes an independently scrollable compact list.
 
 The extension uses an original refresh-and-sparkle icon. It is not affiliated
 with X Corp. or Open-Meteo.
