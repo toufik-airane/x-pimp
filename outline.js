@@ -5,10 +5,14 @@
   const SCAN_DELAY_MS = 140;
   const MAX_LABEL_WORDS = 5;
   const MAX_LABEL_CHARACTERS = 48;
-  const trackedTweets = new Map();
+  const entriesByKey = new Map();
+  const outlineEntries = [];
+  const fallbackKeys = new WeakMap();
   let nextAnchorNumber = 1;
+  let nextFallbackKey = 1;
   let scanTimer;
   let activeFrame;
+  let activeButton;
 
   function isTrackable(article) {
     return (
@@ -24,6 +28,23 @@
         '[data-testid="primaryColumn"] article[data-testid="tweet"]'
       )
     ].filter(isTrackable);
+  }
+
+  function getArticleKey(article) {
+    const statusLink =
+      article.querySelector('a[href*="/status/"] time')?.closest("a") ??
+      article.querySelector('a[href*="/status/"]');
+    const statusId = statusLink
+      ?.getAttribute("href")
+      ?.match(/\/status\/(\d+)/)?.[1];
+    if (statusId) return `status:${statusId}`;
+
+    let fallbackKey = fallbackKeys.get(article);
+    if (!fallbackKey) {
+      fallbackKey = `dom:${nextFallbackKey++}`;
+      fallbackKeys.set(article, fallbackKey);
+    }
+    return fallbackKey;
   }
 
   function ensureOutline() {
@@ -56,38 +77,67 @@
       : clipped;
   }
 
-  function updateAnchorLabel(article, button) {
-    const label = getAnchorLabel(article, button.dataset.anchorNumber);
-    const labelElement = button.querySelector(".x-pimp-outline-label");
+  function updateAnchorLabel(entry) {
+    const label = getAnchorLabel(
+      entry.article,
+      entry.button.dataset.anchorNumber
+    );
+    const labelElement = entry.button.querySelector(".x-pimp-outline-label");
     if (labelElement.textContent !== label) labelElement.textContent = label;
-    button.setAttribute("aria-label", `Go to post: ${label}`);
-    button.title = label;
+    entry.button.setAttribute("aria-label", `Go to post: ${label}`);
+    entry.button.title = label;
   }
 
-  function createAnchor(article) {
+  function rememberPosition(entry) {
+    if (!isTrackable(entry.article)) return;
+    const rect = entry.article.getBoundingClientRect();
+    entry.lastKnownCenter = window.scrollY + rect.top + rect.height / 2;
+  }
+
+  function createEntry(article, key) {
     const anchorNumber = nextAnchorNumber++;
+    const entry = {
+      article,
+      button: null,
+      key,
+      lastKnownCenter: null
+    };
     const button = document.createElement("button");
+    entry.button = button;
     button.type = "button";
     button.className = "x-pimp-outline-anchor";
     button.dataset.anchorNumber = String(anchorNumber);
     const label = document.createElement("span");
     label.className = "x-pimp-outline-label";
     button.append(label);
-    updateAnchorLabel(article, button);
+    updateAnchorLabel(entry);
+    rememberPosition(entry);
     button.addEventListener("click", () => {
-      const anchorIndex = [
-        ...document.querySelectorAll(".x-pimp-outline-anchor")
-      ].indexOf(button);
-      const target = getTrackableArticles()[anchorIndex] ?? article;
-      if (!isTrackable(target)) return;
-      target.scrollIntoView({
-        behavior: matchMedia("(prefers-reduced-motion: reduce)").matches
-          ? "auto"
-          : "smooth",
-        block: "center"
-      });
+      const behavior = matchMedia("(prefers-reduced-motion: reduce)").matches
+        ? "auto"
+        : "smooth";
+      if (isTrackable(entry.article)) {
+        rememberPosition(entry);
+        entry.article.scrollIntoView({ behavior, block: "center" });
+      } else if (Number.isFinite(entry.lastKnownCenter)) {
+        window.scrollTo({
+          top: Math.max(0, entry.lastKnownCenter - window.innerHeight / 2),
+          behavior
+        });
+      }
     });
-    return button;
+    return entry;
+  }
+
+  function keepActiveVisible(button) {
+    const track = document.querySelector(".x-pimp-outline-track");
+    if (!track || !button) return;
+    const top = button.offsetTop;
+    const bottom = top + button.offsetHeight;
+    if (top < track.scrollTop) track.scrollTop = top;
+    else if (bottom > track.scrollTop + track.clientHeight) {
+      track.scrollTop = bottom - track.clientHeight;
+    }
   }
 
   function updateActiveAnchor() {
@@ -96,13 +146,14 @@
     let nearestButton;
     let nearestDistance = Number.POSITIVE_INFINITY;
 
-    for (const [article, button] of trackedTweets) {
-      if (!isTrackable(article)) continue;
-      const rect = article.getBoundingClientRect();
+    for (const entry of outlineEntries) {
+      if (!isTrackable(entry.article)) continue;
+      rememberPosition(entry);
+      const rect = entry.article.getBoundingClientRect();
       const distance = Math.abs(rect.top + rect.height / 2 - viewportCenter);
       if (distance < nearestDistance) {
         nearestDistance = distance;
-        nearestButton = button;
+        nearestButton = entry.button;
       }
     }
 
@@ -112,6 +163,8 @@
       if (active) button.setAttribute("aria-current", "true");
       else button.removeAttribute("aria-current");
     }
+    if (nearestButton !== activeButton) keepActiveVisible(nearestButton);
+    activeButton = nearestButton;
   }
 
   function scheduleActiveUpdate() {
@@ -126,28 +179,44 @@
     if (!outline) return;
 
     const articles = getTrackableArticles();
-    const newArticles = articles.filter((article) => !trackedTweets.has(article));
+    const currentEntries = [];
+    articles.forEach((article, articleIndex) => {
+      const key = getArticleKey(article);
+      let entry = entriesByKey.get(key);
+      if (!entry) {
+        entry = createEntry(article, key);
+        entriesByKey.set(key, entry);
 
-    newArticles.forEach((article) => {
-      trackedTweets.set(article, createAnchor(article));
+        let insertionIndex = outlineEntries.length;
+        for (let index = articleIndex + 1; index < articles.length; index++) {
+          const nextEntry = entriesByKey.get(getArticleKey(articles[index]));
+          if (nextEntry) {
+            insertionIndex = outlineEntries.indexOf(nextEntry);
+            break;
+          }
+        }
+        if (insertionIndex === outlineEntries.length && currentEntries.length) {
+          insertionIndex = outlineEntries.indexOf(currentEntries.at(-1)) + 1;
+        }
+        outlineEntries.splice(insertionIndex, 0, entry);
+      } else {
+        entry.article = article;
+      }
+
+      updateAnchorLabel(entry);
+      rememberPosition(entry);
+      currentEntries.push(entry);
     });
 
-    for (const [article, button] of trackedTweets) {
-      if (!isTrackable(article)) {
-        button.remove();
-        trackedTweets.delete(article);
-      }
+    for (const entry of [...outlineEntries]) {
+      if (!entry.article?.hasAttribute("data-x-pimp-ad")) continue;
+      entry.button.remove();
+      entriesByKey.delete(entry.key);
+      outlineEntries.splice(outlineEntries.indexOf(entry), 1);
     }
 
     const track = outline.querySelector(".x-pimp-outline-track");
-    const orderedButtons = [];
-    for (const article of articles) {
-      const button = trackedTweets.get(article);
-      if (button) {
-        updateAnchorLabel(article, button);
-        orderedButtons.push(button);
-      }
-    }
+    const orderedButtons = outlineEntries.map((entry) => entry.button);
     const currentButtons = [...track.children];
     if (
       currentButtons.length !== orderedButtons.length ||
@@ -156,10 +225,10 @@
       track.replaceChildren(...orderedButtons);
     }
 
-    outline.dataset.empty = String(trackedTweets.size === 0);
+    outline.dataset.empty = String(outlineEntries.length === 0);
     outline.style.setProperty(
       "--x-pimp-outline-count",
-      String(trackedTweets.size)
+      String(outlineEntries.length)
     );
     updateActiveAnchor();
   }

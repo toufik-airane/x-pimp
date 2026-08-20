@@ -114,11 +114,16 @@ assert.match(outline, /data-x-pimp-ad/);
 assert.match(outline, /prefers-reduced-motion/);
 assert.match(outline, /MAX_LABEL_WORDS = 5/);
 assert.match(outline, /tweetText/);
+assert.match(outline, /entriesByKey/);
+assert.match(outline, /lastKnownCenter/);
+assert.match(outline, /getArticleKey/);
+assert.doesNotMatch(outline, /trackedTweets\.delete/);
 assert.doesNotMatch(outline, /chrome\.storage|fetch\(/);
 assert.match(styles, /\.x-pimp-outline-anchor/);
 assert.match(styles, /\.x-pimp-outline-label/);
 assert.match(styles, /justify-content: flex-start/);
 assert.match(styles, /--x-pimp-outline-count/);
+assert.match(styles, /max-height: 50vh/);
 assert.doesNotMatch(outline, /batchStart/);
 assert.doesNotMatch(styles, /data-batch-start/);
 
