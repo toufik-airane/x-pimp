@@ -3,6 +3,7 @@
 
   const { defaults, sanitize, storageKey } = globalThis.X_PIMP;
   const HOME_COOLDOWN_MS = 6000;
+  const BACKGROUND_ASSET_PATH = "assets/backgrounds/peaceful-plants.jpg";
   const HOME_LINK_SELECTOR =
     'a[data-testid="AppTabBar_Home_Link"], a[href="/home"][role="link"]';
   const HOME_BUTTON_ID = "x-pimp-home";
@@ -56,6 +57,10 @@
     document.documentElement.style.setProperty(
       "--x-pimp-feed-width",
       `${settings.feedWidth}px`
+    );
+    document.documentElement.style.setProperty(
+      "--x-pimp-peaceful-background",
+      `url("${chrome.runtime.getURL(BACKGROUND_ASSET_PATH)}")`
     );
   }
 

@@ -21,7 +21,8 @@ const files = [
   "assets/icons/icon16.png",
   "assets/icons/icon32.png",
   "assets/icons/icon48.png",
-  "assets/icons/icon128.png"
+  "assets/icons/icon128.png",
+  "assets/backgrounds/peaceful-plants.jpg"
 ];
 
 mkdirSync(outputDir, { recursive: true });

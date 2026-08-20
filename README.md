@@ -20,8 +20,11 @@ buttons, and the floating Chat drawer button are removed.
 The left navigation is reduced to an 88-pixel strip. The account avatar remains
 at the bottom but moves to the bottom-right of the left column, centered beneath
 Home and separated from the feed by a lean gap. Home keeps its horizontal
-position above the clock with more space from the viewport's top edge and shows
-X blue on the Home route. X's logo, navigation links, and Post control are hidden.
+position above the clock with generous space from the viewport's top edge and
+shows X blue on the Home route. X's logo, navigation links, and Post control are
+hidden.
+Home and Refresh keep accessible 46-pixel click targets while their quiet
+40-pixel translucent discs match the avatar's visual scale.
 
 An X-style Pomodoro card uses the upper-left space with 15, 30, and 45-minute
 presets, Start/Pause, and Reset controls. Its state is stored locally so an X
@@ -58,6 +61,10 @@ list, avoiding duplicate labels while the ordered anchor list remains stationary
 
 The extension uses an original refresh-and-sparkle icon. It is not affiliated
 with X Corp. or Open-Meteo.
+
+The empty canvas around the feed uses an original, locally bundled background
+of softly blurred green foliage beneath a dark translucent veil. The feed stays
+opaque for readability, while the left-side cards use restrained backdrop blur.
 
 ## Install locally
 

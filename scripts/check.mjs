@@ -5,16 +5,26 @@ import vm from "node:vm";
 const root = new URL("../", import.meta.url);
 const manifest = JSON.parse(await readFile(new URL("manifest.json", root), "utf8"));
 const styles = await readFile(new URL("styles.css", root), "utf8");
+const backgroundImage = await readFile(
+  new URL("assets/backgrounds/peaceful-plants.jpg", root)
+);
 
 assert.equal(manifest.manifest_version, 3);
 assert.equal(manifest.name, "x-pimp");
 assert.deepEqual(manifest.permissions, ["storage", "geolocation"]);
 assert.equal(manifest.icons["128"], "assets/icons/icon128.png");
 assert.ok(manifest.host_permissions.includes("https://api.open-meteo.com/*"));
+assert.ok(
+  manifest.web_accessible_resources.some((entry) =>
+    entry.resources.includes("assets/backgrounds/peaceful-plants.jpg")
+  )
+);
 assert.ok(manifest.content_scripts[0].matches.includes("https://x.com/*"));
 assert.ok(manifest.content_scripts[0].js.includes("pomodoro.js"));
 assert.ok(manifest.content_scripts[0].js.includes("weather.js"));
 assert.ok(manifest.content_scripts[0].js.includes("outline.js"));
+assert.deepEqual([...backgroundImage.subarray(0, 2)], [0xff, 0xd8]);
+assert.ok(backgroundImage.length < 100_000);
 assert.match(styles, /\[data-testid="sidebarColumn"\]/);
 assert.match(styles, /display: none !important/);
 assert.match(styles, /@keyframes x-pimp-shake/);
@@ -24,10 +34,15 @@ assert.match(styles, /chat-drawer-main/);
 assert.match(styles, /justify-content: center !important/);
 assert.match(styles, /--x-pimp-responsive-feed-width/);
 assert.match(styles, /--x-pimp-gadget-width/);
+assert.match(styles, /--x-pimp-peaceful-background/);
+assert.match(styles, /background-attachment: fixed !important/);
 assert.match(styles, /@media \(min-width: 600px\)/);
 assert.doesNotMatch(styles, /max-width: 1099px/);
 assert.match(styles, /#x-pimp-refresh/);
 assert.match(styles, /#x-pimp-home/);
+assert.match(styles, /#x-pimp-refresh::before/);
+assert.match(styles, /width: 40px/);
+assert.match(styles, /isolation: isolate/);
 assert.match(styles, /calc\(16px \+ var\(--x-pimp-gadget-width, 200px\) - 46px\)/);
 assert.match(styles, /bottom: 24px/);
 assert.match(styles, /calc\(100vw - 62px\)/);
@@ -35,8 +50,8 @@ assert.match(styles, /SideNav_AccountSwitcher_Button/);
 assert.match(styles, /var\(--x-pimp-gadget-width, 200px\) - 55px/);
 assert.match(styles, /transform: none !important/);
 assert.match(styles, /max-width: 64px !important/);
-assert.match(styles, /#x-pimp-home \{\s+top: 32px/);
-assert.match(styles, /#x-pimp-pomodoro \{[\s\S]*top: 92px/);
+assert.match(styles, /#x-pimp-home \{\s+top: 44px/);
+assert.match(styles, /#x-pimp-pomodoro \{[\s\S]*top: 104px/);
 assert.match(styles, /right: 6px/);
 assert.match(styles, /top: 68px/);
 assert.match(styles, /backdrop-filter: blur\(12px\)/);
@@ -48,6 +63,8 @@ assert.match(styles, /SideNav_NewTweet_Button/);
 
 const content = await readFile(new URL("content.js", root), "utf8");
 assert.match(content, /HOME_COOLDOWN_MS = 6000/);
+assert.match(content, /assets\/backgrounds\/peaceful-plants\.jpg/);
+assert.match(content, /chrome\.runtime\.getURL/);
 assert.match(content, /AppTabBar_Home_Link/);
 assert.match(content, /MutationObserver/);
 assert.match(content, /AD_LABELS/);
