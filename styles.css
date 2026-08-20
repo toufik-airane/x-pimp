@@ -165,8 +165,8 @@ header[role="banner"] [data-testid="SideNav_NewTweet_Button"] {
 .x-pimp-outline-track {
   position: relative;
   display: flex;
-  height: min(50vh, calc(var(--x-pimp-outline-count, 1) * 16px));
-  max-height: 50vh;
+  height: min(calc(50vh - 16px), calc(var(--x-pimp-outline-count, 1) * 16px));
+  max-height: calc(50vh - 16px);
   flex-direction: column;
   align-items: stretch;
   justify-content: flex-start;
@@ -175,6 +175,14 @@ header[role="banner"] [data-testid="SideNav_NewTweet_Button"] {
   overflow-y: auto;
   overscroll-behavior: contain;
   scrollbar-width: none;
+}
+
+.x-pimp-outline-current {
+  margin-bottom: 2px;
+}
+
+.x-pimp-outline-current[hidden] {
+  display: none;
 }
 
 .x-pimp-outline-track::-webkit-scrollbar {
@@ -212,8 +220,7 @@ header[role="banner"] [data-testid="SideNav_NewTweet_Button"] {
 }
 
 .x-pimp-outline-anchor[data-disconnected="true"] {
-  opacity: 0;
-  pointer-events: none;
+  display: none;
 }
 
 .x-pimp-outline-anchor::before {

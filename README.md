@@ -45,10 +45,12 @@ line below X's sticky header. Selecting an anchor scrolls smoothly to that post.
 Labels exist only in the live page DOM; they are not stored or transmitted.
 The outline accumulates posts that remain part of the current timeline. It keeps
 anchors through brief X DOM replacements, then removes entries that do not
-reconnect so stale labels cannot remain. The list grows to half the screen
-height and then becomes an independently scrollable compact list. It never
-auto-scrolls when the active post changes, so refreshed labels do not make the
-table run across the screen.
+reconnect so stale labels cannot remain. Disconnected anchors leave the layout
+immediately, so they cannot create temporary empty rows before cleanup. The list
+grows to half the screen height and then becomes an independently scrollable
+compact list. It never auto-scrolls when the active post changes, so refreshed
+labels do not make the table run across the screen. A small pinned row refreshes
+to show the current post while the ordered anchor list remains stationary.
 
 The extension uses an original refresh-and-sparkle icon. It is not affiliated
 with X Corp. or Open-Meteo.

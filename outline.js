@@ -15,6 +15,7 @@
   let scanTimer;
   let staleCleanupTimer;
   let activeFrame;
+  let currentEntry;
 
   function isTrackable(article) {
     return (
@@ -59,7 +60,17 @@
     outline.id = OUTLINE_ID;
     outline.setAttribute("aria-label", "Tweet outline");
     outline.dataset.empty = "true";
-    outline.innerHTML = '<div class="x-pimp-outline-track"></div>';
+    outline.innerHTML = `
+      <button type="button" class="x-pimp-outline-anchor x-pimp-outline-current" hidden>
+        <span class="x-pimp-outline-label"></span>
+      </button>
+      <div class="x-pimp-outline-track"></div>
+    `;
+    outline
+      .querySelector(".x-pimp-outline-current")
+      .addEventListener("click", () => {
+        if (currentEntry) navigateToEntry(currentEntry);
+      });
     document.body.append(outline);
     return outline;
   }
@@ -96,6 +107,33 @@
     entry.lastKnownTop = window.scrollY + rect.top;
   }
 
+  function navigateToEntry(entry) {
+    const behavior = matchMedia("(prefers-reduced-motion: reduce)").matches
+      ? "auto"
+      : "smooth";
+    if (isTrackable(entry.article)) rememberPosition(entry);
+    if (!Number.isFinite(entry.lastKnownTop)) return;
+    window.scrollTo({
+      top: Math.max(0, entry.lastKnownTop - TOP_READING_OFFSET_PX),
+      behavior
+    });
+  }
+
+  function updateCurrentAnchor(entry) {
+    const button = document.querySelector(".x-pimp-outline-current");
+    if (!button) return;
+    currentEntry = entry;
+    button.hidden = !entry;
+    if (!entry) return;
+
+    const label = entry.button.querySelector(".x-pimp-outline-label").textContent;
+    button.querySelector(".x-pimp-outline-label").textContent = label;
+    button.setAttribute("aria-label", `Current post: ${label}`);
+    button.title = label;
+    button.dataset.active = "true";
+    button.setAttribute("aria-current", "true");
+  }
+
   function createEntry(article, key) {
     const anchorNumber = nextAnchorNumber++;
     const entry = {
@@ -116,21 +154,8 @@
     updateAnchorLabel(entry);
     rememberPosition(entry);
     button.addEventListener("click", () => {
-      const behavior = matchMedia("(prefers-reduced-motion: reduce)").matches
-        ? "auto"
-        : "smooth";
-      if (isTrackable(entry.article)) {
-        rememberPosition(entry);
-        window.scrollTo({
-          top: Math.max(0, entry.lastKnownTop - TOP_READING_OFFSET_PX),
-          behavior
-        });
-      } else if (Number.isFinite(entry.lastKnownTop)) {
-        window.scrollTo({
-          top: Math.max(0, entry.lastKnownTop - TOP_READING_OFFSET_PX),
-          behavior
-        });
-      }
+      updateCurrentAnchor(entry);
+      navigateToEntry(entry);
     });
     return entry;
   }
@@ -145,6 +170,7 @@
   function updateActiveAnchor() {
     activeFrame = undefined;
     let nearestButton;
+    let nearestEntry;
     let nearestDistance = Number.POSITIVE_INFINITY;
 
     for (const entry of outlineEntries) {
@@ -161,6 +187,7 @@
       if (distance < nearestDistance) {
         nearestDistance = distance;
         nearestButton = entry.button;
+        nearestEntry = entry;
       }
     }
 
@@ -170,6 +197,7 @@
       if (active) button.setAttribute("aria-current", "true");
       else button.removeAttribute("aria-current");
     }
+    updateCurrentAnchor(nearestEntry);
   }
 
   function scheduleActiveUpdate() {
@@ -253,7 +281,7 @@
     outline.dataset.empty = String(outlineEntries.length === 0);
     outline.style.setProperty(
       "--x-pimp-outline-count",
-      String(outlineEntries.length)
+      String(currentEntries.length)
     );
     updateActiveAnchor();
   }
