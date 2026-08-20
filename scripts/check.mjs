@@ -114,5 +114,7 @@ assert.match(styles, /\.x-pimp-outline-anchor/);
 assert.match(styles, /\.x-pimp-outline-label/);
 assert.match(styles, /justify-content: flex-start/);
 assert.match(styles, /--x-pimp-outline-count/);
+assert.doesNotMatch(outline, /batchStart/);
+assert.doesNotMatch(styles, /data-batch-start/);
 
 console.log("x-pimp checks passed.");

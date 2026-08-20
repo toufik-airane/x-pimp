@@ -64,12 +64,11 @@
     button.title = label;
   }
 
-  function createAnchor(article, batchStart) {
+  function createAnchor(article) {
     const anchorNumber = nextAnchorNumber++;
     const button = document.createElement("button");
     button.type = "button";
     button.className = "x-pimp-outline-anchor";
-    button.dataset.batchStart = String(batchStart);
     button.dataset.anchorNumber = String(anchorNumber);
     const label = document.createElement("span");
     label.className = "x-pimp-outline-label";
@@ -129,8 +128,8 @@
     const articles = getTrackableArticles();
     const newArticles = articles.filter((article) => !trackedTweets.has(article));
 
-    newArticles.forEach((article, index) => {
-      trackedTweets.set(article, createAnchor(article, index === 0));
+    newArticles.forEach((article) => {
+      trackedTweets.set(article, createAnchor(article));
     });
 
     for (const [article, button] of trackedTweets) {

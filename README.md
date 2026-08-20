@@ -35,11 +35,10 @@ are stored. Only the latest conditions are cached locally and treated as stale
 after 30 minutes. Weather can be turned off from the card. Both left-side cards
 stay slightly transparent until hovered or focused.
 
-A slim tweet outline appears on the right. Each anchor uses the first five words
-of its loaded post, larger anchors mark the start of each newly loaded batch,
-and the blue anchor tracks the post nearest the viewport center. Selecting an
-anchor scrolls smoothly to that post. Labels exist only in the live page DOM;
-they are not stored or transmitted.
+A slim tweet outline appears on the right. Each small anchor uses the first five
+words of its loaded post, and the blue anchor tracks the post nearest the
+viewport center. Selecting an anchor scrolls smoothly to that post. Labels
+exist only in the live page DOM; they are not stored or transmitted.
 
 The extension uses an original refresh-and-sparkle icon. It is not affiliated
 with X Corp. or Open-Meteo.
