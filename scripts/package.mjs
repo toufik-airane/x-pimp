@@ -13,6 +13,7 @@ const files = [
   "content.js",
   "pomodoro.js",
   "weather.js",
+  "outline.js",
   "styles.css",
   "popup.html",
   "popup.js",

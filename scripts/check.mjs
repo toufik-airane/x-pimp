@@ -14,6 +14,7 @@ assert.ok(manifest.host_permissions.includes("https://api.open-meteo.com/*"));
 assert.ok(manifest.content_scripts[0].matches.includes("https://x.com/*"));
 assert.ok(manifest.content_scripts[0].js.includes("pomodoro.js"));
 assert.ok(manifest.content_scripts[0].js.includes("weather.js"));
+assert.ok(manifest.content_scripts[0].js.includes("outline.js"));
 assert.match(styles, /\[data-testid="sidebarColumn"\]/);
 assert.match(styles, /display: none !important/);
 assert.match(styles, /@keyframes x-pimp-shake/);
@@ -100,5 +101,13 @@ assert.match(weather, /x-pimp-weather-disable/);
 assert.match(weather, /chrome\.storage\.local\.remove/);
 assert.doesNotMatch(weather, /weatherState\.(latitude|longitude)/);
 assert.match(styles, /#x-pimp-weather/);
+
+const outline = await readFile(new URL("outline.js", root), "utf8");
+assert.match(outline, /x-pimp-outline/);
+assert.match(outline, /scrollIntoView/);
+assert.match(outline, /data-x-pimp-ad/);
+assert.match(outline, /prefers-reduced-motion/);
+assert.doesNotMatch(outline, /textContent|innerText/);
+assert.match(styles, /\.x-pimp-outline-anchor/);
 
 console.log("x-pimp checks passed.");

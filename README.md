@@ -35,6 +35,12 @@ are stored. Only the latest conditions are cached locally and treated as stale
 after 30 minutes. Weather can be turned off from the card. Both left-side cards
 stay slightly transparent until hovered or focused.
 
+A slim tweet outline appears on the right. Small anchors represent loaded posts,
+larger anchors mark the start of each newly loaded batch, and the blue anchor
+tracks the post nearest the viewport center. Selecting an anchor scrolls smoothly
+to that post. The outline uses only live DOM positions and does not read or store
+post content.
+
 The extension uses an original refresh-and-sparkle icon. It is not affiliated
 with X Corp. or Open-Meteo.
 
@@ -75,6 +81,7 @@ node --check content.js
 node --check popup.js
 node --check pomodoro.js
 node --check weather.js
+node --check outline.js
 node scripts/check.mjs
 ```
 

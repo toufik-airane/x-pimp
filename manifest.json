@@ -1,7 +1,7 @@
 {
   "manifest_version": 3,
   "name": "x-pimp",
-  "version": "0.1.2",
+  "version": "0.1.3",
   "description": "Clean up X and stop rapid Home clicks from refreshing the feed.",
   "icons": {
     "16": "assets/icons/icon16.png",
@@ -24,7 +24,7 @@
     {
       "matches": ["https://x.com/*", "https://www.x.com/*"],
       "css": ["styles.css"],
-      "js": ["shared.js", "content.js", "pomodoro.js", "weather.js"],
+      "js": ["shared.js", "content.js", "pomodoro.js", "weather.js", "outline.js"],
       "run_at": "document_start"
     }
   ]
