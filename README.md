@@ -6,6 +6,9 @@ A small Chrome extension that removes the complete right rail from desktop
 X.com. This includes modules such as **Live on X**, **Today’s News**, and
 **What’s happening**. The main timeline becomes wider when space permits.
 
+Current stable release: **1.0.0**. See [CHANGELOG.md](CHANGELOG.md) for release
+notes and [SECURITY.md](SECURITY.md) for vulnerability reporting.
+
 The left Home control is replaced by a lean, translucent X-style refresh control
 beside the lower-right edge of the feed with a six-second cooldown. The first
 click works normally. More clicks during the cooldown are blocked and shake the
@@ -107,16 +110,14 @@ node scripts/package.mjs
 ## Check the source
 
 ```sh
-node --check shared.js
-node --check content.js
-node --check background.js
-node --check hourly-bell.js
-node --check offscreen.js
-node --check popup.js
-node --check pomodoro.js
-node --check weather.js
-node --check outline.js
-node scripts/check.mjs
+node scripts/verify.mjs
+```
+
+Run the security scan with an isolated Semgrep installation:
+
+```sh
+uvx semgrep scan --config p/javascript --config p/security-audit \
+  --config p/secrets --metrics=off .
 ```
 
 X can change its page markup without notice. If the rail returns after an X

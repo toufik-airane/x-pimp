@@ -6,6 +6,7 @@
   const PLAY_MESSAGE = "x-pimp-play-hourly-bell";
   const STOP_MESSAGE = "x-pimp-stop-hourly-bell";
   const PREVIEW_MESSAGE = "x-pimp-preview-hourly-bell";
+  const OFFSCREEN_DOCUMENT_PATH = "offscreen.html";
   const HOUR_MS = 60 * 60 * 1000;
   let offscreenCreation;
 
@@ -32,18 +33,21 @@
     await chrome.alarms.clear(ALARM_NAME);
   }
 
-  async function ensureOffscreenDocument() {
-    const documentUrl = chrome.runtime.getURL("offscreen.html");
-    const contexts = await chrome.runtime.getContexts({
+  function getOffscreenContexts() {
+    return chrome.runtime.getContexts({
       contextTypes: ["OFFSCREEN_DOCUMENT"],
-      documentUrls: [documentUrl]
+      documentUrls: [chrome.runtime.getURL(OFFSCREEN_DOCUMENT_PATH)]
     });
+  }
+
+  async function ensureOffscreenDocument() {
+    const contexts = await getOffscreenContexts();
     if (contexts.length > 0) return;
 
     if (!offscreenCreation) {
       offscreenCreation = chrome.offscreen
         .createDocument({
-          url: "offscreen.html",
+          url: OFFSCREEN_DOCUMENT_PATH,
           reasons: ["AUDIO_PLAYBACK"],
           justification: "Play the user-enabled hourly singing-bowl bell."
         })
@@ -60,11 +64,7 @@
   }
 
   async function stopBell() {
-    const documentUrl = chrome.runtime.getURL("offscreen.html");
-    const contexts = await chrome.runtime.getContexts({
-      contextTypes: ["OFFSCREEN_DOCUMENT"],
-      documentUrls: [documentUrl]
-    });
+    const contexts = await getOffscreenContexts();
     if (contexts.length > 0) {
       await chrome.runtime.sendMessage({ type: STOP_MESSAGE });
     }

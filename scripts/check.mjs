@@ -12,6 +12,7 @@ const bellAudio = await readFile(new URL("assets/audio/hourly-bell.mp3", root));
 
 assert.equal(manifest.manifest_version, 3);
 assert.equal(manifest.name, "x-pimp");
+assert.match(manifest.version, /^\d+\.\d+\.\d+$/);
 assert.deepEqual(manifest.permissions, [
   "storage",
   "geolocation",
@@ -208,6 +209,7 @@ assert.match(background, /getNextHour/);
 assert.match(background, /chrome\.offscreen\s+\.createDocument/);
 assert.match(background, /AUDIO_PLAYBACK/);
 assert.match(background, /chrome\.runtime\.getContexts/);
+assert.match(background, /getOffscreenContexts/);
 assert.match(background, /result\[ENABLED_KEY\] === true/);
 
 const hourlyBell = await readFile(new URL("hourly-bell.js", root), "utf8");
