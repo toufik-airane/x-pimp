@@ -36,9 +36,9 @@ after 30 minutes. Weather can be turned off from the card. Both left-side cards
 stay slightly transparent until hovered or focused.
 
 A slim tweet outline appears on the right. Each small anchor uses the first five
-words of its loaded post, and the blue anchor tracks the post nearest the
-viewport center. Selecting an anchor scrolls smoothly to that post. Labels
-exist only in the live page DOM; they are not stored or transmitted.
+words of its loaded post, and the blue anchor tracks the post at the top reading
+line below X's sticky header. Selecting an anchor scrolls smoothly to that post.
+Labels exist only in the live page DOM; they are not stored or transmitted.
 The outline accumulates every post discovered during the current tab session,
 including posts that X temporarily removes from the DOM. It grows to half the
 screen height and then becomes an independently scrollable compact list.

@@ -113,6 +113,7 @@ assert.match(outline, /scrollIntoView/);
 assert.match(outline, /data-x-pimp-ad/);
 assert.match(outline, /prefers-reduced-motion/);
 assert.match(outline, /MAX_LABEL_WORDS = 5/);
+assert.match(outline, /TOP_READING_OFFSET_PX = 96/);
 assert.match(outline, /tweetText/);
 assert.match(outline, /entriesByKey/);
 assert.match(outline, /lastKnownCenter/);

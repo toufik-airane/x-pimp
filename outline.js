@@ -3,6 +3,7 @@
 
   const OUTLINE_ID = "x-pimp-outline";
   const SCAN_DELAY_MS = 140;
+  const TOP_READING_OFFSET_PX = 96;
   const MAX_LABEL_WORDS = 5;
   const MAX_LABEL_CHARACTERS = 48;
   const entriesByKey = new Map();
@@ -142,7 +143,6 @@
 
   function updateActiveAnchor() {
     activeFrame = undefined;
-    const viewportCenter = window.innerHeight / 2;
     let nearestButton;
     let nearestDistance = Number.POSITIVE_INFINITY;
 
@@ -150,7 +150,13 @@
       if (!isTrackable(entry.article)) continue;
       rememberPosition(entry);
       const rect = entry.article.getBoundingClientRect();
-      const distance = Math.abs(rect.top + rect.height / 2 - viewportCenter);
+      const distance =
+        rect.top <= TOP_READING_OFFSET_PX && rect.bottom >= TOP_READING_OFFSET_PX
+          ? 0
+          : Math.min(
+              Math.abs(rect.top - TOP_READING_OFFSET_PX),
+              Math.abs(rect.bottom - TOP_READING_OFFSET_PX)
+            );
       if (distance < nearestDistance) {
         nearestDistance = distance;
         nearestButton = entry.button;
