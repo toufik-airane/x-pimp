@@ -7,7 +7,7 @@ X.com. This includes modules such as **Live on X**, **Today’s News**, and
 **What’s happening**. The main timeline becomes wider when space permits.
 
 The left Home control is replaced by a lean, translucent X-style refresh control
-at the bottom-right of the left gadget column with a six-second cooldown. The
+at the bottom-left of the left gadget column with a six-second cooldown. The
 first click works normally. More clicks during the cooldown are blocked and
 shake the refresh icon.
 

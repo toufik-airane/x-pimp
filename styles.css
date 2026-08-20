@@ -93,7 +93,7 @@ header[role="banner"] [data-testid="SideNav_NewTweet_Button"] {
 }
 
 #x-pimp-refresh {
-  left: calc(16px + var(--x-pimp-gadget-width, 200px) - 46px);
+  left: 16px;
   bottom: 24px;
 }
 
