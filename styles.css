@@ -297,7 +297,7 @@ header[role="banner"] [data-testid="SideNav_AccountSwitcher_Button"] {
   max-width: 126px;
   overflow: hidden;
   color: rgb(113 118 123);
-  font: 500 11px/1.25 ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  font: 600 11px/1.25 ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
   opacity: 0.58;
   text-align: left;
   text-overflow: ellipsis;

@@ -174,6 +174,7 @@ assert.match(styles, /calc\(100vw - 156px\)/);
 assert.match(styles, /\.x-pimp-outline-track::before \{[\s\S]*left: 5px/);
 assert.match(styles, /\.x-pimp-outline-anchor/);
 assert.match(styles, /\.x-pimp-outline-label/);
+assert.match(styles, /font: 600 11px\/1\.25/);
 assert.match(styles, /flex-direction: row/);
 assert.match(styles, /justify-content: flex-start/);
 assert.match(styles, /text-align: left/);
