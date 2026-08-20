@@ -163,7 +163,7 @@ header[role="banner"] [data-testid="SideNav_AccountSwitcher_Button"] {
 }
 
 #x-pimp-sound[data-enabled="true"] {
-  color: rgb(0 186 124);
+  color: rgb(73 108 137);
 }
 
 #x-pimp-refresh:hover::before,

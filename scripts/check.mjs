@@ -56,7 +56,7 @@ assert.match(styles, /#x-pimp-refresh/);
 assert.match(styles, /#x-pimp-home/);
 assert.match(styles, /#x-pimp-sound/);
 assert.match(styles, /var\(--x-pimp-gadget-width, 200px\) - 98px/);
-assert.match(styles, /rgb\(0 186 124\)/);
+assert.match(styles, /rgb\(73 108 137\)/);
 assert.match(styles, /#x-pimp-refresh::before/);
 assert.match(styles, /width: 40px/);
 assert.match(styles, /isolation: isolate/);

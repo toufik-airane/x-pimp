@@ -3,6 +3,11 @@
 All notable changes to x-pimp are documented here. Versions follow
 [Semantic Versioning](https://semver.org/).
 
+## 1.0.4 — 2026-08-20
+
+- Replaced the enabled sound control's bright green with a muted dark blue so
+  it keeps the same quiet visual hierarchy as Home.
+
 ## 1.0.3 — 2026-08-20
 
 - Fixed annotated-tag verification in the release workflow by fetching tag
