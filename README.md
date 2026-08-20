@@ -6,7 +6,7 @@ A small Chrome extension that removes the complete right rail from desktop
 X.com. This includes modules such as **Live on X**, **Today’s News**, and
 **What’s happening**. The main timeline becomes wider when space permits.
 
-Current stable release: **1.0.0**. See [CHANGELOG.md](CHANGELOG.md) for release
+Current stable release: **1.0.1**. See [CHANGELOG.md](CHANGELOG.md) for release
 notes and [SECURITY.md](SECURITY.md) for vulnerability reporting.
 
 The left Home control is replaced by a lean, translucent X-style refresh control

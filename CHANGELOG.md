@@ -3,6 +3,11 @@
 All notable changes to x-pimp are documented here. Versions follow
 [Semantic Versioning](https://semver.org/).
 
+## 1.0.1 — 2026-08-20
+
+- Included `README.md` in the downloadable extension ZIP so installation and
+  usage instructions remain available after extraction.
+
 ## 1.0.0 — 2026-08-20
 
 - Centered, adjustable X feed with the right rail and distracting controls

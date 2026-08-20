@@ -225,4 +225,10 @@ assert.match(offscreen, /audio\.currentTime = 0/);
 assert.match(offscreen, /audio\.play\(\)/);
 assert.match(offscreen, /STOP_MESSAGE/);
 
+const packageScript = await readFile(
+  new URL("scripts/package.mjs", root),
+  "utf8"
+);
+assert.match(packageScript, /"README\.md"/);
+
 console.log("x-pimp checks passed.");

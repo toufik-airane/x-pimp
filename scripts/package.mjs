@@ -8,6 +8,7 @@ const manifest = JSON.parse(readFileSync(resolve(projectDir, "manifest.json"), "
 const outputDir = resolve(projectDir, "dist");
 const outputFile = resolve(outputDir, `x-pimp-${manifest.version}.zip`);
 const files = [
+  "README.md",
   "manifest.json",
   "shared.js",
   "background.js",
