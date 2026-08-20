@@ -98,7 +98,8 @@
     button.id = REFRESH_BUTTON_ID;
     button.type = "button";
     button.setAttribute("aria-label", "Refresh Home feed");
-    button.title = "Refresh Home feed";
+    button.setAttribute("aria-keyshortcuts", "Alt+R");
+    button.title = "Refresh Home feed (Alt/Option + R)";
     button.innerHTML = `
       <svg aria-hidden="true" viewBox="0 0 24 24">
         <path d="M19.5 6.4V3.5a1 1 0 1 1 2 0v5.2a1 1 0 0 1-1 1h-5.2a1 1 0 1 1 0-2h2.8A7.5 7.5 0 1 0 19 16a1 1 0 1 1 1.86.73A9.5 9.5 0 1 1 19.5 6.4Z"/>
@@ -136,6 +137,68 @@
     tryRefresh(homeLink);
   }
 
+  function isEditableTarget(target) {
+    return (
+      target instanceof Element &&
+      Boolean(
+        target.closest(
+          'input, textarea, select, [contenteditable="true"], [role="textbox"]'
+        )
+      )
+    );
+  }
+
+  function clickPomodoroControl(selector) {
+    const control = document.querySelector(`#x-pimp-pomodoro ${selector}`);
+    if (!control) return false;
+    control.click();
+    return true;
+  }
+
+  function handleKeyboardShortcut(event) {
+    if (
+      !event.altKey ||
+      event.ctrlKey ||
+      event.metaKey ||
+      event.shiftKey ||
+      event.repeat ||
+      isEditableTarget(event.target)
+    ) {
+      return;
+    }
+
+    let handled = false;
+
+    if (event.code === "KeyR") {
+      ensureRefreshButton();
+      const refreshButton = document.querySelector(`#${REFRESH_BUTTON_ID}`);
+      if (refreshButton) {
+        tryRefresh(refreshButton);
+        handled = true;
+      }
+    } else if (event.code === "KeyP") {
+      handled = clickPomodoroControl(".x-pimp-pomodoro-toggle");
+    } else {
+      const durationByCode = {
+        Digit1: 15,
+        Digit2: 30,
+        Digit3: 45,
+        Numpad1: 15,
+        Numpad2: 30,
+        Numpad3: 45
+      };
+      const duration = durationByCode[event.code];
+      if (duration) {
+        handled = clickPomodoroControl(`[data-minutes="${duration}"]`);
+      }
+    }
+
+    if (handled) {
+      event.preventDefault();
+      event.stopImmediatePropagation();
+    }
+  }
+
   function markPromotedPosts() {
     adScanFrame = undefined;
 
@@ -169,6 +232,7 @@
   });
 
   document.addEventListener("click", handleHomeClick, true);
+  window.addEventListener("keydown", handleKeyboardShortcut, true);
   new MutationObserver(scheduleAdScan).observe(document.documentElement, {
     childList: true,
     subtree: true

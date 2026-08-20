@@ -24,6 +24,11 @@ presets, Start/Pause, and Reset controls. Its state is stored locally so an X
 reload does not discard an active focus session. A local clock appears above
 the timer in the same card.
 
+Keyboard controls use `Alt` on Windows/Linux or `Option` on macOS: `R` softly
+refreshes the feed, `P` starts or pauses the Pomodoro timer, and `1`, `2`, or
+`3` selects 15, 30, or 45 minutes. Shortcuts stay inactive while typing in an
+input, search field, post composer, or message.
+
 An opt-in weather card appears below the timer. Chrome requests location
 access, coordinates are rounded before an Open-Meteo request, and no coordinates
 are stored. Only the latest conditions are cached locally and treated as stale

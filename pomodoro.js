@@ -149,12 +149,12 @@
       </div>
       <time class="x-pimp-pomodoro-time" datetime="PT15M">15:00</time>
       <div class="x-pimp-pomodoro-presets" aria-label="Focus duration">
-        <button type="button" data-minutes="15" aria-pressed="true">15</button>
-        <button type="button" data-minutes="30" aria-pressed="false">30</button>
-        <button type="button" data-minutes="45" aria-pressed="false">45</button>
+        <button type="button" data-minutes="15" aria-pressed="true" aria-keyshortcuts="Alt+1" title="15 minutes (Alt/Option + 1)">15</button>
+        <button type="button" data-minutes="30" aria-pressed="false" aria-keyshortcuts="Alt+2" title="30 minutes (Alt/Option + 2)">30</button>
+        <button type="button" data-minutes="45" aria-pressed="false" aria-keyshortcuts="Alt+3" title="45 minutes (Alt/Option + 3)">45</button>
       </div>
       <div class="x-pimp-pomodoro-actions">
-        <button type="button" class="x-pimp-pomodoro-toggle">Start</button>
+        <button type="button" class="x-pimp-pomodoro-toggle" aria-keyshortcuts="Alt+P" title="Start or pause (Alt/Option + P)">Start</button>
         <button type="button" class="x-pimp-pomodoro-reset">Reset</button>
       </div>
     `;
