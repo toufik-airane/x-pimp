@@ -72,11 +72,10 @@ header[role="banner"] [data-testid="SideNav_NewTweet_Button"] {
   display: none !important;
 }
 
-#x-pimp-refresh {
+#x-pimp-refresh,
+#x-pimp-home {
   position: fixed;
   z-index: 2147483646;
-  right: 24px;
-  bottom: 24px;
   display: grid;
   width: 46px;
   height: 46px;
@@ -93,29 +92,45 @@ header[role="banner"] [data-testid="SideNav_NewTweet_Button"] {
     border-color 140ms ease, box-shadow 140ms ease;
 }
 
-#x-pimp-refresh:hover {
+#x-pimp-refresh {
+  right: 24px;
+  bottom: 24px;
+}
+
+#x-pimp-home {
+  top: 20px;
+  left: 16px;
+}
+
+#x-pimp-refresh:hover,
+#x-pimp-home:hover,
+#x-pimp-home[data-active="true"] {
   border-color: rgb(29 155 240 / 28%);
   background: rgb(29 155 240 / 11%);
   box-shadow: 0 5px 20px rgb(29 155 240 / 12%);
   color: rgb(29 155 240);
 }
 
-#x-pimp-refresh:active {
+#x-pimp-refresh:active,
+#x-pimp-home:active {
   opacity: 0.65;
 }
 
-#x-pimp-refresh:focus-visible {
+#x-pimp-refresh:focus-visible,
+#x-pimp-home:focus-visible {
   outline: 2px solid rgb(29 155 240);
   outline-offset: 2px;
 }
 
-#x-pimp-refresh svg {
+#x-pimp-refresh svg,
+#x-pimp-home svg {
   width: 25px;
   height: 25px;
   fill: currentColor;
 }
 
-#x-pimp-refresh[data-cooling="true"] svg {
+#x-pimp-refresh[data-cooling="true"] svg,
+#x-pimp-home[data-cooling="true"] svg {
   opacity: 0.62;
 }
 
@@ -498,7 +513,8 @@ header[role="banner"] [data-testid="SideNav_NewTweet_Button"] {
     animation: none;
   }
 
-  #x-pimp-refresh {
+  #x-pimp-refresh,
+  #x-pimp-home {
     transition: none;
   }
 

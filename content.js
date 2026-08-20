@@ -5,6 +5,7 @@
   const HOME_COOLDOWN_MS = 6000;
   const HOME_LINK_SELECTOR =
     'a[data-testid="AppTabBar_Home_Link"], a[href="/home"][role="link"]';
+  const HOME_BUTTON_ID = "x-pimp-home";
   const REFRESH_BUTTON_ID = "x-pimp-refresh";
   const REFRESH_COOLDOWN_KEY = "refreshCooldownUntil";
   const AD_LABELS = new Set([
@@ -58,11 +59,17 @@
   }
 
   function showCooldown(trigger) {
-    trigger.dataset.cooling = "true";
+    const controls = new Set([
+      trigger,
+      document.querySelector(`#${HOME_BUTTON_ID}`),
+      document.querySelector(`#${REFRESH_BUTTON_ID}`)
+    ]);
+    controls.delete(null);
+    for (const control of controls) control.dataset.cooling = "true";
     window.clearTimeout(cooldownTimer);
     const remainingMs = Math.max(0, refreshCooldownUntil - Date.now());
     cooldownTimer = window.setTimeout(() => {
-      trigger.dataset.cooling = "false";
+      for (const control of controls) control.dataset.cooling = "false";
     }, remainingMs);
   }
 
@@ -89,20 +96,16 @@
     }
   }
 
-  function ensureRefreshButton() {
-    if (!document.body || document.querySelector(`#${REFRESH_BUTTON_ID}`)) {
-      return;
-    }
-
+  function createFloatingControl({ id, label, path, shortcut, title }) {
     const button = document.createElement("button");
-    button.id = REFRESH_BUTTON_ID;
+    button.id = id;
     button.type = "button";
-    button.setAttribute("aria-label", "Refresh Home feed");
-    button.setAttribute("aria-keyshortcuts", "Alt+R");
-    button.title = "Refresh Home feed (Alt/Option + R)";
+    button.setAttribute("aria-label", label);
+    if (shortcut) button.setAttribute("aria-keyshortcuts", shortcut);
+    button.title = title;
     button.innerHTML = `
       <svg aria-hidden="true" viewBox="0 0 24 24">
-        <path d="M19.5 6.4V3.5a1 1 0 1 1 2 0v5.2a1 1 0 0 1-1 1h-5.2a1 1 0 1 1 0-2h2.8A7.5 7.5 0 1 0 19 16a1 1 0 1 1 1.86.73A9.5 9.5 0 1 1 19.5 6.4Z"/>
+        <path d="${path}"/>
       </svg>
     `;
     button.addEventListener("click", () => tryRefresh(button));
@@ -110,6 +113,45 @@
     cooldownReady.then(() => {
       if (Date.now() < refreshCooldownUntil) showCooldown(button);
     });
+    return button;
+  }
+
+  function ensureRefreshButton() {
+    if (!document.body || document.querySelector(`#${REFRESH_BUTTON_ID}`)) {
+      return;
+    }
+
+    createFloatingControl({
+      id: REFRESH_BUTTON_ID,
+      label: "Refresh Home feed",
+      path: "M19.5 6.4V3.5a1 1 0 1 1 2 0v5.2a1 1 0 0 1-1 1h-5.2a1 1 0 1 1 0-2h2.8A7.5 7.5 0 1 0 19 16a1 1 0 1 1 1.86.73A9.5 9.5 0 1 1 19.5 6.4Z",
+      shortcut: "Alt+R",
+      title: "Refresh Home feed (Alt/Option + R)"
+    });
+  }
+
+  function ensureHomeButton() {
+    if (!document.body) return;
+
+    let button = document.querySelector(`#${HOME_BUTTON_ID}`);
+    if (!button) {
+      button = createFloatingControl({
+        id: HOME_BUTTON_ID,
+        label: "Home",
+        path: "M12 2 2.5 9.2v12.3h7.1v-7h4.8v7h7.1V9.2L12 2Zm7.7 17.7h-3.5v-7H7.8v7H4.3v-9.6L12 4.3l7.7 5.8v9.6Z",
+        title: "Home"
+      });
+    }
+
+    const isHome = location.pathname === "/home";
+    button.dataset.active = String(isHome);
+    if (isHome) button.setAttribute("aria-current", "page");
+    else button.removeAttribute("aria-current");
+  }
+
+  function ensureInterfaceControls() {
+    ensureHomeButton();
+    ensureRefreshButton();
   }
 
   function handleHomeClick(event) {
@@ -170,7 +212,7 @@
     let handled = false;
 
     if (event.code === "KeyR") {
-      ensureRefreshButton();
+      ensureInterfaceControls();
       const refreshButton = document.querySelector(`#${REFRESH_BUTTON_ID}`);
       if (refreshButton) {
         tryRefresh(refreshButton);
@@ -213,7 +255,7 @@
   }
 
   function scheduleAdScan() {
-    ensureRefreshButton();
+    ensureInterfaceControls();
     if (adScanFrame === undefined) {
       adScanFrame = window.requestAnimationFrame(markPromotedPosts);
     }
@@ -238,5 +280,5 @@
     subtree: true
   });
   scheduleAdScan();
-  ensureRefreshButton();
+  ensureInterfaceControls();
 })();
