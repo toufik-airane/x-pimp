@@ -85,6 +85,7 @@ assert.match(pomodoro, /x-pimp-pomodoro/);
 assert.match(pomodoro, /x-pimp-clock-time/);
 assert.match(pomodoro, /Intl\.DateTimeFormat/);
 assert.match(pomodoro, /aria-keyshortcuts="Alt\+P"/);
+assert.match(pomodoro, /⌥R refresh/);
 assert.match(styles, /#x-pimp-pomodoro/);
 assert.match(styles, /box-sizing: border-box/);
 assert.match(styles, /opacity: 0\.72/);

@@ -157,6 +157,9 @@
         <button type="button" class="x-pimp-pomodoro-toggle" aria-keyshortcuts="Alt+P" title="Start or pause (Alt/Option + P)">Start</button>
         <button type="button" class="x-pimp-pomodoro-reset">Reset</button>
       </div>
+      <div class="x-pimp-shortcut-hint" aria-label="Keyboard shortcuts">
+        ⌥R refresh · ⌥P timer<br>⌥1/2/3 length
+      </div>
     `;
 
     widget.addEventListener("click", (event) => {

@@ -236,6 +236,15 @@ header[role="banner"] [data-testid="SideNav_NewTweet_Button"] {
   font-weight: 700;
 }
 
+.x-pimp-shortcut-hint {
+  margin-top: 9px;
+  padding-top: 8px;
+  border-top: 1px solid color-mix(in srgb, currentColor 10%, transparent);
+  color: rgb(113 118 123);
+  font-size: 9px;
+  line-height: 1.45;
+}
+
 .x-pimp-pomodoro-actions button:hover,
 .x-pimp-pomodoro-presets button:hover {
   text-decoration: underline;
