@@ -29,6 +29,7 @@ assert.doesNotMatch(styles, /max-width: 1099px/);
 assert.match(styles, /#x-pimp-refresh/);
 assert.match(styles, /#x-pimp-home/);
 assert.match(styles, /calc\(16px \+ var\(--x-pimp-gadget-width, 200px\) - 46px\)/);
+assert.match(styles, /bottom: 24px/);
 assert.match(styles, /top: 20px/);
 assert.match(styles, /right: 6px/);
 assert.match(styles, /top: 68px/);
