@@ -3,6 +3,8 @@
 
   const OUTLINE_ID = "x-pimp-outline";
   const SCAN_DELAY_MS = 140;
+  const MAX_LABEL_WORDS = 5;
+  const MAX_LABEL_CHARACTERS = 48;
   const trackedTweets = new Map();
   let nextAnchorNumber = 1;
   let scanTimer;
@@ -39,14 +41,40 @@
     return outline;
   }
 
+  function getAnchorLabel(article, anchorNumber) {
+    const postText = article
+      .querySelector('[data-testid="tweetText"]')
+      ?.textContent?.replace(/\s+/g, " ")
+      .trim();
+    if (!postText) return `Media post ${anchorNumber}`;
+
+    const words = postText.split(" ");
+    const firstWords = words.slice(0, MAX_LABEL_WORDS).join(" ");
+    const clipped = firstWords.slice(0, MAX_LABEL_CHARACTERS).trimEnd();
+    return words.length > MAX_LABEL_WORDS || firstWords.length > clipped.length
+      ? `${clipped}…`
+      : clipped;
+  }
+
+  function updateAnchorLabel(article, button) {
+    const label = getAnchorLabel(article, button.dataset.anchorNumber);
+    const labelElement = button.querySelector(".x-pimp-outline-label");
+    if (labelElement.textContent !== label) labelElement.textContent = label;
+    button.setAttribute("aria-label", `Go to post: ${label}`);
+    button.title = label;
+  }
+
   function createAnchor(article, batchStart) {
     const anchorNumber = nextAnchorNumber++;
     const button = document.createElement("button");
     button.type = "button";
     button.className = "x-pimp-outline-anchor";
     button.dataset.batchStart = String(batchStart);
-    button.setAttribute("aria-label", `Go to loaded post ${anchorNumber}`);
-    button.title = `Post ${anchorNumber}`;
+    button.dataset.anchorNumber = String(anchorNumber);
+    const label = document.createElement("span");
+    label.className = "x-pimp-outline-label";
+    button.append(label);
+    updateAnchorLabel(article, button);
     button.addEventListener("click", () => {
       const anchorIndex = [
         ...document.querySelectorAll(".x-pimp-outline-anchor")
@@ -116,7 +144,10 @@
     const orderedButtons = [];
     for (const article of articles) {
       const button = trackedTweets.get(article);
-      if (button) orderedButtons.push(button);
+      if (button) {
+        updateAnchorLabel(article, button);
+        orderedButtons.push(button);
+      }
     }
     const currentButtons = [...track.children];
     if (

@@ -8,10 +8,11 @@ feed, limits rapid refreshes, and adds optional focus tools.
 
 ## Data x-pimp handles
 
-- **X.com page content:** x-pimp processes X.com page structure and exact
-  interface labels locally in the browser to identify elements that it must
-  hide. It does not retain or transmit posts, messages, account details, or
-  other X.com content.
+- **X.com page content:** x-pimp processes X.com page structure, interface
+  labels, and the first five words of loaded posts locally in the browser. The
+  words are used only as navigation labels in the tweet outline. x-pimp does
+  not store or transmit posts, messages, account details, or other X.com
+  content.
 - **Location:** only after the user selects **Share approximate location**, the
   browser gives x-pimp the device location. x-pimp rounds latitude and
   longitude to two decimal places before sending them over HTTPS to Open-Meteo

@@ -64,7 +64,7 @@
 
       <h2>Data x-pimp handles</h2>
       <ul>
-        <li><strong>X.com page content:</strong> x-pimp processes X.com page structure and exact interface labels locally in the browser to identify elements that it must hide. It does not retain or transmit posts, messages, account details, or other X.com content.</li>
+        <li><strong>X.com page content:</strong> x-pimp processes X.com page structure, interface labels, and the first five words of loaded posts locally in the browser. The words are used only as navigation labels in the tweet outline. x-pimp does not store or transmit posts, messages, account details, or other X.com content.</li>
         <li><strong>Location:</strong> only after the user selects <strong>Share approximate location</strong>, the browser gives x-pimp the device location. x-pimp rounds latitude and longitude to two decimal places before sending them over HTTPS to Open-Meteo to request local weather. x-pimp does not store the exact or rounded coordinates.</li>
         <li><strong>Extension settings:</strong> feed width and interface preferences are stored with Chrome synchronized storage. Google can synchronize these values when Chrome Sync is enabled.</li>
         <li><strong>Focus and weather state:</strong> the Pomodoro state and latest weather result are stored locally in Chrome. Cached weather is treated as stale after 30 minutes and is then updated while weather remains enabled. The cache contains conditions and temperatures, not coordinates.</li>

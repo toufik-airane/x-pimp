@@ -120,8 +120,9 @@ header[role="banner"] [data-testid="SideNav_NewTweet_Button"] {
   top: 68px;
   right: 6px;
   bottom: 82px;
-  width: 18px;
-  opacity: 0.48;
+  width: 150px;
+  pointer-events: none;
+  opacity: 0.72;
   transition: opacity 160ms ease;
 }
 
@@ -139,7 +140,7 @@ header[role="banner"] [data-testid="SideNav_NewTweet_Button"] {
   display: flex;
   height: 100%;
   flex-direction: column;
-  align-items: center;
+  align-items: stretch;
   justify-content: space-between;
   overflow: hidden;
 }
@@ -148,26 +149,29 @@ header[role="banner"] [data-testid="SideNav_NewTweet_Button"] {
   position: absolute;
   top: 0;
   bottom: 0;
-  left: 50%;
+  right: 5px;
   width: 1px;
   background: color-mix(in srgb, currentColor 10%, transparent);
   content: "";
-  transform: translateX(-50%);
 }
 
 .x-pimp-outline-anchor {
   position: relative;
-  display: grid;
-  width: 18px;
+  display: flex;
+  width: 150px;
   min-height: 3px;
-  max-height: 12px;
+  max-height: 16px;
   flex: 1 1 8px;
+  flex-direction: row-reverse;
+  gap: 7px;
+  align-items: center;
+  justify-content: flex-start;
   padding: 0;
-  place-items: center;
   border: 0;
   background: transparent;
   color: inherit;
   cursor: pointer;
+  pointer-events: auto;
 }
 
 .x-pimp-outline-anchor::before {
@@ -180,10 +184,28 @@ header[role="banner"] [data-testid="SideNav_NewTweet_Button"] {
   transition: width 140ms ease, height 140ms ease, opacity 140ms ease;
 }
 
+.x-pimp-outline-label {
+  max-width: 126px;
+  overflow: hidden;
+  color: rgb(113 118 123);
+  font: 500 9px/1.25 ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  opacity: 0.58;
+  text-align: right;
+  text-overflow: ellipsis;
+  text-shadow: 0 1px 2px rgb(0 0 0 / 28%);
+  transition: color 140ms ease, opacity 140ms ease;
+  white-space: nowrap;
+}
+
 .x-pimp-outline-anchor[data-batch-start="true"]::before {
   width: 10px;
   height: 3px;
   opacity: 0.68;
+}
+
+.x-pimp-outline-anchor[data-batch-start="true"] .x-pimp-outline-label {
+  font-weight: 750;
+  opacity: 0.78;
 }
 
 .x-pimp-outline-anchor:hover::before,
@@ -193,6 +215,13 @@ header[role="banner"] [data-testid="SideNav_NewTweet_Button"] {
   height: 6px;
   background: rgb(29 155 240);
   box-shadow: 0 0 8px rgb(29 155 240 / 45%);
+  opacity: 1;
+}
+
+.x-pimp-outline-anchor:hover .x-pimp-outline-label,
+.x-pimp-outline-anchor:focus-visible .x-pimp-outline-label,
+.x-pimp-outline-anchor[data-active="true"] .x-pimp-outline-label {
+  color: rgb(29 155 240);
   opacity: 1;
 }
 
@@ -471,6 +500,10 @@ header[role="banner"] [data-testid="SideNav_NewTweet_Button"] {
   }
 
   .x-pimp-outline-anchor::before {
+    transition: none;
+  }
+
+  .x-pimp-outline-label {
     transition: none;
   }
 }

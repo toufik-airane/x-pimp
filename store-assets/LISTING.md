@@ -58,9 +58,10 @@ The Open-Meteo response contains weather data only and is not executed.
 
 **Data categories to disclose:** Location; Website content.
 
-**Website-content explanation:** X.com page structure and exact interface labels
-are processed locally only to hide selected controls and promoted posts. No
-posts, messages, account details, or other page content are stored or sent.
+**Website-content explanation:** X.com page structure, interface labels, and the
+first five words of loaded posts are processed locally to hide selected controls
+and provide the tweet-outline navigation labels. No posts, messages, account
+details, or other page content are stored or sent.
 
 **Location explanation:** Location is handled only for the opt-in weather
 feature. Rounded coordinates are sent over HTTPS to Open-Meteo and are not

@@ -107,7 +107,10 @@ assert.match(outline, /x-pimp-outline/);
 assert.match(outline, /scrollIntoView/);
 assert.match(outline, /data-x-pimp-ad/);
 assert.match(outline, /prefers-reduced-motion/);
-assert.doesNotMatch(outline, /textContent|innerText/);
+assert.match(outline, /MAX_LABEL_WORDS = 5/);
+assert.match(outline, /tweetText/);
+assert.doesNotMatch(outline, /chrome\.storage|fetch\(/);
 assert.match(styles, /\.x-pimp-outline-anchor/);
+assert.match(styles, /\.x-pimp-outline-label/);
 
 console.log("x-pimp checks passed.");
