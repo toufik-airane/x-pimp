@@ -50,6 +50,12 @@ assert.match(styles, /--x-pimp-peaceful-background/);
 assert.match(styles, /background-attachment: fixed !important/);
 assert.match(styles, /circle at 8% 26%/);
 assert.match(styles, /circle at 92% 70%/);
+assert.match(styles, /data-x-pimp-media-viewer="true"/);
+assert.match(styles, /background-image: none !important/);
+assert.match(
+  styles,
+  /data-x-pimp-media-viewer="true"\] #x-pimp-pomodoro[\s\S]*#x-pimp-weather/
+);
 assert.match(styles, /@media \(min-width: 600px\)/);
 assert.doesNotMatch(styles, /max-width: 1099px/);
 assert.match(styles, /#x-pimp-refresh/);
@@ -81,6 +87,10 @@ const content = await readFile(new URL("content.js", root), "utf8");
 assert.match(content, /HOME_COOLDOWN_MS = 6000/);
 assert.match(content, /assets\/backgrounds\/peaceful-plants\.jpg/);
 assert.match(content, /chrome\.runtime\.getURL/);
+assert.match(content, /MEDIA_VIEWER_PATH_PATTERN/);
+assert.match(content, /MEDIA_VIEWER_SELECTOR/);
+assert.match(content, /dataset\.xPimpMediaViewer/);
+assert.match(content, /updateMediaViewerState\(\);\s+ensureInterfaceControls/);
 assert.match(content, /AppTabBar_Home_Link/);
 assert.match(content, /MutationObserver/);
 assert.match(content, /AD_LABELS/);

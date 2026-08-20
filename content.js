@@ -9,6 +9,10 @@
   const HOME_BUTTON_ID = "x-pimp-home";
   const REFRESH_BUTTON_ID = "x-pimp-refresh";
   const REFRESH_COOLDOWN_KEY = "refreshCooldownUntil";
+  const MEDIA_VIEWER_PATH_PATTERN =
+    /\/(?:[^/]+\/status\/\d+\/(?:photo|video)\/\d+|[^/]+\/(?:photo|header_photo))\/?$/;
+  const MEDIA_VIEWER_SELECTOR =
+    '[role="dialog"] [data-testid="swipe-to-dismiss"]';
   const POMODORO_DURATION_BY_CODE = Object.freeze({
     Digit1: 15,
     Digit2: 30,
@@ -62,6 +66,13 @@
       "--x-pimp-peaceful-background",
       `url("${chrome.runtime.getURL(BACKGROUND_ASSET_PATH)}")`
     );
+  }
+
+  function updateMediaViewerState() {
+    const mediaViewerOpen =
+      MEDIA_VIEWER_PATH_PATTERN.test(location.pathname) ||
+      Boolean(document.querySelector(MEDIA_VIEWER_SELECTOR));
+    document.documentElement.dataset.xPimpMediaViewer = String(mediaViewerOpen);
   }
 
   function shakeButton(button) {
@@ -260,6 +271,7 @@
   }
 
   function scheduleAdScan() {
+    updateMediaViewerState();
     ensureInterfaceControls();
     if (adScanFrame === undefined) {
       adScanFrame = window.requestAnimationFrame(markPromotedPosts);
@@ -267,6 +279,7 @@
   }
 
   applySettings(defaults);
+  updateMediaViewerState();
 
   chrome.storage.sync.get(storageKey).then((result) => {
     applySettings(result[storageKey]);

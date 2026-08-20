@@ -28,6 +28,22 @@ html[data-x-pimp-hide-right-rail="true"] body {
   background-size: cover !important;
 }
 
+/* Let X's media viewer own the complete canvas without extension chrome. */
+html[data-x-pimp-media-viewer="true"] body {
+  background-color: #000 !important;
+  background-image: none !important;
+}
+
+html[data-x-pimp-media-viewer="true"] #x-pimp-refresh,
+html[data-x-pimp-media-viewer="true"] #x-pimp-home,
+html[data-x-pimp-media-viewer="true"] #x-pimp-sound,
+html[data-x-pimp-media-viewer="true"] #x-pimp-outline,
+html[data-x-pimp-media-viewer="true"] #x-pimp-pomodoro,
+html[data-x-pimp-media-viewer="true"] #x-pimp-weather,
+html[data-x-pimp-media-viewer="true"] header[role="banner"] [data-testid="SideNav_AccountSwitcher_Button"] {
+  display: none !important;
+}
+
 /* Use part of the space released by the right rail on desktop screens. */
 @media (min-width: 600px) {
   html[data-x-pimp-hide-right-rail="true"] [data-testid="primaryColumn"] {

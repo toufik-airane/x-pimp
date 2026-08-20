@@ -3,6 +3,12 @@
 All notable changes to x-pimp are documented here. Versions follow
 [Semantic Versioning](https://semver.org/).
 
+## 1.0.5 — 2026-08-21
+
+- Hide the plant background, focus gadgets, outline, floating controls, and
+  moved account control while X displays a photo or video viewer.
+- Restore the normal x-pimp canvas and controls when the media viewer closes.
+
 ## 1.0.4 — 2026-08-20
 
 - Replaced the enabled sound control's bright green with a muted dark blue so
