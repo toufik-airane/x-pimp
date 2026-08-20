@@ -3,6 +3,11 @@
 All notable changes to x-pimp are documented here. Versions follow
 [Semantic Versioning](https://semver.org/).
 
+## 1.0.3 — 2026-08-20
+
+- Fixed annotated-tag verification in the release workflow by fetching tag
+  history, and upgraded the pinned GitHub actions to their Node.js 24 releases.
+
 ## 1.0.2 — 2026-08-20
 
 - Added a pinned GitHub Actions workflow that verifies, security-scans, builds,

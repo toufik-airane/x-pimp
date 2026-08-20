@@ -6,7 +6,7 @@ A small Chrome extension that removes the complete right rail from desktop
 X.com. This includes modules such as **Live on X**, **Today’s News**, and
 **What’s happening**. The main timeline becomes wider when space permits.
 
-Current stable release: **1.0.2**. See [CHANGELOG.md](CHANGELOG.md) for release
+Current stable release: **1.0.3**. See [CHANGELOG.md](CHANGELOG.md) for release
 notes and [SECURITY.md](SECURITY.md) for vulnerability reporting.
 
 The left Home control is replaced by a lean, translucent X-style refresh control
@@ -108,7 +108,7 @@ node scripts/package.mjs
 ```
 
 Pushing a signed tag whose name matches the manifest version, such as
-`v1.0.2`, runs the release workflow. GitHub verifies the source, runs Semgrep,
+`v1.0.3`, runs the release workflow. GitHub verifies the source, runs Semgrep,
 builds the ZIP, writes its SHA-256 file, and publishes both assets in a GitHub
 Release. A mismatched tag and manifest version fails before packaging.
 
