@@ -21,10 +21,11 @@ feed, limits rapid refreshes, and adds optional focus tools.
 - **Extension settings:** feed width and interface preferences are stored with
   Chrome synchronized storage. Google can synchronize these values when Chrome
   Sync is enabled.
-- **Focus and weather state:** the Pomodoro state and latest weather result are
-  stored locally in Chrome. Cached weather is treated as stale after 30 minutes
-  and is then updated while weather remains enabled. The cache contains
-  conditions and temperatures, not coordinates.
+- **Focus, sound, and weather state:** the Pomodoro state, optional hourly-bell
+  preference, and latest weather result are stored locally in Chrome. Cached
+  weather is treated as stale after 30 minutes and is then updated while
+  weather remains enabled. The cache contains conditions and temperatures, not
+  coordinates. The bell is a bundled local file and makes no network request.
 
 ## Data sharing
 

@@ -10,7 +10,9 @@ const outputFile = resolve(outputDir, `x-pimp-${manifest.version}.zip`);
 const files = [
   "manifest.json",
   "shared.js",
+  "background.js",
   "content.js",
+  "hourly-bell.js",
   "pomodoro.js",
   "weather.js",
   "outline.js",
@@ -18,11 +20,15 @@ const files = [
   "popup.html",
   "popup.js",
   "popup.css",
+  "offscreen.html",
+  "offscreen.js",
+  "THIRD_PARTY_NOTICES.md",
   "assets/icons/icon16.png",
   "assets/icons/icon32.png",
   "assets/icons/icon48.png",
   "assets/icons/icon128.png",
-  "assets/backgrounds/peaceful-plants.jpg"
+  "assets/backgrounds/peaceful-plants.jpg",
+  "assets/audio/hourly-bell.mp3"
 ];
 
 mkdirSync(outputDir, { recursive: true });

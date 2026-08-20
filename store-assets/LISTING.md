@@ -8,8 +8,8 @@
 
 **Language:** English
 
-**Summary:** A calmer, centered X.com feed with noise removal, refresh cooldown,
-focus timer, clock, and opt-in weather.
+**Summary:** A calmer, centered X.com feed with noise removal, focus tools,
+optional hourly bell, and local weather.
 
 **Detailed description:**
 
@@ -22,6 +22,8 @@ your account avatar remains available.
 A floating refresh control prevents accidental feed churn with a six-second
 cooldown and shake feedback. The quiet left-side workspace includes a local
 clock, a persistent 15/30/45-minute Pomodoro timer, and optional local weather.
+An optional sound control schedules a locally bundled singing-bowl bell at the
+top of each hour. It is disabled by default.
 
 Privacy first:
 
@@ -40,8 +42,15 @@ Open-Meteo.
 and support focused feed use.
 
 **storage justification:** Stores the selected feed width and cleanup setting,
-plus Pomodoro state and the latest weather result, so the user's chosen layout
-and focus session survive page reloads.
+plus Pomodoro state, hourly-bell preference, and the latest weather result, so
+the user's chosen layout and optional focus tools survive page reloads.
+
+**alarms justification:** Schedules the user-enabled singing-bowl sound at the
+top of every hour. Disabling the sound control removes the alarm immediately.
+
+**offscreen justification:** Creates an audio-only offscreen document when a
+scheduled bell or user-requested preview must play. It loads only the bundled
+MP3 and does not display content or access remote resources.
 
 **geolocation justification:** Gets the user's location only after an explicit
 button click, rounds it to two decimal places, and uses it for the requested
@@ -53,8 +62,8 @@ feed sizing, refresh cooldown, Pomodoro, clock, and weather card on X.com.
 **Host access for api.open-meteo.com:** Required only to fetch current weather
 after the user opts in.
 
-**Remote code:** No. All executable code is included in the extension package.
-The Open-Meteo response contains weather data only and is not executed.
+**Remote code:** No. All executable code and audio are included in the extension
+package. The Open-Meteo response contains weather data only and is not executed.
 
 **Data categories to disclose:** Location; Website content.
 

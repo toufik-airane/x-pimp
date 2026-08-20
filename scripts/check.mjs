@@ -8,10 +8,18 @@ const styles = await readFile(new URL("styles.css", root), "utf8");
 const backgroundImage = await readFile(
   new URL("assets/backgrounds/peaceful-plants.jpg", root)
 );
+const bellAudio = await readFile(new URL("assets/audio/hourly-bell.mp3", root));
 
 assert.equal(manifest.manifest_version, 3);
 assert.equal(manifest.name, "x-pimp");
-assert.deepEqual(manifest.permissions, ["storage", "geolocation"]);
+assert.deepEqual(manifest.permissions, [
+  "storage",
+  "geolocation",
+  "alarms",
+  "offscreen"
+]);
+assert.equal(manifest.minimum_chrome_version, "116");
+assert.equal(manifest.background.service_worker, "background.js");
 assert.equal(manifest.icons["128"], "assets/icons/icon128.png");
 assert.ok(manifest.host_permissions.includes("https://api.open-meteo.com/*"));
 assert.ok(
@@ -23,8 +31,11 @@ assert.ok(manifest.content_scripts[0].matches.includes("https://x.com/*"));
 assert.ok(manifest.content_scripts[0].js.includes("pomodoro.js"));
 assert.ok(manifest.content_scripts[0].js.includes("weather.js"));
 assert.ok(manifest.content_scripts[0].js.includes("outline.js"));
+assert.ok(manifest.content_scripts[0].js.includes("hourly-bell.js"));
 assert.deepEqual([...backgroundImage.subarray(0, 2)], [0xff, 0xd8]);
 assert.ok(backgroundImage.length < 100_000);
+assert.equal(bellAudio[0], 0xff);
+assert.ok(bellAudio.length < 1_100_000);
 assert.match(styles, /\[data-testid="sidebarColumn"\]/);
 assert.match(styles, /display: none !important/);
 assert.match(styles, /@keyframes x-pimp-shake/);
@@ -42,6 +53,9 @@ assert.match(styles, /@media \(min-width: 600px\)/);
 assert.doesNotMatch(styles, /max-width: 1099px/);
 assert.match(styles, /#x-pimp-refresh/);
 assert.match(styles, /#x-pimp-home/);
+assert.match(styles, /#x-pimp-sound/);
+assert.match(styles, /var\(--x-pimp-gadget-width, 200px\) - 98px/);
+assert.match(styles, /rgb\(0 186 124\)/);
 assert.match(styles, /#x-pimp-refresh::before/);
 assert.match(styles, /width: 40px/);
 assert.match(styles, /isolation: isolate/);
@@ -185,5 +199,28 @@ assert.match(styles, /data-disconnected="true"\] \{\s+display: none/);
 assert.match(styles, /\.x-pimp-outline-current/);
 assert.doesNotMatch(outline, /batchStart/);
 assert.doesNotMatch(styles, /data-batch-start/);
+
+const background = await readFile(new URL("background.js", root), "utf8");
+assert.match(background, /x-pimp-hourly-bell/);
+assert.match(background, /x-pimp-stop-hourly-bell/);
+assert.match(background, /periodInMinutes: 60/);
+assert.match(background, /getNextHour/);
+assert.match(background, /chrome\.offscreen\s+\.createDocument/);
+assert.match(background, /AUDIO_PLAYBACK/);
+assert.match(background, /chrome\.runtime\.getContexts/);
+assert.match(background, /result\[ENABLED_KEY\] === true/);
+
+const hourlyBell = await readFile(new URL("hourly-bell.js", root), "utf8");
+assert.match(hourlyBell, /x-pimp-sound/);
+assert.match(hourlyBell, /hourlyBellEnabled/);
+assert.match(hourlyBell, /aria-pressed/);
+assert.match(hourlyBell, /x-pimp-preview-hourly-bell/);
+assert.match(hourlyBell, /result\[ENABLED_KEY\] === true/);
+
+const offscreen = await readFile(new URL("offscreen.js", root), "utf8");
+assert.match(offscreen, /assets\/audio\/hourly-bell\.mp3/);
+assert.match(offscreen, /audio\.currentTime = 0/);
+assert.match(offscreen, /audio\.play\(\)/);
+assert.match(offscreen, /STOP_MESSAGE/);
 
 console.log("x-pimp checks passed.");

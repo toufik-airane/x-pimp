@@ -26,6 +26,11 @@ hidden.
 Home and Refresh keep accessible 46-pixel click targets while their quiet
 40-pixel translucent discs match the avatar's visual scale.
 
+A sound control beside Home enables an optional hourly singing-bowl bell. It is
+off by default. Enabling it plays one preview, then Chrome rings the locally
+bundled sound at the top of every hour, even when no X tab is open. Disabling
+the control removes the scheduled alarm immediately.
+
 An X-style Pomodoro card uses the upper-left space with 15, 30, and 45-minute
 presets, Start/Pause, and Reset controls. Its state is stored locally so an X
 reload does not discard an active focus session. A local clock appears above
@@ -104,6 +109,9 @@ node scripts/package.mjs
 ```sh
 node --check shared.js
 node --check content.js
+node --check background.js
+node --check hourly-bell.js
+node --check offscreen.js
 node --check popup.js
 node --check pomodoro.js
 node --check weather.js
