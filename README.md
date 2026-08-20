@@ -7,9 +7,9 @@ X.com. This includes modules such as **Live on X**, **Today’s News**, and
 **What’s happening**. The main timeline becomes wider when space permits.
 
 The left Home control is replaced by a lean, translucent X-style refresh control
-at the bottom-left of the left gadget column with a six-second cooldown. The
-first click works normally. More clicks during the cooldown are blocked and
-shake the refresh icon.
+beside the lower-right edge of the feed with a six-second cooldown. The first
+click works normally. More clicks during the cooldown are blocked and shake the
+refresh icon.
 
 The feed width is adjustable from 560 to 900 pixels in 20-pixel steps and stays
 centered on the desktop viewport. The default is 720 pixels. When the window is
