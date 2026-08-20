@@ -109,14 +109,15 @@ assert.match(styles, /#x-pimp-weather/);
 
 const outline = await readFile(new URL("outline.js", root), "utf8");
 assert.match(outline, /x-pimp-outline/);
-assert.match(outline, /scrollIntoView/);
+assert.match(outline, /window\.scrollTo/);
 assert.match(outline, /data-x-pimp-ad/);
 assert.match(outline, /prefers-reduced-motion/);
 assert.match(outline, /MAX_LABEL_WORDS = 5/);
 assert.match(outline, /TOP_READING_OFFSET_PX = 96/);
 assert.match(outline, /tweetText/);
 assert.match(outline, /entriesByKey/);
-assert.match(outline, /lastKnownCenter/);
+assert.match(outline, /lastKnownTop/);
+assert.doesNotMatch(outline, /block: "center"/);
 assert.match(outline, /getArticleKey/);
 assert.doesNotMatch(outline, /trackedTweets\.delete/);
 assert.doesNotMatch(outline, /chrome\.storage|fetch\(/);

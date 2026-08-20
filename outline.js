@@ -92,7 +92,7 @@
   function rememberPosition(entry) {
     if (!isTrackable(entry.article)) return;
     const rect = entry.article.getBoundingClientRect();
-    entry.lastKnownCenter = window.scrollY + rect.top + rect.height / 2;
+    entry.lastKnownTop = window.scrollY + rect.top;
   }
 
   function createEntry(article, key) {
@@ -101,7 +101,7 @@
       article,
       button: null,
       key,
-      lastKnownCenter: null
+      lastKnownTop: null
     };
     const button = document.createElement("button");
     entry.button = button;
@@ -119,10 +119,13 @@
         : "smooth";
       if (isTrackable(entry.article)) {
         rememberPosition(entry);
-        entry.article.scrollIntoView({ behavior, block: "center" });
-      } else if (Number.isFinite(entry.lastKnownCenter)) {
         window.scrollTo({
-          top: Math.max(0, entry.lastKnownCenter - window.innerHeight / 2),
+          top: Math.max(0, entry.lastKnownTop - TOP_READING_OFFSET_PX),
+          behavior
+        });
+      } else if (Number.isFinite(entry.lastKnownTop)) {
+        window.scrollTo({
+          top: Math.max(0, entry.lastKnownTop - TOP_READING_OFFSET_PX),
           behavior
         });
       }
