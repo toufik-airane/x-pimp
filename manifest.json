@@ -1,0 +1,31 @@
+{
+  "manifest_version": 3,
+  "name": "x-pimp",
+  "version": "0.1.0",
+  "description": "Clean up X and stop rapid Home clicks from refreshing the feed.",
+  "icons": {
+    "16": "assets/icons/icon16.png",
+    "32": "assets/icons/icon32.png",
+    "48": "assets/icons/icon48.png",
+    "128": "assets/icons/icon128.png"
+  },
+  "permissions": ["storage", "geolocation"],
+  "host_permissions": ["https://api.open-meteo.com/*"],
+  "action": {
+    "default_title": "x-pimp",
+    "default_icon": {
+      "16": "assets/icons/icon16.png",
+      "32": "assets/icons/icon32.png",
+      "48": "assets/icons/icon48.png"
+    },
+    "default_popup": "popup.html"
+  },
+  "content_scripts": [
+    {
+      "matches": ["https://x.com/*", "https://www.x.com/*"],
+      "css": ["styles.css"],
+      "js": ["shared.js", "content.js", "pomodoro.js", "weather.js"],
+      "run_at": "document_start"
+    }
+  ]
+}

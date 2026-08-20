@@ -1,0 +1,370 @@
+/* X uses data-testid attributes for stable application landmarks. */
+html[data-x-pimp-hide-right-rail="true"] [data-testid="sidebarColumn"] {
+  display: none !important;
+}
+
+/* Use part of the space released by the right rail on desktop screens. */
+@media (min-width: 1100px) {
+  html[data-x-pimp-hide-right-rail="true"] [data-testid="primaryColumn"] {
+    width: var(--x-pimp-feed-width, 720px) !important;
+    max-width: var(--x-pimp-feed-width, 720px) !important;
+  }
+
+  html[data-x-pimp-hide-right-rail="true"] main > div:has([data-testid="primaryColumn"]) > div:has([data-testid="primaryColumn"]),
+  html[data-x-pimp-hide-right-rail="true"] main > div:has([data-testid="primaryColumn"]) > div:has([data-testid="primaryColumn"]) > div:has([data-testid="primaryColumn"]) {
+    width: 100% !important;
+    max-width: none !important;
+  }
+
+  html[data-x-pimp-hide-right-rail="true"] main > div:has([data-testid="primaryColumn"]) {
+    width: calc(100% + 88px) !important;
+    max-width: none !important;
+    margin-left: -88px !important;
+  }
+
+  html[data-x-pimp-hide-right-rail="true"] main > div:has([data-testid="primaryColumn"]) > div:has([data-testid="primaryColumn"]) > div:has([data-testid="primaryColumn"]) {
+    justify-content: center !important;
+  }
+}
+
+article[data-x-pimp-ad] {
+  display: none !important;
+}
+
+[data-testid="GrokDrawer"],
+a[href="/i/grok"][aria-label="Grok"],
+button[aria-label="Grok actions"] {
+  display: none !important;
+}
+
+button[data-testid="chat-drawer-main"] {
+  display: none !important;
+}
+
+a[data-testid="AppTabBar_Home_Link"],
+a[href="/home"][role="link"] {
+  display: none !important;
+}
+
+header[role="banner"],
+header[role="banner"] > div {
+  width: 88px !important;
+  min-width: 88px !important;
+  max-width: 88px !important;
+  flex: 0 0 88px !important;
+}
+
+header[role="banner"] a[aria-label="X"],
+header[role="banner"] nav[aria-label="Primary"],
+header[role="banner"] [data-testid="SideNav_NewTweet_Button"] {
+  display: none !important;
+}
+
+#x-pimp-refresh {
+  position: fixed;
+  z-index: 2147483646;
+  right: 24px;
+  bottom: 24px;
+  display: grid;
+  width: 44px;
+  height: 44px;
+  padding: 0;
+  place-items: center;
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+  box-shadow: none;
+  color: inherit;
+  cursor: pointer;
+  transition: color 140ms ease, opacity 140ms ease;
+}
+
+#x-pimp-refresh:hover {
+  color: rgb(29 155 240);
+}
+
+#x-pimp-refresh:active {
+  opacity: 0.65;
+}
+
+#x-pimp-refresh:focus-visible {
+  outline: 2px solid rgb(29 155 240);
+  outline-offset: 2px;
+}
+
+#x-pimp-refresh svg {
+  width: 25px;
+  height: 25px;
+  fill: currentColor;
+}
+
+#x-pimp-refresh[data-cooling="true"] svg {
+  opacity: 0.62;
+}
+
+#x-pimp-pomodoro {
+  position: fixed;
+  z-index: 1000;
+  top: 80px;
+  left: 16px;
+  width: max(120px, min(200px, calc((100vw - var(--x-pimp-feed-width, 720px)) / 2 - 32px)));
+  box-sizing: border-box;
+  padding: 14px;
+  border: 1px solid color-mix(in srgb, currentColor 18%, transparent);
+  border-radius: 16px;
+  background: color-mix(in srgb, currentColor 4%, transparent);
+  color: inherit;
+  font: 400 13px/1.2 ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+}
+
+#x-pimp-pomodoro,
+#x-pimp-weather {
+  opacity: 0.72;
+  transition: opacity 160ms ease;
+}
+
+#x-pimp-pomodoro:hover,
+#x-pimp-pomodoro:focus-within,
+#x-pimp-weather:hover,
+#x-pimp-weather:focus-within {
+  opacity: 0.96;
+}
+
+.x-pimp-clock {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 8px;
+  margin-bottom: 13px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid color-mix(in srgb, currentColor 13%, transparent);
+}
+
+.x-pimp-clock-time {
+  flex: none;
+  font-size: clamp(21px, 2vw, 27px);
+  font-variant-numeric: tabular-nums;
+  font-weight: 700;
+  letter-spacing: -0.04em;
+  white-space: nowrap;
+}
+
+.x-pimp-clock-date {
+  color: rgb(113 118 123);
+  font-size: 9px;
+  text-align: right;
+}
+
+.x-pimp-pomodoro-heading,
+.x-pimp-pomodoro-actions,
+.x-pimp-pomodoro-presets {
+  display: flex;
+  align-items: center;
+}
+
+.x-pimp-pomodoro-heading,
+.x-pimp-pomodoro-actions {
+  justify-content: space-between;
+}
+
+.x-pimp-pomodoro-heading strong {
+  font-size: 15px;
+}
+
+.x-pimp-pomodoro-status {
+  color: rgb(113 118 123);
+  font-size: 11px;
+}
+
+#x-pimp-pomodoro .x-pimp-pomodoro-time {
+  display: block;
+  margin: 15px 0 13px;
+  font-size: clamp(24px, 2.4vw, 32px);
+  font-variant-numeric: tabular-nums;
+  font-weight: 700;
+  letter-spacing: -0.04em;
+}
+
+.x-pimp-pomodoro-presets {
+  gap: 4px;
+  margin-bottom: 12px;
+}
+
+#x-pimp-pomodoro button {
+  min-width: 0;
+  border: 0;
+  background: transparent;
+  color: inherit;
+  cursor: pointer;
+  font: inherit;
+}
+
+.x-pimp-pomodoro-presets button {
+  flex: 1;
+  padding: 6px 3px;
+  border-radius: 999px;
+  color: rgb(113 118 123);
+  font-size: 11px;
+  font-weight: 700;
+}
+
+.x-pimp-pomodoro-presets button[aria-pressed="true"] {
+  background: rgb(29 155 240 / 14%);
+  color: rgb(29 155 240);
+}
+
+.x-pimp-pomodoro-actions {
+  gap: 8px;
+}
+
+.x-pimp-pomodoro-actions button {
+  padding: 5px 0;
+  color: rgb(29 155 240);
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.x-pimp-pomodoro-actions button:hover,
+.x-pimp-pomodoro-presets button:hover {
+  text-decoration: underline;
+}
+
+#x-pimp-pomodoro button:focus-visible {
+  outline: 2px solid rgb(29 155 240);
+  outline-offset: 2px;
+}
+
+#x-pimp-pomodoro[data-complete="true"] time,
+#x-pimp-pomodoro[data-running="true"] .x-pimp-pomodoro-status {
+  color: rgb(29 155 240);
+}
+
+#x-pimp-weather {
+  position: fixed;
+  z-index: 1000;
+  top: 322px;
+  left: 16px;
+  width: max(120px, min(200px, calc((100vw - var(--x-pimp-feed-width, 720px)) / 2 - 32px)));
+  box-sizing: border-box;
+  padding: 14px;
+  border: 1px solid color-mix(in srgb, currentColor 18%, transparent);
+  border-radius: 16px;
+  background: color-mix(in srgb, currentColor 4%, transparent);
+  color: inherit;
+  font: 400 13px/1.3 ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+}
+
+.x-pimp-weather-heading,
+.x-pimp-weather-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+.x-pimp-weather-heading strong {
+  font-size: 15px;
+}
+
+#x-pimp-weather button {
+  border: 0;
+  background: transparent;
+  color: rgb(29 155 240);
+  cursor: pointer;
+  font: inherit;
+  font-weight: 700;
+}
+
+.x-pimp-weather-update {
+  padding: 2px 0;
+  font-size: 18px !important;
+  line-height: 1 !important;
+}
+
+#x-pimp-weather[data-loading="true"] .x-pimp-weather-update {
+  opacity: 0.5;
+}
+
+.x-pimp-weather-consent p {
+  margin: 14px 0 9px;
+  color: rgb(113 118 123);
+  font-size: 12px;
+}
+
+.x-pimp-weather-enable {
+  padding: 3px 0;
+}
+
+.x-pimp-weather-temperature {
+  margin-top: 13px;
+  font-size: clamp(28px, 2.7vw, 36px);
+  font-variant-numeric: tabular-nums;
+  font-weight: 700;
+  letter-spacing: -0.05em;
+}
+
+.x-pimp-weather-condition {
+  margin-top: 1px;
+  font-weight: 600;
+}
+
+.x-pimp-weather-range {
+  margin-top: 5px;
+  color: rgb(113 118 123);
+  font-size: 11px;
+}
+
+.x-pimp-weather-footer {
+  margin-top: 13px;
+  color: rgb(113 118 123);
+  font-size: 9px;
+}
+
+.x-pimp-weather-footer a {
+  color: inherit;
+  text-decoration: none;
+}
+
+.x-pimp-weather-footer a:hover,
+#x-pimp-weather button:hover {
+  text-decoration: underline;
+}
+
+#x-pimp-weather button:focus-visible,
+.x-pimp-weather-footer a:focus-visible {
+  outline: 2px solid rgb(29 155 240);
+  outline-offset: 2px;
+}
+
+.x-pimp-shake {
+  animation: x-pimp-shake 380ms cubic-bezier(0.36, 0.07, 0.19, 0.97) both;
+}
+
+@keyframes x-pimp-shake {
+  10%, 90% { transform: translateX(-2px); }
+  20%, 80% { transform: translateX(4px); }
+  30%, 50%, 70% { transform: translateX(-6px); }
+  40%, 60% { transform: translateX(6px); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .x-pimp-shake {
+    animation: none;
+  }
+
+  #x-pimp-refresh {
+    transition: none;
+  }
+
+  #x-pimp-pomodoro,
+  #x-pimp-weather {
+    transition: none;
+  }
+}
+
+@media (max-width: 1099px) {
+  #x-pimp-pomodoro,
+  #x-pimp-weather {
+    display: none;
+  }
+}

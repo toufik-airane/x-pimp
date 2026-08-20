@@ -1,0 +1,177 @@
+:root {
+  color-scheme: dark;
+  font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  background: #09090b;
+  color: #fafafa;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  width: 340px;
+  margin: 0;
+  background:
+    radial-gradient(circle at 90% 0%, rgb(244 63 94 / 20%), transparent 42%),
+    #09090b;
+}
+
+main {
+  padding: 22px;
+}
+
+.eyebrow {
+  color: #fb7185;
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 0.16em;
+}
+
+h1 {
+  margin: 7px 0 6px;
+  font-size: 25px;
+  letter-spacing: -0.04em;
+}
+
+p {
+  margin: 0 0 20px;
+  color: #a1a1aa;
+  font-size: 13px;
+  line-height: 1.5;
+}
+
+.setting,
+.feature {
+  display: flex;
+  gap: 16px;
+  align-items: center;
+  justify-content: space-between;
+  padding: 15px;
+  border: 1px solid #27272a;
+  border-radius: 14px;
+  background: rgb(24 24 27 / 82%);
+}
+
+.setting {
+  cursor: pointer;
+}
+
+.feature {
+  display: block;
+  margin-top: 10px;
+}
+
+.width-control {
+  margin-top: 10px;
+  padding: 15px;
+  border: 1px solid #27272a;
+  border-radius: 14px;
+  background: rgb(24 24 27 / 82%);
+}
+
+.width-heading,
+.range-labels {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.width-heading strong {
+  font-size: 14px;
+}
+
+.width-heading output {
+  color: #fb7185;
+  font-size: 12px;
+  font-variant-numeric: tabular-nums;
+  font-weight: 800;
+}
+
+#feed-width {
+  width: 100%;
+  margin: 15px 0 7px;
+  accent-color: #e11d48;
+  cursor: pointer;
+}
+
+.range-labels {
+  color: #71717a;
+  font-size: 10px;
+}
+
+.setting span {
+  min-width: 0;
+}
+
+.setting strong,
+.setting small,
+.feature strong,
+.feature small {
+  display: block;
+}
+
+.setting strong,
+.feature strong {
+  margin-bottom: 4px;
+  font-size: 14px;
+}
+
+.setting small,
+.feature small {
+  color: #a1a1aa;
+  font-size: 11px;
+  line-height: 1.4;
+}
+
+input[role="switch"] {
+  width: 42px;
+  height: 24px;
+  flex: 0 0 auto;
+  margin: 0;
+  appearance: none;
+  border: 1px solid #3f3f46;
+  border-radius: 999px;
+  background: #27272a;
+  cursor: pointer;
+  transition: 160ms ease;
+}
+
+input[role="switch"]::after {
+  display: block;
+  width: 18px;
+  height: 18px;
+  margin: 2px;
+  border-radius: 50%;
+  background: #d4d4d8;
+  content: "";
+  transition: 160ms ease;
+}
+
+input[role="switch"]:checked {
+  border-color: #fb7185;
+  background: #e11d48;
+}
+
+input[role="switch"]:checked::after {
+  transform: translateX(18px);
+  background: white;
+}
+
+input[role="switch"]:focus-visible {
+  outline: 2px solid #fda4af;
+  outline-offset: 3px;
+}
+
+#feed-width:focus-visible {
+  outline: 2px solid #fda4af;
+  outline-offset: 3px;
+}
+
+#status {
+  min-height: 16px;
+  margin-top: 10px;
+  color: #a1a1aa;
+  font-size: 11px;
+  text-align: right;
+}

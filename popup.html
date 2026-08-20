@@ -1,0 +1,73 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>x-pimp</title>
+    <link rel="stylesheet" href="popup.css">
+  </head>
+  <body>
+    <main>
+      <div class="eyebrow">X-PIMP</div>
+      <h1>Quiet the noise.</h1>
+      <p>Clean up the desktop X timeline without reading or sending account data.</p>
+
+      <label class="setting" for="hide-right-rail">
+        <span>
+          <strong>Remove right rail</strong>
+          <small>Hides Live on X, Today’s News, and What’s happening.</small>
+        </span>
+        <input id="hide-right-rail" type="checkbox" role="switch">
+      </label>
+
+      <section class="width-control" aria-labelledby="feed-width-label">
+        <div class="width-heading">
+          <strong id="feed-width-label">Feed width</strong>
+          <output id="feed-width-value" for="feed-width">720 px</output>
+        </div>
+        <input
+          id="feed-width"
+          type="range"
+          min="560"
+          max="900"
+          step="20"
+          value="720"
+        >
+        <div class="range-labels" aria-hidden="true">
+          <span>Compact</span>
+          <span>Wide</span>
+        </div>
+      </section>
+
+      <div class="feature">
+        <strong>6-second Home cooldown</strong>
+        <small>A bare X-style refresh icon blocks rapid clicks and shakes.</small>
+      </div>
+
+      <div class="feature">
+        <strong>Ad and Grok cleanup</strong>
+        <small>Removes promoted posts, Grok controls, and the Chat drawer.</small>
+      </div>
+
+      <div class="feature">
+        <strong>Avatar-only navigation</strong>
+        <small>Keeps only the account avatar in a compact left rail.</small>
+      </div>
+
+      <div class="feature">
+        <strong>Pomodoro</strong>
+        <small>A local clock and persistent 15, 30, or 45-minute timer.</small>
+      </div>
+
+      <div class="feature">
+        <strong>Local weather</strong>
+        <small>Opt-in current conditions powered by Open-Meteo.</small>
+      </div>
+
+      <div id="status" aria-live="polite"></div>
+    </main>
+
+    <script src="shared.js"></script>
+    <script src="popup.js"></script>
+  </body>
+</html>
