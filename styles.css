@@ -149,18 +149,15 @@ header[role="banner"] [data-testid="SideNav_AccountSwitcher_Button"] {
   left: calc(16px + var(--x-pimp-gadget-width, 200px) - 46px);
 }
 
-#x-pimp-refresh:hover,
-#x-pimp-home:hover,
 #x-pimp-home[data-active="true"] {
   color: rgb(29 155 240);
 }
 
 #x-pimp-refresh:hover::before,
-#x-pimp-home:hover::before,
-#x-pimp-home[data-active="true"]::before {
-  border-color: rgb(29 155 240 / 28%);
-  background: rgb(29 155 240 / 11%);
-  box-shadow: 0 5px 20px rgb(29 155 240 / 12%);
+#x-pimp-home:hover::before {
+  border-color: rgb(239 243 244 / 18%);
+  background: rgb(239 243 244 / 10%);
+  box-shadow: 0 4px 16px rgb(0 0 0 / 12%);
 }
 
 #x-pimp-refresh:active,

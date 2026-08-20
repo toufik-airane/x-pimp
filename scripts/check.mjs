@@ -43,6 +43,7 @@ assert.match(styles, /#x-pimp-home/);
 assert.match(styles, /#x-pimp-refresh::before/);
 assert.match(styles, /width: 40px/);
 assert.match(styles, /isolation: isolate/);
+assert.match(styles, /background: rgb\(239 243 244 \/ 10%\)/);
 assert.match(styles, /calc\(16px \+ var\(--x-pimp-gadget-width, 200px\) - 46px\)/);
 assert.match(styles, /bottom: 24px/);
 assert.match(styles, /calc\(100vw - 62px\)/);
