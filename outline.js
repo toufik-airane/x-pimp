@@ -158,6 +158,10 @@
     }
 
     outline.dataset.empty = String(trackedTweets.size === 0);
+    outline.style.setProperty(
+      "--x-pimp-outline-count",
+      String(trackedTweets.size)
+    );
     updateActiveAnchor();
   }
 
