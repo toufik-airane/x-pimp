@@ -3,11 +3,23 @@ html[data-x-pimp-hide-right-rail="true"] [data-testid="sidebarColumn"] {
   display: none !important;
 }
 
+html[data-x-pimp-hide-right-rail="true"] {
+  --x-pimp-responsive-feed-width: min(
+    var(--x-pimp-feed-width, 720px),
+    calc(100vw - 352px)
+  );
+  --x-pimp-gadget-width: clamp(
+    136px,
+    calc((100vw - var(--x-pimp-responsive-feed-width)) / 2 - 32px),
+    200px
+  );
+}
+
 /* Use part of the space released by the right rail on desktop screens. */
-@media (min-width: 1100px) {
+@media (min-width: 760px) {
   html[data-x-pimp-hide-right-rail="true"] [data-testid="primaryColumn"] {
-    width: var(--x-pimp-feed-width, 720px) !important;
-    max-width: var(--x-pimp-feed-width, 720px) !important;
+    width: var(--x-pimp-responsive-feed-width) !important;
+    max-width: var(--x-pimp-responsive-feed-width) !important;
   }
 
   html[data-x-pimp-hide-right-rail="true"] main > div:has([data-testid="primaryColumn"]) > div:has([data-testid="primaryColumn"]),
@@ -107,7 +119,7 @@ header[role="banner"] [data-testid="SideNav_NewTweet_Button"] {
   z-index: 1000;
   top: 80px;
   left: 16px;
-  width: max(120px, min(200px, calc((100vw - var(--x-pimp-feed-width, 720px)) / 2 - 32px)));
+  width: var(--x-pimp-gadget-width, 200px);
   box-sizing: border-box;
   padding: 14px;
   border: 1px solid color-mix(in srgb, currentColor 18%, transparent);
@@ -244,7 +256,7 @@ header[role="banner"] [data-testid="SideNav_NewTweet_Button"] {
   z-index: 1000;
   top: 322px;
   left: 16px;
-  width: max(120px, min(200px, calc((100vw - var(--x-pimp-feed-width, 720px)) / 2 - 32px)));
+  width: var(--x-pimp-gadget-width, 200px);
   box-sizing: border-box;
   padding: 14px;
   border: 1px solid color-mix(in srgb, currentColor 18%, transparent);
@@ -362,9 +374,17 @@ header[role="banner"] [data-testid="SideNav_NewTweet_Button"] {
   }
 }
 
-@media (max-width: 1099px) {
+@media (max-width: 859px) {
   #x-pimp-pomodoro,
   #x-pimp-weather {
+    padding: 11px;
+  }
+
+  .x-pimp-clock-date {
     display: none;
+  }
+
+  .x-pimp-weather-consent p {
+    font-size: 11px;
   }
 }

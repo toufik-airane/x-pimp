@@ -11,9 +11,10 @@ bottom-right with a six-second cooldown. The first click works normally. More
 clicks during the cooldown are blocked and shake the refresh icon.
 
 The feed width is adjustable from 560 to 900 pixels in 20-pixel steps and stays
-centered on the desktop viewport. The default is 720 pixels. Promoted posts,
-the Grok navigation entry, the Grok drawer, Grok action buttons, and the
-floating Chat drawer button are removed.
+centered on the desktop viewport. The default is 720 pixels. When the window is
+narrower, the feed contracts enough to preserve the left-side gadgets without
+overlap. Promoted posts, the Grok navigation entry, the Grok drawer, Grok action
+buttons, and the floating Chat drawer button are removed.
 
 The left navigation is reduced to an 88-pixel strip that keeps only the account
 avatar at the bottom. X's logo, navigation links, and Post control are hidden.
