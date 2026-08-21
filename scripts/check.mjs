@@ -9,6 +9,10 @@ const backgroundImage = await readFile(
   new URL("assets/backgrounds/peaceful-plants.jpg", root)
 );
 const bellAudio = await readFile(new URL("assets/audio/hourly-bell.mp3", root));
+const storeDescription = await readFile(
+  new URL("store-assets/DESCRIPTION.txt", root),
+  "utf8"
+);
 
 async function assertPngDimensions(path, width, height) {
   const image = await readFile(new URL(path, root));
@@ -38,6 +42,7 @@ assert.ok(
 assert.ok(manifest.content_scripts[0].matches.includes("https://x.com/*"));
 assert.ok(manifest.content_scripts[0].js.includes("pomodoro.js"));
 assert.ok(manifest.content_scripts[0].js.includes("weather.js"));
+assert.ok(manifest.content_scripts[0].js.includes("outline-label.js"));
 assert.ok(manifest.content_scripts[0].js.includes("outline.js"));
 assert.ok(manifest.content_scripts[0].js.includes("hourly-bell.js"));
 assert.deepEqual([...backgroundImage.subarray(0, 2)], [0xff, 0xd8]);
@@ -51,6 +56,9 @@ await assertPngDimensions("assets/icons/icon128.png", 128, 128);
 await assertPngDimensions("store-assets/screenshot-1.png", 1280, 800);
 await assertPngDimensions("store-assets/small-promo.png", 440, 280);
 await assertPngDimensions("store-assets/marquee-promo.png", 1400, 560);
+assert.doesNotMatch(storeDescription, /(^|\n)\s{0,3}#{1,6}\s/m);
+assert.doesNotMatch(storeDescription, /\*\*|__|```|\[[^\]]+\]\([^)]+\)/);
+assert.match(storeDescription, /calmer and easier to focus/);
 assert.match(styles, /\[data-testid="sidebarColumn"\]/);
 assert.match(styles, /display: none !important/);
 assert.match(styles, /@keyframes x-pimp-shake/);
@@ -218,14 +226,22 @@ assert.doesNotMatch(weather, /weatherState\.(latitude|longitude)/);
 assert.match(styles, /#x-pimp-weather/);
 
 const outline = await readFile(new URL("outline.js", root), "utf8");
+const outlineLabels = await readFile(
+  new URL("outline-label.js", root),
+  "utf8"
+);
 assert.match(outline, /x-pimp-outline/);
 assert.match(outline, /window\.scrollTo/);
 assert.match(outline, /data-x-pimp-ad/);
 assert.match(outline, /prefers-reduced-motion/);
-assert.match(outline, /MAX_LABEL_WORDS = 5/);
+assert.match(outlineLabels, /MAX_LABEL_WORDS = 5/);
 assert.match(outline, /TOP_READING_OFFSET_PX = 96/);
 assert.match(outline, /DISCONNECTED_GRACE_MS = 2000/);
-assert.match(outline, /tweetText/);
+assert.match(outlineLabels, /tweetText/);
+assert.match(outlineLabels, /twitterArticleReadView/);
+assert.match(outlineLabels, /card\.layoutLarge\.media/);
+assert.match(outlineLabels, /articleTitle/);
+assert.match(outlineLabels, /getArticleTitle/);
 assert.match(outline, /entriesByKey/);
 assert.match(outline, /lastKnownTop/);
 assert.doesNotMatch(outline, /block: "center"/);
@@ -237,7 +253,7 @@ assert.match(outline, /navigateToEntry/);
 assert.match(outline, /entryIsVisible/);
 assert.match(outline, /String\(currentEntries\.length\)/);
 assert.doesNotMatch(outline, /trackedTweets\.delete/);
-assert.doesNotMatch(outline, /chrome\.storage|fetch\(/);
+assert.doesNotMatch(`${outline}\n${outlineLabels}`, /chrome\.storage|fetch\(/);
 assert.match(styles, /#x-pimp-outline \{[\s\S]*top: 44px/);
 assert.match(styles, /calc\(100vw - 156px\)/);
 assert.match(styles, /\.x-pimp-outline-track::before \{[\s\S]*left: 5px/);
@@ -278,6 +294,10 @@ assert.match(offscreen, /assets\/audio\/hourly-bell\.mp3/);
 assert.match(offscreen, /audio\.currentTime = 0/);
 assert.match(offscreen, /audio\.play\(\)/);
 assert.match(offscreen, /STOP_MESSAGE/);
+assert.match(offscreen, /hourlyBellEnabled/);
+assert.match(offscreen, /chrome\.storage\.local\.get/);
+assert.match(offscreen, /chrome\.storage\.onChanged/);
+assert.match(offscreen, /soundStateRevision/);
 
 const packageScript = await readFile(
   new URL("scripts/package.mjs", root),

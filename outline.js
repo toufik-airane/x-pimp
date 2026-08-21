@@ -5,8 +5,7 @@
   const SCAN_DELAY_MS = 140;
   const DISCONNECTED_GRACE_MS = 2000;
   const TOP_READING_OFFSET_PX = 96;
-  const MAX_LABEL_WORDS = 5;
-  const MAX_LABEL_CHARACTERS = 48;
+  const { getAnchorLabel } = globalThis.X_PIMP_OUTLINE_LABELS;
   const entriesByKey = new Map();
   const outlineEntries = [];
   const fallbackKeys = new WeakMap();
@@ -76,21 +75,6 @@
       .addEventListener("scroll", scheduleActiveUpdate, { passive: true });
     document.body.append(outline);
     return outline;
-  }
-
-  function getAnchorLabel(article, anchorNumber) {
-    const postText = article
-      .querySelector('[data-testid="tweetText"]')
-      ?.textContent?.replace(/\s+/g, " ")
-      .trim();
-    if (!postText) return `Media post ${anchorNumber}`;
-
-    const words = postText.split(" ");
-    const firstWords = words.slice(0, MAX_LABEL_WORDS).join(" ");
-    const clipped = firstWords.slice(0, MAX_LABEL_CHARACTERS).trimEnd();
-    return words.length > MAX_LABEL_WORDS || firstWords.length > clipped.length
-      ? `${clipped}…`
-      : clipped;
   }
 
   function updateAnchorLabel(entry) {

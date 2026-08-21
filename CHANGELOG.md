@@ -3,6 +3,15 @@
 All notable changes to x-pimp are documented here. Versions follow
 [Semantic Versioning](https://semver.org/).
 
+## 1.0.7 — 2026-08-21
+
+- Replaced the refresh-and-sparkle logo with a calathea-inspired leaf mark and
+  carried it through every extension icon and promotional tile.
+- Use the visible X article title in the outline instead of a generic media-post
+  label.
+- Block preview and scheduled gong playback at both the background and audio
+  layers whenever hourly sound is disabled.
+
 ## 1.0.6 — 2026-08-21
 
 - Refreshed the logo, extension icons, popup, screenshot, and promotional

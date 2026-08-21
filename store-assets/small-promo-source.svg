@@ -4,15 +4,17 @@
   <defs>
     <linearGradient id="bg" x1="0" y1="0" x2="440" y2="280" gradientUnits="userSpaceOnUse"><stop stop-color="#07120F"/><stop offset="1" stop-color="#111817"/></linearGradient>
     <radialGradient id="glow" cx="0" cy="0" r="1" gradientTransform="translate(33 254) rotate(-34) scale(250 190)" gradientUnits="userSpaceOnUse"><stop stop-color="#34D399" stop-opacity=".26"/><stop offset="1" stop-color="#34D399" stop-opacity="0"/></radialGradient>
-    <linearGradient id="loop" x1="67" y1="70" x2="153" y2="166" gradientUnits="userSpaceOnUse"><stop stop-color="#A7F3D0"/><stop offset="1" stop-color="#34D399"/></linearGradient>
+    <linearGradient id="leaf" x1="320" y1="166" x2="704" y2="836" gradientUnits="userSpaceOnUse"><stop stop-color="#A7F3D0"/><stop offset=".52" stop-color="#5EE7B1"/><stop offset="1" stop-color="#20B981"/></linearGradient>
   </defs>
   <rect width="440" height="280" fill="url(#bg)"/><rect width="440" height="280" fill="url(#glow)"/>
   <rect x="18" y="18" width="404" height="244" rx="30" fill="#08100E" fill-opacity=".58" stroke="#D1FAE5" stroke-opacity=".13"/>
   <g transform="translate(42 59)">
     <rect width="126" height="126" rx="34" fill="#07100D" stroke="#D1FAE5" stroke-opacity=".12"/>
-    <path d="M94 42A39 39 0 1 0 101 68" fill="none" stroke="url(#loop)" stroke-linecap="round" stroke-width="14"/>
-    <path d="m85 23 17 3a6 6 0 0 1 5 7l-3 17a6 6 0 0 1-10 3L81 40a6 6 0 0 1 4-17Z" fill="#6EE7B7"/>
-    <path d="M63 48c3 8 8 13 16 15-8 3-13 8-16 16-2-8-7-13-15-16 8-2 13-7 15-15Z" fill="#FF8FA3"/>
+    <g transform="scale(.123046875)">
+      <path d="M512 846c-171-76-259-223-229-397 27-157 133-268 229-331 96 63 202 174 229 331 30 174-58 321-229 397Z" fill="url(#leaf)" fill-opacity=".72"/>
+      <g fill="none" stroke="#087254" stroke-linecap="round" stroke-width="34" opacity=".68"><path d="M498 340 392 280"/><path d="M526 340 632 280"/><path d="M494 440 357 370"/><path d="M530 440 667 370"/><path d="M493 548 345 493"/><path d="M531 548 679 493"/><path d="M497 653 378 625"/><path d="M527 653 646 625"/></g>
+      <path d="M512 790c-9-185-9-391 0-611" fill="none" stroke="#FF8FA3" stroke-opacity=".86" stroke-linecap="round" stroke-width="30"/><path d="M512 790c4 38 1 74-10 108" fill="none" stroke="#6EE7B7" stroke-opacity=".82" stroke-linecap="round" stroke-width="30"/>
+    </g>
   </g>
   <text x="190" y="103" fill="#F8FAF9" font-family="Inter, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="42" font-weight="800" letter-spacing="-1.8">x-pimp</text>
   <text x="190" y="137" fill="#A9B7B1" font-family="Inter, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="17" font-weight="600">A calmer X.com feed.</text>

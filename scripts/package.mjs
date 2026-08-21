@@ -16,6 +16,7 @@ const files = [
   "hourly-bell.js",
   "pomodoro.js",
   "weather.js",
+  "outline-label.js",
   "outline.js",
   "styles.css",
   "popup.html",

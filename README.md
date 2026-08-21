@@ -6,7 +6,7 @@ A small Chrome extension that removes the complete right rail from desktop
 X.com. This includes modules such as **Live on X**, **Today’s News**, and
 **What’s happening**. The main timeline becomes wider when space permits.
 
-Current source version: **1.0.6**. See [CHANGELOG.md](CHANGELOG.md) for release
+Current source version: **1.0.7**. See [CHANGELOG.md](CHANGELOG.md) for release
 notes and [SECURITY.md](SECURITY.md) for vulnerability reporting.
 
 The left Home control is replaced by a lean, translucent X-style refresh control
@@ -55,9 +55,10 @@ feed layouts.
 A slim tweet outline stays fixed beside the feed at the left edge of the right
 panel. Its top aligns with Home, while its left-justified anchors extend outward
 from the feed. Anchors refresh without moving the rail. Each small anchor uses
-the first five words of its loaded post, and the blue anchor tracks the post at
-the top reading line below X's sticky header. Selecting an anchor scrolls
-smoothly to that post.
+the first five words of its loaded post. X article posts use their visible
+article title instead of a generic media-post label. The blue anchor tracks the
+post at the top reading line below X's sticky header. Selecting an anchor
+scrolls smoothly to that post.
 Labels exist only in the live page DOM; they are not stored or transmitted.
 The outline accumulates posts that remain part of the current timeline. It keeps
 anchors through brief X DOM replacements, then removes entries that do not
@@ -69,7 +70,7 @@ labels do not make the table run across the screen. A small pinned row refreshes
 to show the current post only when its original anchor is outside the visible
 list, avoiding duplicate labels while the ordered anchor list remains stationary.
 
-The extension uses an original refresh-and-sparkle icon. It is not affiliated
+The extension uses an original calathea-inspired leaf icon. It is not affiliated
 with X Corp. or Open-Meteo.
 
 The empty canvas around the feed uses an original, locally bundled background
@@ -82,7 +83,12 @@ complete screen to the media viewer. The plant canvas becomes solid black, and
 the focus cards, outline, floating controls, and moved account control stay
 hidden until the viewer closes.
 
-## Install locally
+## Install
+
+Install x-pimp from the
+[Chrome Web Store](https://chromewebstore.google.com/detail/x-pimp/nonemmfagigefdfmgebidhnebidanedg).
+
+To load the source checkout directly:
 
 1. Open `chrome://extensions` in Chrome.
 2. Enable **Developer mode**.
@@ -113,7 +119,7 @@ node scripts/package.mjs
 ```
 
 Pushing a signed tag whose name matches the manifest version, such as
-`v1.0.6`, runs the release workflow. GitHub verifies the source, runs Semgrep,
+`v1.0.7`, runs the release workflow. GitHub verifies the source, runs Semgrep,
 builds the ZIP, writes its SHA-256 file, and publishes both assets in a GitHub
 Release. A mismatched tag and manifest version fails before packaging.
 

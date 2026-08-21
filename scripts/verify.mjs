@@ -7,6 +7,7 @@ const sourceFiles = [
   "hourly-bell.js",
   "pomodoro.js",
   "weather.js",
+  "outline-label.js",
   "outline.js",
   "popup.js",
   "offscreen.js",
@@ -14,6 +15,8 @@ const sourceFiles = [
   "scripts/capture-store-screenshot.mjs",
   "scripts/package.mjs",
   "scripts/test-background.mjs",
+  "scripts/test-offscreen.mjs",
+  "scripts/test-outline-label.mjs",
   "scripts/verify.mjs"
 ];
 
@@ -23,6 +26,12 @@ for (const file of sourceFiles) {
 
 execFileSync(process.execPath, ["scripts/check.mjs"], { stdio: "inherit" });
 execFileSync(process.execPath, ["scripts/test-background.mjs"], {
+  stdio: "inherit"
+});
+execFileSync(process.execPath, ["scripts/test-offscreen.mjs"], {
+  stdio: "inherit"
+});
+execFileSync(process.execPath, ["scripts/test-outline-label.mjs"], {
   stdio: "inherit"
 });
 console.log("x-pimp verification passed.");

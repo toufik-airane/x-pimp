@@ -63,6 +63,11 @@
     await chrome.runtime.sendMessage({ type: PLAY_MESSAGE });
   }
 
+  async function playBellIfEnabled() {
+    const result = await chrome.storage.local.get(ENABLED_KEY);
+    if (result[ENABLED_KEY] === true) await playBell();
+  }
+
   async function stopBell() {
     const contexts = await getOffscreenContexts();
     if (contexts.length > 0) {
@@ -89,17 +94,12 @@
 
   chrome.alarms.onAlarm.addListener((alarm) => {
     if (alarm.name !== ALARM_NAME) return;
-    runSafely(
-      chrome.storage.local.get(ENABLED_KEY).then((result) => {
-        if (result[ENABLED_KEY] === true) return playBell();
-      }),
-      "play the hourly bell"
-    );
+    runSafely(playBellIfEnabled(), "play the hourly bell");
   });
 
   chrome.runtime.onMessage.addListener((message) => {
     if (message?.type === PREVIEW_MESSAGE) {
-      runSafely(playBell(), "play the bell preview");
+      runSafely(playBellIfEnabled(), "play the bell preview");
     }
   });
 

@@ -82,6 +82,14 @@ vm.runInContext(background, context);
 await flushTasks();
 assert.equal(calls.alarmClear.length, 1, "the bell must default to disabled");
 
+listeners.message[0]({ type: "x-pimp-preview-hourly-bell" });
+await flushTasks();
+assert.equal(
+  calls.offscreenCreate,
+  0,
+  "a preview message must not bypass the disabled setting"
+);
+
 bellEnabled = true;
 listeners.storage[0]({ hourlyBellEnabled: { newValue: true } }, "local");
 await flushTasks();
@@ -103,6 +111,20 @@ listeners.storage[0]({ hourlyBellEnabled: { newValue: false } }, "local");
 await flushTasks();
 assert.ok(
   calls.messages.some((message) => message.type === "x-pimp-stop-hourly-bell")
+);
+
+const playMessagesAfterDisable = calls.messages.filter(
+  (message) => message.type === "x-pimp-play-hourly-bell"
+).length;
+listeners.message[0]({ type: "x-pimp-preview-hourly-bell" });
+listeners.alarm[0]({ name: "x-pimp-hourly-bell" });
+await flushTasks();
+assert.equal(
+  calls.messages.filter(
+    (message) => message.type === "x-pimp-play-hourly-bell"
+  ).length,
+  playMessagesAfterDisable,
+  "disabled preview and alarm events must not play audio"
 );
 
 console.log("x-pimp background tests passed.");

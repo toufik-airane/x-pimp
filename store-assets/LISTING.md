@@ -11,30 +11,9 @@
 **Summary:** A calmer, centered X.com feed with noise removal, focus tools,
 optional hourly bell, and local weather.
 
-**Detailed description:**
-
-x-pimp makes the desktop X.com feed calmer and easier to focus on.
-
-It removes the right rail, promoted posts, Grok controls, the Chat drawer, and
-most left navigation. Your feed stays centered at the width you choose, while
-your account avatar remains available.
-
-A floating refresh control prevents accidental feed churn with a six-second
-cooldown and shake feedback. The quiet left-side workspace includes a local
-clock, a persistent 15/30/45-minute Pomodoro timer, and optional local weather.
-An optional sound control schedules a locally bundled singing-bowl bell at the
-top of each hour. It is disabled by default.
-
-Privacy first:
-
-- no analytics, advertising, accounts, or developer server;
-- X.com content is processed only in your browser and is not retained or sent;
-- weather is off until you opt in;
-- coordinates are rounded before the weather request and are never stored by
-  x-pimp.
-
-x-pimp is an independent extension and is not affiliated with X Corp. or
-Open-Meteo.
+**Detailed description:** Copy the complete plain-text contents of
+`store-assets/DESCRIPTION.txt`. Chrome Web Store does not render Markdown in
+this field.
 
 ## Privacy practices
 
