@@ -13,6 +13,13 @@ html[data-x-pimp-hide-right-rail="true"] {
     calc((100vw - var(--x-pimp-responsive-feed-width)) / 2 - 32px),
     200px
   );
+  --x-pimp-gadget-left: max(
+    16px,
+    calc(
+      (100vw - var(--x-pimp-responsive-feed-width)) / 2 -
+        var(--x-pimp-gadget-width) - 16px
+    )
+  );
 }
 
 html[data-x-pimp-hide-right-rail="true"] body {
@@ -26,6 +33,21 @@ html[data-x-pimp-hide-right-rail="true"] body {
   background-position: center !important;
   background-repeat: no-repeat !important;
   background-size: cover !important;
+}
+
+/* Build the extension chrome off-screen, then reveal it as one stable group. */
+html:not([data-x-pimp-ui-ready="true"]) #x-pimp-refresh,
+html:not([data-x-pimp-ui-ready="true"]) #x-pimp-home,
+html:not([data-x-pimp-ui-ready="true"]) #x-pimp-sound,
+html:not([data-x-pimp-ui-ready="true"]) #x-pimp-outline,
+html:not([data-x-pimp-ui-ready="true"]) #x-pimp-pomodoro,
+html:not([data-x-pimp-ui-ready="true"]) #x-pimp-weather,
+html:not([data-x-pimp-ui-ready="true"])
+  header[role="banner"]
+  [data-testid="SideNav_AccountSwitcher_Button"] {
+  visibility: hidden !important;
+  opacity: 0 !important;
+  pointer-events: none !important;
 }
 
 /* Let X's media viewer own the complete canvas without extension chrome. */
@@ -108,8 +130,16 @@ header[role="banner"] [data-testid="SideNav_AccountSwitcher_Button"] {
   max-width: 64px !important;
   right: auto !important;
   bottom: 12px !important;
-  left: calc(16px + var(--x-pimp-gadget-width, 200px) - 55px) !important;
+  left: calc(
+    var(--x-pimp-gadget-left, 16px) +
+      var(--x-pimp-gadget-width, 200px) - 55px
+  ) !important;
   transform: none !important;
+}
+
+header[role="banner"] [data-testid="SideNav_AccountSwitcher_Button"]
+  > :not(:has([data-testid*="UserAvatar"])) {
+  display: none !important;
 }
 
 #x-pimp-refresh,
@@ -166,12 +196,18 @@ header[role="banner"] [data-testid="SideNav_AccountSwitcher_Button"] {
 
 #x-pimp-home {
   top: 44px;
-  left: calc(16px + var(--x-pimp-gadget-width, 200px) - 46px);
+  left: calc(
+    var(--x-pimp-gadget-left, 16px) +
+      var(--x-pimp-gadget-width, 200px) - 46px
+  );
 }
 
 #x-pimp-sound {
   top: 44px;
-  left: calc(16px + var(--x-pimp-gadget-width, 200px) - 98px);
+  left: calc(
+    var(--x-pimp-gadget-left, 16px) +
+      var(--x-pimp-gadget-width, 200px) - 98px
+  );
 }
 
 #x-pimp-home[data-active="true"] {
@@ -375,7 +411,7 @@ header[role="banner"] [data-testid="SideNav_AccountSwitcher_Button"] {
   position: fixed;
   z-index: 1000;
   top: 104px;
-  left: 16px;
+  left: var(--x-pimp-gadget-left, 16px);
   width: var(--x-pimp-gadget-width, 200px);
   box-sizing: border-box;
   padding: 14px;
@@ -522,7 +558,7 @@ header[role="banner"] [data-testid="SideNav_AccountSwitcher_Button"] {
   position: fixed;
   z-index: 1000;
   top: 376px;
-  left: 16px;
+  left: var(--x-pimp-gadget-left, 16px);
   width: var(--x-pimp-gadget-width, 200px);
   box-sizing: border-box;
   padding: 14px;

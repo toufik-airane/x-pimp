@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="440" height="280" viewBox="0 0 440 280" role="img" aria-labelledby="title desc">
+  <title id="title">x-pimp small promotional tile</title>
+  <desc id="desc">The x-pimp logo and the message A calmer X.com feed.</desc>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="440" y2="280" gradientUnits="userSpaceOnUse"><stop stop-color="#07120F"/><stop offset="1" stop-color="#111817"/></linearGradient>
+    <radialGradient id="glow" cx="0" cy="0" r="1" gradientTransform="translate(33 254) rotate(-34) scale(250 190)" gradientUnits="userSpaceOnUse"><stop stop-color="#34D399" stop-opacity=".26"/><stop offset="1" stop-color="#34D399" stop-opacity="0"/></radialGradient>
+    <linearGradient id="loop" x1="67" y1="70" x2="153" y2="166" gradientUnits="userSpaceOnUse"><stop stop-color="#A7F3D0"/><stop offset="1" stop-color="#34D399"/></linearGradient>
+  </defs>
+  <rect width="440" height="280" fill="url(#bg)"/><rect width="440" height="280" fill="url(#glow)"/>
+  <rect x="18" y="18" width="404" height="244" rx="30" fill="#08100E" fill-opacity=".58" stroke="#D1FAE5" stroke-opacity=".13"/>
+  <g transform="translate(42 59)">
+    <rect width="126" height="126" rx="34" fill="#07100D" stroke="#D1FAE5" stroke-opacity=".12"/>
+    <path d="M94 42A39 39 0 1 0 101 68" fill="none" stroke="url(#loop)" stroke-linecap="round" stroke-width="14"/>
+    <path d="m85 23 17 3a6 6 0 0 1 5 7l-3 17a6 6 0 0 1-10 3L81 40a6 6 0 0 1 4-17Z" fill="#6EE7B7"/>
+    <path d="M63 48c3 8 8 13 16 15-8 3-13 8-16 16-2-8-7-13-15-16 8-2 13-7 15-15Z" fill="#FF8FA3"/>
+  </g>
+  <text x="190" y="103" fill="#F8FAF9" font-family="Inter, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="42" font-weight="800" letter-spacing="-1.8">x-pimp</text>
+  <text x="190" y="137" fill="#A9B7B1" font-family="Inter, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="17" font-weight="600">A calmer X.com feed.</text>
+  <g transform="translate(190 160)"><rect width="88" height="28" rx="14" fill="#D1FAE5" fill-opacity=".08" stroke="#D1FAE5" stroke-opacity=".14"/><circle cx="15" cy="14" r="3" fill="#6EE7B7"/><text x="25" y="18" fill="#D8E2DE" font-family="Inter, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="11" font-weight="650">Less noise</text></g>
+  <circle cx="398" cy="44" r="5" fill="#FF8FA3"/>
+</svg>

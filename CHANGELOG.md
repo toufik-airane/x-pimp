@@ -3,6 +3,19 @@
 All notable changes to x-pimp are documented here. Versions follow
 [Semantic Versioning](https://semver.org/).
 
+## 1.0.6 — 2026-08-21
+
+- Refreshed the logo, extension icons, popup, screenshot, and promotional
+  artwork with a cohesive mint-and-coral visual system and editable SVG sources.
+- Kept Home, sound, Pomodoro, weather, Refresh, and the tweet outline aligned
+  beside the feed across laptop and external-display widths.
+- Reduced the bottom account control to its avatar so X's verified badge,
+  account text, and overflow menu cannot overlap the feed.
+- Reveal the extension interface as one stable group after the feed is ready,
+  avoiding staggered or sliding components during reload.
+- Added reproducible privacy-masked store capture tooling and automated graphic
+  dimension checks.
+
 ## 1.0.5 — 2026-08-21
 
 - Hide the plant background, focus gadgets, outline, floating controls, and

@@ -11,6 +11,7 @@ const sourceFiles = [
   "popup.js",
   "offscreen.js",
   "scripts/check.mjs",
+  "scripts/capture-store-screenshot.mjs",
   "scripts/package.mjs",
   "scripts/test-background.mjs",
   "scripts/verify.mjs"

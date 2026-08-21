@@ -10,6 +10,13 @@ const backgroundImage = await readFile(
 );
 const bellAudio = await readFile(new URL("assets/audio/hourly-bell.mp3", root));
 
+async function assertPngDimensions(path, width, height) {
+  const image = await readFile(new URL(path, root));
+  assert.deepEqual([...image.subarray(1, 4)], [0x50, 0x4e, 0x47]);
+  assert.equal(image.readUInt32BE(16), width, `${path} width`);
+  assert.equal(image.readUInt32BE(20), height, `${path} height`);
+}
+
 assert.equal(manifest.manifest_version, 3);
 assert.equal(manifest.name, "x-pimp");
 assert.match(manifest.version, /^\d+\.\d+\.\d+$/);
@@ -37,6 +44,13 @@ assert.deepEqual([...backgroundImage.subarray(0, 2)], [0xff, 0xd8]);
 assert.ok(backgroundImage.length < 100_000);
 assert.equal(bellAudio[0], 0xff);
 assert.ok(bellAudio.length < 1_100_000);
+await assertPngDimensions("assets/icons/icon16.png", 16, 16);
+await assertPngDimensions("assets/icons/icon32.png", 32, 32);
+await assertPngDimensions("assets/icons/icon48.png", 48, 48);
+await assertPngDimensions("assets/icons/icon128.png", 128, 128);
+await assertPngDimensions("store-assets/screenshot-1.png", 1280, 800);
+await assertPngDimensions("store-assets/small-promo.png", 440, 280);
+await assertPngDimensions("store-assets/marquee-promo.png", 1400, 560);
 assert.match(styles, /\[data-testid="sidebarColumn"\]/);
 assert.match(styles, /display: none !important/);
 assert.match(styles, /@keyframes x-pimp-shake/);
@@ -46,11 +60,14 @@ assert.match(styles, /chat-drawer-main/);
 assert.match(styles, /justify-content: center !important/);
 assert.match(styles, /--x-pimp-responsive-feed-width/);
 assert.match(styles, /--x-pimp-gadget-width/);
+assert.match(styles, /--x-pimp-gadget-left/);
 assert.match(styles, /--x-pimp-peaceful-background/);
 assert.match(styles, /background-attachment: fixed !important/);
 assert.match(styles, /circle at 8% 26%/);
 assert.match(styles, /circle at 92% 70%/);
 assert.match(styles, /data-x-pimp-media-viewer="true"/);
+assert.match(styles, /data-x-pimp-ui-ready="true"/);
+assert.match(styles, /visibility: hidden !important/);
 assert.match(styles, /background-image: none !important/);
 assert.match(
   styles,
@@ -67,15 +84,37 @@ assert.match(styles, /#x-pimp-refresh::before/);
 assert.match(styles, /width: 40px/);
 assert.match(styles, /isolation: isolate/);
 assert.match(styles, /background: rgb\(239 243 244 \/ 10%\)/);
-assert.match(styles, /calc\(16px \+ var\(--x-pimp-gadget-width, 200px\) - 46px\)/);
+assert.match(
+  styles,
+  /var\(--x-pimp-gadget-left, 16px\)[\s\S]*var\(--x-pimp-gadget-width, 200px\) - 46px/
+);
 assert.match(styles, /bottom: 24px/);
 assert.match(styles, /calc\(100vw - 62px\)/);
 assert.match(styles, /SideNav_AccountSwitcher_Button/);
-assert.match(styles, /var\(--x-pimp-gadget-width, 200px\) - 55px/);
+assert.match(
+  styles,
+  /SideNav_AccountSwitcher_Button"\]\s*> :not\(:has\(\[data-testid\*="UserAvatar"\]\)\)/
+);
+assert.match(
+  styles,
+  /var\(--x-pimp-gadget-left, 16px\)[\s\S]*var\(--x-pimp-gadget-width, 200px\) - 55px/
+);
 assert.match(styles, /transform: none !important/);
 assert.match(styles, /max-width: 64px !important/);
 assert.match(styles, /#x-pimp-home \{\s+top: 44px/);
+assert.match(
+  styles,
+  /#x-pimp-sound \{[\s\S]*var\(--x-pimp-gadget-left, 16px\)[\s\S]*var\(--x-pimp-gadget-width, 200px\) - 98px/
+);
 assert.match(styles, /#x-pimp-pomodoro \{[\s\S]*top: 104px/);
+assert.match(
+  styles,
+  /#x-pimp-pomodoro \{[\s\S]*left: var\(--x-pimp-gadget-left, 16px\)/
+);
+assert.match(
+  styles,
+  /#x-pimp-weather \{[\s\S]*left: var\(--x-pimp-gadget-left, 16px\)/
+);
 assert.match(styles, /backdrop-filter: blur\(12px\)/);
 assert.match(styles, /AppTabBar_Home_Link/);
 assert.match(styles, /background: transparent/);
@@ -98,6 +137,11 @@ assert.match(content, /REFRESH_BUTTON_ID/);
 assert.match(content, /HOME_BUTTON_ID/);
 assert.match(content, /createFloatingControl/);
 assert.match(content, /REFRESH_COOLDOWN_KEY/);
+assert.match(content, /CORE_INTERFACE_SELECTORS/);
+assert.match(content, /UI_REVEAL_FALLBACK_MS = 1000/);
+assert.match(content, /scheduleInterfaceReveal/);
+assert.match(content, /dataset\.xPimpUiReady = "true"/);
+assert.match(content, /setInterval\(scheduleInterfaceReveal, 25\)/);
 assert.match(content, /chrome\.storage\.local\.set/);
 assert.match(content, /homeLink\.click\(\)/);
 assert.match(content, /handleKeyboardShortcut/);

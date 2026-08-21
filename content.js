@@ -9,6 +9,14 @@
   const HOME_BUTTON_ID = "x-pimp-home";
   const REFRESH_BUTTON_ID = "x-pimp-refresh";
   const REFRESH_COOLDOWN_KEY = "refreshCooldownUntil";
+  const CORE_INTERFACE_SELECTORS = Object.freeze([
+    "#x-pimp-refresh",
+    "#x-pimp-home",
+    "#x-pimp-sound",
+    "#x-pimp-pomodoro",
+    "#x-pimp-weather"
+  ]);
+  const UI_REVEAL_FALLBACK_MS = 1000;
   const MEDIA_VIEWER_PATH_PATTERN =
     /\/(?:[^/]+\/status\/\d+\/(?:photo|video)\/\d+|[^/]+\/(?:photo|header_photo))\/?$/;
   const MEDIA_VIEWER_SELECTOR =
@@ -46,6 +54,9 @@
   let forwardingRefresh = false;
   let refreshCooldownUntil = 0;
   let cooldownTimer;
+  let interfaceReadyTimer;
+  let revealFallbackTimer;
+  let revealFrame;
   const cooldownReady = chrome.storage.local
     .get(REFRESH_COOLDOWN_KEY)
     .then((result) => {
@@ -176,6 +187,43 @@
   function ensureInterfaceControls() {
     ensureHomeButton();
     ensureRefreshButton();
+    scheduleInterfaceReveal();
+  }
+
+  function revealInterface() {
+    if (document.documentElement.dataset.xPimpUiReady === "true") return;
+    window.clearTimeout(revealFallbackTimer);
+    revealFallbackTimer = undefined;
+    window.clearInterval(interfaceReadyTimer);
+    interfaceReadyTimer = undefined;
+    if (revealFrame !== undefined) return;
+    revealFrame = window.requestAnimationFrame(() => {
+      revealFrame = window.requestAnimationFrame(() => {
+        revealFrame = undefined;
+        document.documentElement.dataset.xPimpUiReady = "true";
+      });
+    });
+  }
+
+  function scheduleInterfaceReveal() {
+    if (document.documentElement.dataset.xPimpUiReady === "true") return;
+    const primaryColumn = document.querySelector('[data-testid="primaryColumn"]');
+    const coreReady = CORE_INTERFACE_SELECTORS.every((selector) =>
+      document.querySelector(selector)
+    );
+    if (!primaryColumn || !coreReady) return;
+
+    const feedHasContent = Boolean(
+      primaryColumn.querySelector('article[data-testid="tweet"]')
+    );
+    if (feedHasContent) {
+      revealInterface();
+    } else if (revealFallbackTimer === undefined) {
+      revealFallbackTimer = window.setTimeout(
+        revealInterface,
+        UI_REVEAL_FALLBACK_MS
+      );
+    }
   }
 
   function handleHomeClick(event) {
@@ -293,10 +341,20 @@
 
   document.addEventListener("click", handleHomeClick, true);
   window.addEventListener("keydown", handleKeyboardShortcut, true);
+  window.addEventListener(
+    "pagehide",
+    () => {
+      window.clearTimeout(revealFallbackTimer);
+      window.clearInterval(interfaceReadyTimer);
+      window.cancelAnimationFrame(revealFrame);
+    },
+    { once: true }
+  );
   new MutationObserver(scheduleAdScan).observe(document.documentElement, {
     childList: true,
     subtree: true
   });
+  interfaceReadyTimer = window.setInterval(scheduleInterfaceReveal, 25);
   scheduleAdScan();
   ensureInterfaceControls();
 })();

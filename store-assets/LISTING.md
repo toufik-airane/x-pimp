@@ -96,5 +96,17 @@ Certify every Limited Use statement. Use
 - Small promo tile: `store-assets/small-promo.png` (440×280 PNG)
 - Marquee promo tile: `store-assets/marquee-promo.png` (1400×560 PNG)
 
-The icon artwork is original. Do not upload `assets/icon-source.png` as the
-store icon; it is the high-resolution working source.
+The icon artwork is original. Its editable vector source is
+`assets/logo-source.svg`; `assets/icon-source.png` is the high-resolution
+raster export. Upload only `assets/icons/icon128.png` as the store icon.
+
+The promo tiles have editable SVG sources beside their PNG exports. To refresh
+the screenshot from the current product, start the dedicated Chrome test
+profile with localhost remote debugging, open X.com, and run:
+
+```sh
+node scripts/capture-store-screenshot.mjs
+```
+
+The capture script reloads the page, uses the required 1280×800 viewport, and
+replaces account and post content with anonymous placeholders before capture.
