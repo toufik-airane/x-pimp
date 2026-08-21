@@ -13,6 +13,11 @@ const storeDescription = await readFile(
   new URL("store-assets/DESCRIPTION.txt", root),
   "utf8"
 );
+const storeListing = await readFile(
+  new URL("store-assets/LISTING.md", root),
+  "utf8"
+);
+const readme = await readFile(new URL("README.md", root), "utf8");
 const privacyPolicy = await readFile(new URL("PRIVACY.md", root), "utf8");
 const website = await readFile(new URL("docs/index.html", root), "utf8");
 const websiteIcon = await readFile(new URL("docs/icon.svg", root), "utf8");
@@ -62,6 +67,21 @@ await assertPngDimensions("store-assets/marquee-promo.png", 1400, 560);
 assert.doesNotMatch(storeDescription, /(^|\n)\s{0,3}#{1,6}\s/m);
 assert.doesNotMatch(storeDescription, /\*\*|__|```|\[[^\]]+\]\([^)]+\)/);
 assert.match(storeDescription, /calmer and easier to focus/);
+assert.match(
+  readme,
+  new RegExp(`Current version: \\*\\*${manifest.version}\\*\\*`)
+);
+assert.match(readme, /visible article titles/);
+assert.match(readme, /nonemmfagigefdfmgebidhnebidanedg/);
+assert.match(storeListing, /visible article titles/);
+assert.match(
+  storeListing,
+  /article titles, or other page content are stored or sent/
+);
+assert.match(
+  storeListing,
+  /https:\/\/toufik-airane\.github\.io\/x-zen\//
+);
 assert.match(website, new RegExp(`Chrome extension · v${manifest.version}`));
 assert.match(website, /nonemmfagigefdfmgebidhnebidanedg/);
 assert.match(website, /href="icon\.svg"/);

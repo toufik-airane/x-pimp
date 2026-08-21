@@ -15,6 +15,8 @@ optional hourly bell, and local weather.
 `store-assets/DESCRIPTION.txt`. Chrome Web Store does not render Markdown in
 this field.
 
+**Homepage URL:** `https://toufik-airane.github.io/x-zen/`
+
 ## Privacy practices
 
 **Single purpose:** Customize the desktop X.com interface to reduce distraction
@@ -46,10 +48,10 @@ package. The Open-Meteo response contains weather data only and is not executed.
 
 **Data categories to disclose:** Location; Website content.
 
-**Website-content explanation:** X.com page structure, interface labels, and the
-first five words of loaded posts are processed locally to hide selected controls
-and provide the tweet-outline navigation labels. No posts, messages, account
-details, or other page content are stored or sent.
+**Website-content explanation:** X.com page structure, interface labels, short
+post excerpts, and visible article titles are processed locally to hide selected
+controls and provide outline navigation labels. No posts, messages, account
+details, article titles, or other page content are stored or sent.
 
 **Location explanation:** Location is handled only for the opt-in weather
 feature. Rounded coordinates are sent over HTTPS to Open-Meteo and are not
