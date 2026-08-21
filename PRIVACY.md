@@ -1,6 +1,6 @@
 # x-pimp Privacy Policy
 
-Effective date: August 20, 2026
+Effective date: August 21, 2026
 
 x-pimp has one purpose: make the desktop X.com feed calmer and easier to focus
 on. It removes selected interface elements and promoted posts, centers the
@@ -9,10 +9,10 @@ feed, limits rapid refreshes, and adds optional focus tools.
 ## Data x-pimp handles
 
 - **X.com page content:** x-pimp processes X.com page structure, interface
-  labels, and the first five words of loaded posts locally in the browser. The
-  words are used only as navigation labels in the tweet outline. x-pimp does
-  not store or transmit posts, messages, account details, or other X.com
-  content.
+  labels, short text excerpts, and visible article titles locally in the
+  browser. This content is used only for interface cleanup and outline
+  navigation labels. x-pimp does not store or transmit posts, messages,
+  account details, article titles, or other X.com content.
 - **Location:** only after the user selects **Share approximate location**, the
   browser gives x-pimp the device location. x-pimp rounds latitude and
   longitude to two decimal places before sending them over HTTPS to Open-Meteo

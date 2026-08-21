@@ -13,6 +13,9 @@ const storeDescription = await readFile(
   new URL("store-assets/DESCRIPTION.txt", root),
   "utf8"
 );
+const privacyPolicy = await readFile(new URL("PRIVACY.md", root), "utf8");
+const website = await readFile(new URL("docs/index.html", root), "utf8");
+const websiteIcon = await readFile(new URL("docs/icon.svg", root), "utf8");
 
 async function assertPngDimensions(path, width, height) {
   const image = await readFile(new URL(path, root));
@@ -59,6 +62,12 @@ await assertPngDimensions("store-assets/marquee-promo.png", 1400, 560);
 assert.doesNotMatch(storeDescription, /(^|\n)\s{0,3}#{1,6}\s/m);
 assert.doesNotMatch(storeDescription, /\*\*|__|```|\[[^\]]+\]\([^)]+\)/);
 assert.match(storeDescription, /calmer and easier to focus/);
+assert.match(website, new RegExp(`Chrome extension · v${manifest.version}`));
+assert.match(website, /nonemmfagigefdfmgebidhnebidanedg/);
+assert.match(website, /href="icon\.svg"/);
+assert.match(websiteIcon, /mint calathea leaf/);
+assert.match(website, /visible article titles/);
+assert.match(privacyPolicy, /visible article titles/);
 assert.match(styles, /\[data-testid="sidebarColumn"\]/);
 assert.match(styles, /display: none !important/);
 assert.match(styles, /@keyframes x-pimp-shake/);

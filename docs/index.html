@@ -3,89 +3,243 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="Privacy policy for the x-pimp Chrome extension.">
-    <title>x-pimp Privacy Policy</title>
+    <meta name="description" content="Install x-pimp for a calmer X.com feed and read its privacy policy.">
+    <meta property="og:title" content="x-pimp — A calmer X.com feed">
+    <meta property="og:description" content="Reduce noise, keep focus tools close, and control your desktop X.com feed.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://toufik-airane.github.io/x-pimp/">
+    <link rel="icon" href="icon.svg" type="image/svg+xml">
+    <title>x-pimp — A calmer X.com feed</title>
     <style>
       :root {
         color-scheme: dark;
         font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-        background: #08090d;
-        color: #e7e9ea;
+        background: #06100d;
+        color: #f2f7f5;
+      }
+
+      * {
+        box-sizing: border-box;
       }
 
       body {
         margin: 0;
+        background:
+          radial-gradient(circle at 8% 10%, rgb(52 211 153 / 18%), transparent 34rem),
+          radial-gradient(circle at 92% 18%, rgb(255 143 163 / 10%), transparent 28rem),
+          #06100d;
       }
 
       main {
-        width: min(720px, calc(100% - 40px));
+        width: min(860px, calc(100% - 40px));
         margin: 0 auto;
-        padding: 72px 0 96px;
+        padding: 64px 0 96px;
+      }
+
+      .hero {
+        display: flex;
+        align-items: center;
+        gap: 28px;
+        margin-bottom: 44px;
+      }
+
+      .brand-mark {
+        width: 112px;
+        height: 112px;
+        border-radius: 28px;
+        box-shadow: 0 24px 70px rgb(0 0 0 / 34%);
+      }
+
+      .eyebrow {
+        margin: 0 0 8px;
+        color: #6ee7b7;
+        font-size: 13px;
+        font-weight: 750;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
       }
 
       h1 {
-        margin: 0 0 8px;
-        font-size: clamp(34px, 6vw, 54px);
-        letter-spacing: -0.04em;
+        margin: 0;
+        font-size: clamp(42px, 8vw, 72px);
+        letter-spacing: -0.055em;
+        line-height: 0.95;
       }
 
-      h2 {
-        margin-top: 42px;
+      .tagline {
+        max-width: 570px;
+        margin: 16px 0 22px;
+        color: #b8c5c0;
+        font-size: 18px;
+        line-height: 1.55;
+      }
+
+      .actions {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 12px;
+      }
+
+      .button {
+        display: inline-flex;
+        min-height: 44px;
+        align-items: center;
+        justify-content: center;
+        padding: 10px 17px;
+        border: 1px solid rgb(209 250 229 / 18%);
+        border-radius: 999px;
+        color: #e8f3ef;
+        font-weight: 700;
+        text-decoration: none;
+        transition: border-color 160ms ease, background 160ms ease, transform 160ms ease;
+      }
+
+      .button.primary {
+        border-color: #6ee7b7;
+        background: #6ee7b7;
+        color: #06100d;
+      }
+
+      .button:hover {
+        border-color: #a7f3d0;
+        background: rgb(167 243 208 / 10%);
+        transform: translateY(-1px);
+      }
+
+      .button.primary:hover {
+        background: #a7f3d0;
+      }
+
+      .button:focus-visible,
+      a:focus-visible {
+        outline: 3px solid #ff8fa3;
+        outline-offset: 3px;
+      }
+
+      .policy {
+        padding: clamp(26px, 6vw, 52px);
+        border: 1px solid rgb(209 250 229 / 13%);
+        border-radius: 28px;
+        background: rgb(7 16 13 / 78%);
+        box-shadow: 0 32px 100px rgb(0 0 0 / 24%);
+        backdrop-filter: blur(14px);
+      }
+
+      .policy h2 {
+        margin: 0 0 8px;
+        font-size: clamp(30px, 5vw, 44px);
+        letter-spacing: -0.035em;
+      }
+
+      .policy h3 {
+        margin: 38px 0 8px;
+        color: #f2f7f5;
         font-size: 21px;
       }
 
       p,
       li {
-        color: #b8bec5;
+        color: #b8c5c0;
         font-size: 16px;
-        line-height: 1.7;
+        line-height: 1.72;
+      }
+
+      li + li {
+        margin-top: 12px;
       }
 
       .date {
-        margin-bottom: 42px;
-        color: #71767b;
+        margin: 0 0 34px;
+        color: #75827d;
       }
 
       a {
-        color: #1d9bf0;
+        color: #6ee7b7;
       }
 
       strong {
-        color: #e7e9ea;
+        color: #f2f7f5;
+      }
+
+      footer {
+        padding-top: 28px;
+        color: #75827d;
+        font-size: 14px;
+        text-align: center;
+      }
+
+      @media (max-width: 620px) {
+        main {
+          padding-top: 40px;
+        }
+
+        .hero {
+          align-items: flex-start;
+          flex-direction: column;
+        }
+
+        .brand-mark {
+          width: 88px;
+          height: 88px;
+          border-radius: 22px;
+        }
+      }
+
+      @media (prefers-reduced-motion: reduce) {
+        .button {
+          transition: none;
+        }
       }
     </style>
   </head>
   <body>
     <main>
-      <h1>x-pimp Privacy Policy</h1>
-      <p class="date">Effective August 20, 2026</p>
+      <header class="hero">
+        <img class="brand-mark" src="icon.svg" width="112" height="112" alt="x-pimp calathea leaf logo">
+        <div>
+          <p class="eyebrow">Chrome extension · v1.0.7</p>
+          <h1>x-pimp</h1>
+          <p class="tagline">A calmer desktop X.com feed with less noise, a centered layout, and focused tools that stay out of your way.</p>
+          <nav class="actions" aria-label="Product links">
+            <a class="button primary" href="https://chromewebstore.google.com/detail/x-pimp/nonemmfagigefdfmgebidhnebidanedg">Install from Chrome Web Store</a>
+            <a class="button" href="https://github.com/toufik-airane/x-pimp">View source on GitHub</a>
+          </nav>
+        </div>
+      </header>
 
-      <p>x-pimp has one purpose: make the desktop X.com feed calmer and easier to focus on. It removes selected interface elements and promoted posts, centers the feed, limits rapid refreshes, and adds optional focus tools.</p>
+      <section class="policy" aria-labelledby="privacy-title">
+        <h2 id="privacy-title">Privacy Policy</h2>
+        <p class="date">Effective August 21, 2026</p>
 
-      <h2>Data x-pimp handles</h2>
-      <ul>
-        <li><strong>X.com page content:</strong> x-pimp processes X.com page structure, interface labels, and the first five words of loaded posts locally in the browser. The words are used only as navigation labels in the tweet outline. x-pimp does not store or transmit posts, messages, account details, or other X.com content.</li>
-        <li><strong>Location:</strong> only after the user selects <strong>Share approximate location</strong>, the browser gives x-pimp the device location. x-pimp rounds latitude and longitude to two decimal places before sending them over HTTPS to Open-Meteo to request local weather. x-pimp does not store the exact or rounded coordinates.</li>
-        <li><strong>Extension settings:</strong> feed width and interface preferences are stored with Chrome synchronized storage. Google can synchronize these values when Chrome Sync is enabled.</li>
-        <li><strong>Focus, sound, and weather state:</strong> the Pomodoro state, optional hourly-bell preference, and latest weather result are stored locally in Chrome. Cached weather is treated as stale after 30 minutes and is then updated while weather remains enabled. The cache contains conditions and temperatures, not coordinates. The bell is a bundled local file and makes no network request.</li>
-      </ul>
+        <p>x-pimp has one purpose: make the desktop X.com feed calmer and easier to focus on. It removes selected interface elements and promoted posts, centers the feed, limits rapid refreshes, and adds optional focus tools.</p>
 
-      <h2>Data sharing</h2>
-      <p>Rounded coordinates are sent only to Open-Meteo when the user enables or updates weather. Open-Meteo can process the request IP address and coordinates under its <a href="https://open-meteo.com/en/terms">Terms and Privacy policy</a>, which states that API server logs can be retained for up to 90 days. No other user data is sold, shared, or transferred. x-pimp has no advertising, analytics, user accounts, or developer-operated server.</p>
+        <h3>Data x-pimp handles</h3>
+        <ul>
+          <li><strong>X.com page content:</strong> x-pimp processes X.com page structure, interface labels, short text excerpts, and visible article titles locally in the browser. This content is used only for interface cleanup and outline navigation labels. x-pimp does not store or transmit posts, messages, account details, article titles, or other X.com content.</li>
+          <li><strong>Location:</strong> only after the user selects <strong>Share approximate location</strong>, the browser gives x-pimp the device location. x-pimp rounds latitude and longitude to two decimal places before sending them over HTTPS to Open-Meteo to request local weather. x-pimp does not store the exact or rounded coordinates.</li>
+          <li><strong>Extension settings:</strong> feed width and interface preferences are stored with Chrome synchronized storage. Google can synchronize these values when Chrome Sync is enabled.</li>
+          <li><strong>Focus, sound, and weather state:</strong> the Pomodoro state, optional hourly-bell preference, and latest weather result are stored locally in Chrome. Cached weather is treated as stale after 30 minutes and is then updated while weather remains enabled. The cache contains conditions and temperatures, not coordinates. The bell is a bundled local file and makes no network request.</li>
+        </ul>
 
-      <h2>Retention and deletion</h2>
-      <p>x-pimp keeps settings and feature state only in Chrome storage. Turning weather off in its card deletes the cached result and stops automatic updates. Users can delete all extension data by removing the extension or by clearing its stored data in Chrome. Open-Meteo controls its own server-log retention.</p>
+        <h3>Data sharing</h3>
+        <p>Rounded coordinates are sent only to Open-Meteo when the user enables or updates weather. Open-Meteo can process the request IP address and coordinates under its <a href="https://open-meteo.com/en/terms">Terms and Privacy policy</a>, which states that API server logs can be retained for up to 90 days. No other user data is sold, shared, or transferred. x-pimp has no advertising, analytics, user accounts, or developer-operated server.</p>
 
-      <h2>Security</h2>
-      <p>Weather requests use HTTPS. x-pimp does not execute remote code. All extension logic is included in the installed package.</p>
+        <h3>Retention and deletion</h3>
+        <p>x-pimp keeps settings and feature state only in Chrome storage. Turning weather off in its card deletes the cached result and stops automatic updates. Users can delete all extension data by removing the extension or by clearing its stored data in Chrome. Open-Meteo controls its own server-log retention.</p>
 
-      <h2>Limited Use</h2>
-      <p>The use of information received from Google APIs will adhere to the Chrome Web Store User Data Policy, including the Limited Use requirements. Data is used only to provide x-pimp's disclosed user-facing features. It is not used for advertising, credit decisions, sale, or unrelated purposes, and humans are not permitted to read user data.</p>
+        <h3>Security</h3>
+        <p>Weather requests use HTTPS. x-pimp does not execute remote code. All extension logic is included in the installed package.</p>
 
-      <h2>Changes and contact</h2>
-      <p>Material changes to these practices will be disclosed in the extension before the changed handling begins. Questions can be sent through the support contact on the x-pimp Chrome Web Store listing.</p>
+        <h3>Limited Use</h3>
+        <p>The use of information received from Google APIs will adhere to the Chrome Web Store User Data Policy, including the Limited Use requirements. Data is used only to provide x-pimp's disclosed user-facing features. It is not used for advertising, credit decisions, sale, or unrelated purposes, and humans are not permitted to read user data.</p>
 
-      <p>x-pimp is an independent extension and is not affiliated with X Corp. or Open-Meteo.</p>
+        <h3>Changes and contact</h3>
+        <p>Material changes to these practices will be disclosed in the extension before the changed handling begins. Questions can be sent through the support contact on the x-pimp Chrome Web Store listing.</p>
+
+        <p>x-pimp is an independent extension and is not affiliated with X Corp. or Open-Meteo.</p>
+      </section>
+
+      <footer>© 2026 x-pimp · Built for a quieter feed.</footer>
     </main>
   </body>
 </html>

@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 1024" role="img" aria-labelledby="title desc">
+  <title id="title">x-pimp logo</title>
+  <desc id="desc">A mint calathea leaf with a coral center vein on a dark rounded square.</desc>
+  <defs>
+    <linearGradient id="surface" x1="150" y1="80" x2="850" y2="930" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#10221D"/>
+      <stop offset="1" stop-color="#050908"/>
+    </linearGradient>
+    <linearGradient id="leaf" x1="320" y1="166" x2="704" y2="836" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#A7F3D0"/>
+      <stop offset=".52" stop-color="#5EE7B1"/>
+      <stop offset="1" stop-color="#20B981"/>
+    </linearGradient>
+  </defs>
+  <rect width="1024" height="1024" rx="232" fill="url(#surface)"/>
+  <path d="M512 846c-171-76-259-223-229-397 27-157 133-268 229-331 96 63 202 174 229 331 30 174-58 321-229 397Z" fill="url(#leaf)" fill-opacity=".72"/>
+  <g fill="none" stroke="#087254" stroke-linecap="round" stroke-width="34" opacity=".68">
+    <path d="M498 340 392 280"/><path d="M526 340 632 280"/>
+    <path d="M494 440 357 370"/><path d="M530 440 667 370"/>
+    <path d="M493 548 345 493"/><path d="M531 548 679 493"/>
+    <path d="M497 653 378 625"/><path d="M527 653 646 625"/>
+  </g>
+  <path d="M512 790c-9-185-9-391 0-611" fill="none" stroke="#FF8FA3" stroke-opacity=".86" stroke-linecap="round" stroke-width="30"/>
+  <path d="M512 790c4 38 1 74-10 108" fill="none" stroke="#6EE7B7" stroke-opacity=".82" stroke-linecap="round" stroke-width="30"/>
+</svg>
