@@ -1,11 +1,11 @@
 (function startTweetOutline() {
   "use strict";
 
-  const OUTLINE_ID = "x-pimp-outline";
+  const OUTLINE_ID = "x-zen-outline";
   const SCAN_DELAY_MS = 140;
   const DISCONNECTED_GRACE_MS = 2000;
   const TOP_READING_OFFSET_PX = 96;
-  const { getAnchorLabel } = globalThis.X_PIMP_OUTLINE_LABELS;
+  const { getAnchorLabel } = globalThis.X_ZEN_OUTLINE_LABELS;
   const entriesByKey = new Map();
   const outlineEntries = [];
   const fallbackKeys = new WeakMap();
@@ -19,7 +19,7 @@
   function isTrackable(article) {
     return (
       article.isConnected &&
-      !article.hasAttribute("data-x-pimp-ad") &&
+      !article.hasAttribute("data-x-zen-ad") &&
       Boolean(article.closest('[data-testid="primaryColumn"]'))
     );
   }
@@ -60,18 +60,18 @@
     outline.setAttribute("aria-label", "Tweet outline");
     outline.dataset.empty = "true";
     outline.innerHTML = `
-      <button type="button" class="x-pimp-outline-anchor x-pimp-outline-current" hidden>
-        <span class="x-pimp-outline-label"></span>
+      <button type="button" class="x-zen-outline-anchor x-zen-outline-current" hidden>
+        <span class="x-zen-outline-label"></span>
       </button>
-      <div class="x-pimp-outline-track"></div>
+      <div class="x-zen-outline-track"></div>
     `;
     outline
-      .querySelector(".x-pimp-outline-current")
+      .querySelector(".x-zen-outline-current")
       .addEventListener("click", () => {
         if (currentEntry) navigateToEntry(currentEntry);
       });
     outline
-      .querySelector(".x-pimp-outline-track")
+      .querySelector(".x-zen-outline-track")
       .addEventListener("scroll", scheduleActiveUpdate, { passive: true });
     document.body.append(outline);
     return outline;
@@ -82,7 +82,7 @@
       entry.article,
       entry.button.dataset.anchorNumber
     );
-    const labelElement = entry.button.querySelector(".x-pimp-outline-label");
+    const labelElement = entry.button.querySelector(".x-zen-outline-label");
     if (labelElement.textContent !== label) labelElement.textContent = label;
     entry.button.setAttribute("aria-label", `Go to post: ${label}`);
     entry.button.title = label;
@@ -107,8 +107,8 @@
   }
 
   function updateCurrentAnchor(entry) {
-    const button = document.querySelector(".x-pimp-outline-current");
-    const track = document.querySelector(".x-pimp-outline-track");
+    const button = document.querySelector(".x-zen-outline-current");
+    const track = document.querySelector(".x-zen-outline-track");
     if (!button || !track) return;
     currentEntry = entry;
     const entryIsVisible = Boolean(
@@ -121,8 +121,8 @@
     button.hidden = !entry || entryIsVisible;
     if (!entry) return;
 
-    const label = entry.button.querySelector(".x-pimp-outline-label").textContent;
-    button.querySelector(".x-pimp-outline-label").textContent = label;
+    const label = entry.button.querySelector(".x-zen-outline-label").textContent;
+    button.querySelector(".x-zen-outline-label").textContent = label;
     button.setAttribute("aria-label", `Current post: ${label}`);
     button.title = label;
     button.dataset.active = "true";
@@ -141,10 +141,10 @@
     const button = document.createElement("button");
     entry.button = button;
     button.type = "button";
-    button.className = "x-pimp-outline-anchor";
+    button.className = "x-zen-outline-anchor";
     button.dataset.anchorNumber = String(anchorNumber);
     const label = document.createElement("span");
-    label.className = "x-pimp-outline-label";
+    label.className = "x-zen-outline-label";
     button.append(label);
     updateAnchorLabel(entry);
     rememberPosition(entry);
@@ -186,7 +186,7 @@
       }
     }
 
-    for (const button of document.querySelectorAll(".x-pimp-outline-anchor")) {
+    for (const button of document.querySelectorAll(".x-zen-outline-anchor")) {
       const active = button === nearestButton;
       button.dataset.active = String(active);
       if (active) button.setAttribute("aria-current", "true");
@@ -244,7 +244,7 @@
     let nextCleanupDelay = Number.POSITIVE_INFINITY;
     const now = Date.now();
     for (const entry of [...outlineEntries]) {
-      if (entry.article?.hasAttribute("data-x-pimp-ad")) {
+      if (entry.article?.hasAttribute("data-x-zen-ad")) {
         removeEntry(entry);
         continue;
       }
@@ -263,7 +263,7 @@
       );
     }
 
-    const track = outline.querySelector(".x-pimp-outline-track");
+    const track = outline.querySelector(".x-zen-outline-track");
     const orderedButtons = outlineEntries.map((entry) => entry.button);
     const currentButtons = [...track.children];
     if (
@@ -275,7 +275,7 @@
 
     outline.dataset.empty = String(outlineEntries.length === 0);
     outline.style.setProperty(
-      "--x-pimp-outline-count",
+      "--x-zen-outline-count",
       String(currentEntries.length)
     );
     updateActiveAnchor();
@@ -290,7 +290,7 @@
   const observer = new MutationObserver(scheduleScan);
   observer.observe(document.documentElement, {
     attributes: true,
-    attributeFilter: ["data-x-pimp-ad"],
+    attributeFilter: ["data-x-zen-ad"],
     childList: true,
     subtree: true
   });

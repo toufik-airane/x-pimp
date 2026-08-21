@@ -2,7 +2,7 @@
 
 ## Product details
 
-**Name:** x-pimp
+**Name:** x-zen
 
 **Category:** Productivity
 
@@ -53,10 +53,10 @@ details, or other page content are stored or sent.
 
 **Location explanation:** Location is handled only for the opt-in weather
 feature. Rounded coordinates are sent over HTTPS to Open-Meteo and are not
-stored by x-pimp. Turning weather off deletes its cache and stops updates.
+stored by x-zen. Turning weather off deletes its cache and stops updates.
 
 Certify every Limited Use statement. Use
-`https://toufik-airane.github.io/x-pimp/` for the privacy-policy field.
+`https://toufik-airane.github.io/x-zen/` for the privacy-policy field.
 
 ## Distribution
 

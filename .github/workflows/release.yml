@@ -42,8 +42,8 @@ jobs:
             exit 1
           fi
           echo "version=${version}" >> "${GITHUB_OUTPUT}"
-          echo "zip=dist/x-pimp-${version}.zip" >> "${GITHUB_OUTPUT}"
-          echo "checksum=dist/x-pimp-${version}.sha256" >> "${GITHUB_OUTPUT}"
+          echo "zip=dist/x-zen-${version}.zip" >> "${GITHUB_OUTPUT}"
+          echo "checksum=dist/x-zen-${version}.sha256" >> "${GITHUB_OUTPUT}"
 
       - name: Verify the annotated tag signature
         shell: bash
@@ -93,7 +93,7 @@ jobs:
           unzip -t "${ZIP_FILE}"
           (
             cd dist
-            sha256sum "x-pimp-${VERSION}.zip"
+            sha256sum "x-zen-${VERSION}.zip"
           ) > "${CHECKSUM_FILE}"
 
       - name: Publish GitHub release
@@ -109,12 +109,12 @@ jobs:
             "${CHECKSUM_FILE}" \
             --generate-notes \
             --repo "${GITHUB_REPOSITORY}" \
-            --title "x-pimp ${{ steps.release.outputs.version }}" \
+            --title "x-zen ${{ steps.release.outputs.version }}" \
             --verify-tag
 
       - name: Write job summary
         env:
           VERSION: ${{ steps.release.outputs.version }}
         run: |
-          echo "Released x-pimp ${VERSION}." >> "${GITHUB_STEP_SUMMARY}"
+          echo "Released x-zen ${VERSION}." >> "${GITHUB_STEP_SUMMARY}"
           echo "Tag: ${GITHUB_REF_NAME}" >> "${GITHUB_STEP_SUMMARY}"

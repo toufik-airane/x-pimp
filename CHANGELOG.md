@@ -1,7 +1,16 @@
 # Changelog
 
-All notable changes to x-pimp are documented here. Versions follow
+All notable changes to x-zen are documented here. Versions follow
 [Semantic Versioning](https://semver.org/).
+
+## 1.0.8 — 2026-08-21
+
+- Completed the x-zen brand rollout across the extension interface, internal
+  namespaces, documentation, website, release artifacts, and store assets.
+- Rebuilt the promotional tiles with the x-zen name and aligned public links
+  with the renamed repository and GitHub Pages site.
+- Recreated extension-owned alarms under the x-zen namespace during upgrades so
+  obsolete scheduled entries cannot remain active.
 
 ## 1.0.7 — 2026-08-21
 
@@ -29,7 +38,7 @@ All notable changes to x-pimp are documented here. Versions follow
 
 - Hide the plant background, focus gadgets, outline, floating controls, and
   moved account control while X displays a photo or video viewer.
-- Restore the normal x-pimp canvas and controls when the media viewer closes.
+- Restore the normal x-zen canvas and controls when the media viewer closes.
 
 ## 1.0.4 — 2026-08-20
 

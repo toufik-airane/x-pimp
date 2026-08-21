@@ -1,20 +1,20 @@
-(function startXPimp() {
+(function startXZen() {
   "use strict";
 
-  const { defaults, sanitize, storageKey } = globalThis.X_PIMP;
+  const { defaults, sanitize, storageKey } = globalThis.X_ZEN;
   const HOME_COOLDOWN_MS = 6000;
   const BACKGROUND_ASSET_PATH = "assets/backgrounds/peaceful-plants.jpg";
   const HOME_LINK_SELECTOR =
     'a[data-testid="AppTabBar_Home_Link"], a[href="/home"][role="link"]';
-  const HOME_BUTTON_ID = "x-pimp-home";
-  const REFRESH_BUTTON_ID = "x-pimp-refresh";
+  const HOME_BUTTON_ID = "x-zen-home";
+  const REFRESH_BUTTON_ID = "x-zen-refresh";
   const REFRESH_COOLDOWN_KEY = "refreshCooldownUntil";
   const CORE_INTERFACE_SELECTORS = Object.freeze([
-    "#x-pimp-refresh",
-    "#x-pimp-home",
-    "#x-pimp-sound",
-    "#x-pimp-pomodoro",
-    "#x-pimp-weather"
+    "#x-zen-refresh",
+    "#x-zen-home",
+    "#x-zen-sound",
+    "#x-zen-pomodoro",
+    "#x-zen-weather"
   ]);
   const UI_REVEAL_FALLBACK_MS = 1000;
   const MEDIA_VIEWER_PATH_PATTERN =
@@ -66,15 +66,15 @@
 
   function applySettings(value) {
     const settings = sanitize(value);
-    document.documentElement.dataset.xPimpHideRightRail = String(
+    document.documentElement.dataset.xZenHideRightRail = String(
       settings.hideRightRail
     );
     document.documentElement.style.setProperty(
-      "--x-pimp-feed-width",
+      "--x-zen-feed-width",
       `${settings.feedWidth}px`
     );
     document.documentElement.style.setProperty(
-      "--x-pimp-peaceful-background",
+      "--x-zen-peaceful-background",
       `url("${chrome.runtime.getURL(BACKGROUND_ASSET_PATH)}")`
     );
   }
@@ -83,14 +83,14 @@
     const mediaViewerOpen =
       MEDIA_VIEWER_PATH_PATTERN.test(location.pathname) ||
       Boolean(document.querySelector(MEDIA_VIEWER_SELECTOR));
-    document.documentElement.dataset.xPimpMediaViewer = String(mediaViewerOpen);
+    document.documentElement.dataset.xZenMediaViewer = String(mediaViewerOpen);
   }
 
   function shakeButton(button) {
-    button.classList.remove("x-pimp-shake");
+    button.classList.remove("x-zen-shake");
     void button.offsetWidth;
-    button.classList.add("x-pimp-shake");
-    window.setTimeout(() => button.classList.remove("x-pimp-shake"), 450);
+    button.classList.add("x-zen-shake");
+    window.setTimeout(() => button.classList.remove("x-zen-shake"), 450);
   }
 
   function showCooldown(trigger) {
@@ -191,7 +191,7 @@
   }
 
   function revealInterface() {
-    if (document.documentElement.dataset.xPimpUiReady === "true") return;
+    if (document.documentElement.dataset.xZenUiReady === "true") return;
     window.clearTimeout(revealFallbackTimer);
     revealFallbackTimer = undefined;
     window.clearInterval(interfaceReadyTimer);
@@ -200,13 +200,13 @@
     revealFrame = window.requestAnimationFrame(() => {
       revealFrame = window.requestAnimationFrame(() => {
         revealFrame = undefined;
-        document.documentElement.dataset.xPimpUiReady = "true";
+        document.documentElement.dataset.xZenUiReady = "true";
       });
     });
   }
 
   function scheduleInterfaceReveal() {
-    if (document.documentElement.dataset.xPimpUiReady === "true") return;
+    if (document.documentElement.dataset.xZenUiReady === "true") return;
     const primaryColumn = document.querySelector('[data-testid="primaryColumn"]');
     const coreReady = CORE_INTERFACE_SELECTORS.every((selector) =>
       document.querySelector(selector)
@@ -263,7 +263,7 @@
   }
 
   function clickPomodoroControl(selector) {
-    const control = document.querySelector(`#x-pimp-pomodoro ${selector}`);
+    const control = document.querySelector(`#x-zen-pomodoro ${selector}`);
     if (!control) return false;
     control.click();
     return true;
@@ -291,7 +291,7 @@
         handled = true;
       }
     } else if (event.code === "KeyP") {
-      handled = clickPomodoroControl(".x-pimp-pomodoro-toggle");
+      handled = clickPomodoroControl(".x-zen-pomodoro-toggle");
     } else {
       const duration = POMODORO_DURATION_BY_CODE[event.code];
       if (duration) {
@@ -314,7 +314,7 @@
           AD_LABELS.has(span.textContent.trim()) &&
           !span.closest('[data-testid="tweetText"], [data-testid="User-Name"]')
       );
-      article.toggleAttribute("data-x-pimp-ad", isAd);
+      article.toggleAttribute("data-x-zen-ad", isAd);
     }
   }
 

@@ -1,4 +1,20 @@
-import { execFileSync } from "node:child_process";
+import { execFileSync, spawnSync } from "node:child_process";
+
+const retiredBrandScan = spawnSync(
+  "git",
+  ["grep", "-I", "-n", "-i", "-E", "x[-_ ]?pimp", "--", "."],
+  { encoding: "utf8" }
+);
+if (retiredBrandScan.status === 0) {
+  throw new Error(
+    `Retired brand reference found:\n${retiredBrandScan.stdout.trim()}`
+  );
+}
+if (retiredBrandScan.status !== 1) {
+  throw new Error(
+    `Could not scan for retired brand references:\n${retiredBrandScan.stderr.trim()}`
+  );
+}
 
 const sourceFiles = [
   "shared.js",
@@ -34,4 +50,4 @@ execFileSync(process.execPath, ["scripts/test-offscreen.mjs"], {
 execFileSync(process.execPath, ["scripts/test-outline-label.mjs"], {
   stdio: "inherit"
 });
-console.log("x-pimp verification passed.");
+console.log("x-zen verification passed.");

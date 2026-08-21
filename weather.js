@@ -16,8 +16,8 @@
     if (positionFrame !== undefined) return;
     positionFrame = window.requestAnimationFrame(() => {
       positionFrame = undefined;
-      const pomodoro = document.querySelector("#x-pimp-pomodoro");
-      const weather = document.querySelector("#x-pimp-weather");
+      const pomodoro = document.querySelector("#x-zen-pomodoro");
+      const weather = document.querySelector("#x-zen-weather");
       if (!pomodoro || !weather) return;
       weather.style.top = `${
         pomodoro.getBoundingClientRect().bottom + WIDGET_GAP_PX
@@ -26,7 +26,7 @@
   }
 
   function observeWidgetPosition() {
-    const pomodoro = document.querySelector("#x-pimp-pomodoro");
+    const pomodoro = document.querySelector("#x-zen-pomodoro");
     if (!pomodoro) return false;
     if (pomodoro !== observedPomodoro) {
       widgetResizeObserver ??= new ResizeObserver(scheduleWidgetPosition);
@@ -74,21 +74,21 @@
   }
 
   function render(message = "") {
-    const widget = document.querySelector("#x-pimp-weather");
+    const widget = document.querySelector("#x-zen-weather");
     if (!widget) return;
 
     const data = weatherState.data;
     widget.dataset.loading = String(loading);
-    widget.querySelector(".x-pimp-weather-consent").hidden = Boolean(data);
-    widget.querySelector(".x-pimp-weather-current").hidden = !data;
-    widget.querySelector(".x-pimp-weather-disable").hidden = !weatherState.enabled;
-    widget.querySelector(".x-pimp-weather-status").textContent =
+    widget.querySelector(".x-zen-weather-consent").hidden = Boolean(data);
+    widget.querySelector(".x-zen-weather-current").hidden = !data;
+    widget.querySelector(".x-zen-weather-disable").hidden = !weatherState.enabled;
+    widget.querySelector(".x-zen-weather-status").textContent =
       message || (loading ? "Updating" : data ? relativeUpdateTime(data.updatedAt) : "Opt in");
 
     if (data) {
-      widget.querySelector(".x-pimp-weather-temperature").textContent = `${Math.round(data.temperature)}°`;
-      widget.querySelector(".x-pimp-weather-condition").textContent = describeWeather(data.weatherCode);
-      widget.querySelector(".x-pimp-weather-range").textContent =
+      widget.querySelector(".x-zen-weather-temperature").textContent = `${Math.round(data.temperature)}°`;
+      widget.querySelector(".x-zen-weather-condition").textContent = describeWeather(data.weatherCode);
+      widget.querySelector(".x-zen-weather-range").textContent =
         `H ${Math.round(data.high)}°  L ${Math.round(data.low)}°  Feels ${Math.round(data.apparentTemperature)}°`;
     }
   }
@@ -151,35 +151,35 @@
 
   function ensureWidget() {
     if (!document.body) return false;
-    if (document.querySelector("#x-pimp-weather")) return true;
+    if (document.querySelector("#x-zen-weather")) return true;
 
     const widget = document.createElement("aside");
-    widget.id = "x-pimp-weather";
+    widget.id = "x-zen-weather";
     widget.setAttribute("aria-label", "Local weather");
     widget.innerHTML = `
-      <div class="x-pimp-weather-heading">
+      <div class="x-zen-weather-heading">
         <strong>Weather</strong>
-        <button type="button" class="x-pimp-weather-update" aria-label="Update local weather">↻</button>
+        <button type="button" class="x-zen-weather-update" aria-label="Update local weather">↻</button>
       </div>
-      <div class="x-pimp-weather-consent">
-        <p>Your browser provides your location. x-pimp rounds it, then sends it to Open-Meteo for current conditions. x-pimp does not store your coordinates.</p>
-        <button type="button" class="x-pimp-weather-enable">Share approximate location</button>
+      <div class="x-zen-weather-consent">
+        <p>Your browser provides your location. x-zen rounds it, then sends it to Open-Meteo for current conditions. x-zen does not store your coordinates.</p>
+        <button type="button" class="x-zen-weather-enable">Share approximate location</button>
       </div>
-      <div class="x-pimp-weather-current" hidden>
-        <div class="x-pimp-weather-temperature">--°</div>
-        <div class="x-pimp-weather-condition">Unavailable</div>
-        <div class="x-pimp-weather-range"></div>
+      <div class="x-zen-weather-current" hidden>
+        <div class="x-zen-weather-temperature">--°</div>
+        <div class="x-zen-weather-condition">Unavailable</div>
+        <div class="x-zen-weather-range"></div>
       </div>
-      <div class="x-pimp-weather-footer">
-        <span class="x-pimp-weather-status">Opt in</span>
-        <button type="button" class="x-pimp-weather-disable" hidden>Turn off</button>
+      <div class="x-zen-weather-footer">
+        <span class="x-zen-weather-status">Opt in</span>
+        <button type="button" class="x-zen-weather-disable" hidden>Turn off</button>
         <a href="https://open-meteo.com/" target="_blank" rel="noreferrer">Open-Meteo</a>
       </div>
     `;
     widget.addEventListener("click", (event) => {
-      if (event.target.closest?.(".x-pimp-weather-disable")) {
+      if (event.target.closest?.(".x-zen-weather-disable")) {
         disableWeather();
-      } else if (event.target.closest?.(".x-pimp-weather-enable, .x-pimp-weather-update")) {
+      } else if (event.target.closest?.(".x-zen-weather-enable, .x-zen-weather-update")) {
         updateWeather();
       }
     });

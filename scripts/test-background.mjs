@@ -11,7 +11,7 @@ const listeners = {
 };
 const calls = {
   alarmCreate: [],
-  alarmClear: [],
+  alarmClearAll: 0,
   messages: [],
   offscreenCreate: 0
 };
@@ -28,8 +28,8 @@ function event(name) {
 
 const chrome = {
   alarms: {
-    async clear(...args) {
-      calls.alarmClear.push(args);
+    async clearAll() {
+      calls.alarmClearAll += 1;
     },
     async create(...args) {
       calls.alarmCreate.push(args);
@@ -80,9 +80,9 @@ function flushTasks() {
 
 vm.runInContext(background, context);
 await flushTasks();
-assert.equal(calls.alarmClear.length, 1, "the bell must default to disabled");
+assert.equal(calls.alarmClearAll, 1, "startup must remove obsolete alarms");
 
-listeners.message[0]({ type: "x-pimp-preview-hourly-bell" });
+listeners.message[0]({ type: "x-zen-preview-hourly-bell" });
 await flushTasks();
 assert.equal(
   calls.offscreenCreate,
@@ -94,37 +94,37 @@ bellEnabled = true;
 listeners.storage[0]({ hourlyBellEnabled: { newValue: true } }, "local");
 await flushTasks();
 const [alarmName, alarmOptions] = calls.alarmCreate.at(-1);
-assert.equal(alarmName, "x-pimp-hourly-bell");
+assert.equal(alarmName, "x-zen-hourly-bell");
 assert.equal(alarmOptions.periodInMinutes, 60);
 assert.equal(alarmOptions.when, Date.UTC(2026, 7, 20, 19));
 
-listeners.message[0]({ type: "x-pimp-preview-hourly-bell" });
+listeners.message[0]({ type: "x-zen-preview-hourly-bell" });
 await flushTasks();
 await flushTasks();
 assert.equal(calls.offscreenCreate, 1);
 assert.ok(
-  calls.messages.some((message) => message.type === "x-pimp-play-hourly-bell")
+  calls.messages.some((message) => message.type === "x-zen-play-hourly-bell")
 );
 
 bellEnabled = false;
 listeners.storage[0]({ hourlyBellEnabled: { newValue: false } }, "local");
 await flushTasks();
 assert.ok(
-  calls.messages.some((message) => message.type === "x-pimp-stop-hourly-bell")
+  calls.messages.some((message) => message.type === "x-zen-stop-hourly-bell")
 );
 
 const playMessagesAfterDisable = calls.messages.filter(
-  (message) => message.type === "x-pimp-play-hourly-bell"
+  (message) => message.type === "x-zen-play-hourly-bell"
 ).length;
-listeners.message[0]({ type: "x-pimp-preview-hourly-bell" });
-listeners.alarm[0]({ name: "x-pimp-hourly-bell" });
+listeners.message[0]({ type: "x-zen-preview-hourly-bell" });
+listeners.alarm[0]({ name: "x-zen-hourly-bell" });
 await flushTasks();
 assert.equal(
   calls.messages.filter(
-    (message) => message.type === "x-pimp-play-hourly-bell"
+    (message) => message.type === "x-zen-play-hourly-bell"
   ).length,
   playMessagesAfterDisable,
   "disabled preview and alarm events must not play audio"
 );
 
-console.log("x-pimp background tests passed.");
+console.log("x-zen background tests passed.");

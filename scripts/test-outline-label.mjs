@@ -8,7 +8,7 @@ const source = await readFile(
 );
 const context = vm.createContext({ globalThis: {} });
 vm.runInContext(source, context);
-const { getAnchorLabel } = context.globalThis.X_PIMP_OUTLINE_LABELS;
+const { getAnchorLabel } = context.globalThis.X_ZEN_OUTLINE_LABELS;
 
 function createArticle(selectors = {}, cardCandidates = []) {
   const articleCard = {
@@ -51,4 +51,4 @@ assert.equal(
 );
 assert.equal(getAnchorLabel(createArticle(), 3), "Media post 3");
 
-console.log("x-pimp outline label tests passed.");
+console.log("x-zen outline label tests passed.");

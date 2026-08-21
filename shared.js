@@ -1,4 +1,4 @@
-(function defineXPimpSettings(global) {
+(function defineXZenSettings(global) {
   "use strict";
 
   const defaults = Object.freeze({
@@ -43,7 +43,7 @@
     });
   }
 
-  global.X_PIMP = Object.freeze({
+  global.X_ZEN = Object.freeze({
     createCooldown,
     defaults,
     normalizeFeedWidth,

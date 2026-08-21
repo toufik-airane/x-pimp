@@ -60,12 +60,12 @@ function flushTasks() {
   return new Promise((resolve) => setImmediate(resolve));
 }
 
-listeners.message[0]({ type: "x-pimp-play-hourly-bell" });
+listeners.message[0]({ type: "x-zen-play-hourly-bell" });
 await flushTasks();
 assert.equal(calls.play, 0, "disabled sound must block playback");
 
 bellEnabled = true;
-listeners.message[0]({ type: "x-pimp-play-hourly-bell" });
+listeners.message[0]({ type: "x-zen-play-hourly-bell" });
 await flushTasks();
 assert.equal(calls.play, 1, "enabled sound must allow playback");
 
@@ -77,7 +77,7 @@ assert.equal(calls.pause, pausesBeforeDisable + 1, "disabling must stop audio");
 bellEnabled = true;
 deferNextGet = true;
 const playsBeforeRace = calls.play;
-listeners.message[0]({ type: "x-pimp-play-hourly-bell" });
+listeners.message[0]({ type: "x-zen-play-hourly-bell" });
 await flushTasks();
 bellEnabled = false;
 listeners.storage[0]({ hourlyBellEnabled: { newValue: false } }, "local");
@@ -89,4 +89,4 @@ assert.equal(
   "a stale enabled read must not play after sound is disabled"
 );
 
-console.log("x-pimp offscreen audio tests passed.");
+console.log("x-zen offscreen audio tests passed.");

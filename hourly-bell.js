@@ -1,9 +1,9 @@
 (function startHourlyBellToggle() {
   "use strict";
 
-  const BUTTON_ID = "x-pimp-sound";
+  const BUTTON_ID = "x-zen-sound";
   const ENABLED_KEY = "hourlyBellEnabled";
-  const PREVIEW_MESSAGE = "x-pimp-preview-hourly-bell";
+  const PREVIEW_MESSAGE = "x-zen-preview-hourly-bell";
   let enabled = false;
 
   function render(button) {
@@ -26,7 +26,7 @@
       try {
         await chrome.runtime.sendMessage({ type: PREVIEW_MESSAGE });
       } catch (error) {
-        console.error("x-pimp could not play the bell preview", error);
+        console.error("x-zen could not play the bell preview", error);
       }
     }
   }
@@ -43,8 +43,8 @@
     button.innerHTML = `
       <svg aria-hidden="true" viewBox="0 0 24 24">
         <path d="M3 9v6h4l5 4V5L7 9H3Z"/>
-        <path class="x-pimp-sound-waves" d="M15.2 8.4a1 1 0 0 1 1.4 0 5.1 5.1 0 0 1 0 7.2 1 1 0 1 1-1.4-1.4 3.1 3.1 0 0 0 0-4.4 1 1 0 0 1 0-1.4Zm3-3a1 1 0 0 1 1.4 0 9.3 9.3 0 0 1 0 13.2 1 1 0 1 1-1.4-1.4 7.3 7.3 0 0 0 0-10.4 1 1 0 0 1 0-1.4Z"/>
-        <path class="x-pimp-sound-slash" d="m4 4 16 16" fill="none" stroke="currentColor" stroke-linecap="round" stroke-width="2"/>
+        <path class="x-zen-sound-waves" d="M15.2 8.4a1 1 0 0 1 1.4 0 5.1 5.1 0 0 1 0 7.2 1 1 0 1 1-1.4-1.4 3.1 3.1 0 0 0 0-4.4 1 1 0 0 1 0-1.4Zm3-3a1 1 0 0 1 1.4 0 9.3 9.3 0 0 1 0 13.2 1 1 0 1 1-1.4-1.4 7.3 7.3 0 0 0 0-10.4 1 1 0 0 1 0-1.4Z"/>
+        <path class="x-zen-sound-slash" d="m4 4 16 16" fill="none" stroke="currentColor" stroke-linecap="round" stroke-width="2"/>
       </svg>
     `;
     button.addEventListener("click", () => {

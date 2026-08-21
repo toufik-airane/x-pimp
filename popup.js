@@ -1,7 +1,7 @@
 (function startPopup() {
   "use strict";
 
-  const { defaults, sanitize, storageKey } = globalThis.X_PIMP;
+  const { defaults, sanitize, storageKey } = globalThis.X_ZEN;
   const toggle = document.querySelector("#hide-right-rail");
   const feedWidth = document.querySelector("#feed-width");
   const feedWidthValue = document.querySelector("#feed-width-value");

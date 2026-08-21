@@ -57,10 +57,10 @@
 
   function renderClock(widget) {
     const now = new Date();
-    const clock = widget.querySelector(".x-pimp-clock-time");
+    const clock = widget.querySelector(".x-zen-clock-time");
     clock.dateTime = now.toISOString();
     clock.textContent = CLOCK_FORMATTER.format(now);
-    widget.querySelector(".x-pimp-clock-date").textContent =
+    widget.querySelector(".x-zen-clock-date").textContent =
       DATE_FORMATTER.format(now);
   }
 
@@ -69,19 +69,19 @@
   }
 
   function render() {
-    const widget = document.querySelector("#x-pimp-pomodoro");
+    const widget = document.querySelector("#x-zen-pomodoro");
     if (!widget) return;
 
     const remainingMs = getRemainingMs();
     const complete = remainingMs === 0;
     renderClock(widget);
-    widget.querySelector(".x-pimp-pomodoro-time").textContent = formatTime(remainingMs);
-    widget.querySelector(".x-pimp-pomodoro-status").textContent = complete
+    widget.querySelector(".x-zen-pomodoro-time").textContent = formatTime(remainingMs);
+    widget.querySelector(".x-zen-pomodoro-status").textContent = complete
       ? "Done"
       : state.running
         ? "Focusing"
         : "Ready";
-    widget.querySelector(".x-pimp-pomodoro-toggle").textContent = state.running
+    widget.querySelector(".x-zen-pomodoro-toggle").textContent = state.running
       ? "Pause"
       : complete
         ? "Restart"
@@ -137,31 +137,31 @@
 
   function ensureWidget() {
     if (!document.body) return false;
-    if (document.querySelector("#x-pimp-pomodoro")) return true;
+    if (document.querySelector("#x-zen-pomodoro")) return true;
 
     const widget = document.createElement("aside");
-    widget.id = "x-pimp-pomodoro";
+    widget.id = "x-zen-pomodoro";
     widget.setAttribute("aria-label", "Focus timer");
     widget.innerHTML = `
-      <div class="x-pimp-clock">
-        <time class="x-pimp-clock-time"></time>
-        <span class="x-pimp-clock-date"></span>
+      <div class="x-zen-clock">
+        <time class="x-zen-clock-time"></time>
+        <span class="x-zen-clock-date"></span>
       </div>
-      <div class="x-pimp-pomodoro-heading">
+      <div class="x-zen-pomodoro-heading">
         <strong>Focus</strong>
-        <span class="x-pimp-pomodoro-status">Ready</span>
+        <span class="x-zen-pomodoro-status">Ready</span>
       </div>
-      <time class="x-pimp-pomodoro-time" datetime="PT15M">15:00</time>
-      <div class="x-pimp-pomodoro-presets" aria-label="Focus duration">
+      <time class="x-zen-pomodoro-time" datetime="PT15M">15:00</time>
+      <div class="x-zen-pomodoro-presets" aria-label="Focus duration">
         <button type="button" data-minutes="15" aria-pressed="true" aria-keyshortcuts="Alt+1" title="15 minutes (Alt/Option + 1)">15</button>
         <button type="button" data-minutes="30" aria-pressed="false" aria-keyshortcuts="Alt+2" title="30 minutes (Alt/Option + 2)">30</button>
         <button type="button" data-minutes="45" aria-pressed="false" aria-keyshortcuts="Alt+3" title="45 minutes (Alt/Option + 3)">45</button>
       </div>
-      <div class="x-pimp-pomodoro-actions">
-        <button type="button" class="x-pimp-pomodoro-reset">Reset</button>
-        <button type="button" class="x-pimp-pomodoro-toggle" aria-keyshortcuts="Alt+P" title="Start or pause (Alt/Option + P)">Start</button>
+      <div class="x-zen-pomodoro-actions">
+        <button type="button" class="x-zen-pomodoro-reset">Reset</button>
+        <button type="button" class="x-zen-pomodoro-toggle" aria-keyshortcuts="Alt+P" title="Start or pause (Alt/Option + P)">Start</button>
       </div>
-      <div class="x-pimp-shortcut-hint" aria-label="Keyboard shortcuts">
+      <div class="x-zen-shortcut-hint" aria-label="Keyboard shortcuts">
         ⌥R refresh · ⌥P timer<br>⌥1/2/3 length
       </div>
     `;
@@ -170,9 +170,9 @@
       const duration = event.target.closest?.("[data-minutes]");
       if (duration) {
         chooseDuration(Number(duration.dataset.minutes));
-      } else if (event.target.closest?.(".x-pimp-pomodoro-toggle")) {
+      } else if (event.target.closest?.(".x-zen-pomodoro-toggle")) {
         toggleTimer();
-      } else if (event.target.closest?.(".x-pimp-pomodoro-reset")) {
+      } else if (event.target.closest?.(".x-zen-pomodoro-reset")) {
         resetTimer();
       }
     });

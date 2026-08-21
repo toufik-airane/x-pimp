@@ -1,4 +1,4 @@
-x-pimp makes the desktop X.com feed calmer and easier to focus on.
+x-zen makes the desktop X.com feed calmer and easier to focus on.
 
 WHAT IT CHANGES
 
@@ -8,14 +8,14 @@ WHAT IT CHANGES
 • Adds a local clock and a persistent 15, 30, or 45-minute Pomodoro timer.
 • Adds optional local weather and an optional hourly singing-bowl bell.
 • Adds a compact post outline for navigation. Article posts use their visible article title.
-• Hides x-pimp controls while you view photos or videos.
+• Hides x-zen controls while you view photos or videos.
 
 PRIVACY FIRST
 
 • No analytics, advertising, accounts, or developer server.
 • X.com content is processed only in your browser and is not retained or sent.
 • Weather is off until you opt in.
-• Coordinates are rounded before the weather request and are never stored by x-pimp.
+• Coordinates are rounded before the weather request and are never stored by x-zen.
 • The hourly sound is disabled by default and uses only a bundled audio file.
 
-x-pimp is an independent extension and is not affiliated with X Corp. or Open-Meteo.
+x-zen is an independent extension and is not affiliated with X Corp. or Open-Meteo.

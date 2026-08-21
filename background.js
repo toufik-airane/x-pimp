@@ -2,10 +2,10 @@
   "use strict";
 
   const ENABLED_KEY = "hourlyBellEnabled";
-  const ALARM_NAME = "x-pimp-hourly-bell";
-  const PLAY_MESSAGE = "x-pimp-play-hourly-bell";
-  const STOP_MESSAGE = "x-pimp-stop-hourly-bell";
-  const PREVIEW_MESSAGE = "x-pimp-preview-hourly-bell";
+  const ALARM_NAME = "x-zen-hourly-bell";
+  const PLAY_MESSAGE = "x-zen-play-hourly-bell";
+  const STOP_MESSAGE = "x-zen-stop-hourly-bell";
+  const PREVIEW_MESSAGE = "x-zen-preview-hourly-bell";
   const OFFSCREEN_DOCUMENT_PATH = "offscreen.html";
   const HOUR_MS = 60 * 60 * 1000;
   let offscreenCreation;
@@ -16,21 +16,19 @@
 
   function runSafely(task, action) {
     void task.catch((error) => {
-      console.error(`x-pimp could not ${action}`, error);
+      console.error(`x-zen could not ${action}`, error);
     });
   }
 
   async function syncAlarm() {
     const result = await chrome.storage.local.get(ENABLED_KEY);
+    await chrome.alarms.clearAll();
     if (result[ENABLED_KEY] === true) {
       await chrome.alarms.create(ALARM_NAME, {
         periodInMinutes: 60,
         when: getNextHour()
       });
-      return;
     }
-
-    await chrome.alarms.clear(ALARM_NAME);
   }
 
   function getOffscreenContexts() {

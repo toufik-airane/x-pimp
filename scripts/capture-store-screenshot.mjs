@@ -57,7 +57,7 @@ for (let attempt = 0; attempt < 100; attempt += 1) {
   const result = await send("Runtime.evaluate", {
     expression: `({
       article: Boolean(document.querySelector('article[data-testid="tweet"]')),
-      uiReady: document.documentElement.dataset.xPimpUiReady === "true"
+      uiReady: document.documentElement.dataset.xZenUiReady === "true"
     })`,
     returnByValue: true
   });
@@ -67,26 +67,26 @@ for (let attempt = 0; attempt < 100; attempt += 1) {
 await send("Runtime.evaluate", {
   expression: `(() => {
     window.scrollTo({ left: 0, top: 0, behavior: "instant" });
-    document.documentElement.dataset.xPimpStoreCapture = "true";
+    document.documentElement.dataset.xZenStoreCapture = "true";
     const style = document.createElement("style");
-    style.id = "x-pimp-store-capture-privacy";
+    style.id = "x-zen-store-capture-privacy";
     style.textContent = \`
-      html[data-x-pimp-store-capture="true"] article > *,
-      html[data-x-pimp-store-capture="true"] header[role="banner"] img,
-      html[data-x-pimp-store-capture="true"] main img { opacity: 0 !important; }
-      html[data-x-pimp-store-capture="true"] [data-testid*="UserAvatar-Container"] {
+      html[data-x-zen-store-capture="true"] article > *,
+      html[data-x-zen-store-capture="true"] header[role="banner"] img,
+      html[data-x-zen-store-capture="true"] main img { opacity: 0 !important; }
+      html[data-x-zen-store-capture="true"] [data-testid*="UserAvatar-Container"] {
         background: rgb(63 63 70) !important;
         border-radius: 999px !important;
       }
-      html[data-x-pimp-store-capture="true"] [data-testid*="UserAvatar-Container"] > * {
+      html[data-x-zen-store-capture="true"] [data-testid*="UserAvatar-Container"] > * {
         visibility: hidden !important;
       }
-      html[data-x-pimp-store-capture="true"] article {
+      html[data-x-zen-store-capture="true"] article {
         min-height: 210px !important;
         overflow: hidden !important;
         position: relative !important;
       }
-      html[data-x-pimp-store-capture="true"] article::before {
+      html[data-x-zen-store-capture="true"] article::before {
         background:
           radial-gradient(circle at 36px 36px, rgb(110 231 183 / 22%) 0 21px, transparent 22px),
           linear-gradient(rgb(231 233 234 / 16%) 0 0) 78px 19px / 150px 12px no-repeat,
@@ -99,21 +99,21 @@ await send("Runtime.evaluate", {
         inset: 18px 22px;
         position: absolute;
       }
-      html[data-x-pimp-store-capture="true"] .x-pimp-outline-label {
+      html[data-x-zen-store-capture="true"] .x-zen-outline-label {
         color: transparent !important;
         position: relative !important;
       }
-      html[data-x-pimp-store-capture="true"] .x-pimp-outline-label::after {
+      html[data-x-zen-store-capture="true"] .x-zen-outline-label::after {
         color: rgb(231 233 234 / 62%) !important;
         content: "A quieter place to focus" !important;
         inset: 0 auto auto 0 !important;
         position: absolute !important;
         white-space: nowrap !important;
       }
-      html[data-x-pimp-store-capture="true"] .x-pimp-outline-anchor:nth-child(2n) .x-pimp-outline-label::after {
+      html[data-x-zen-store-capture="true"] .x-zen-outline-anchor:nth-child(2n) .x-zen-outline-label::after {
         content: "Less noise, more signal" !important;
       }
-      html[data-x-pimp-store-capture="true"] .x-pimp-outline-anchor:nth-child(3n) .x-pimp-outline-label::after {
+      html[data-x-zen-store-capture="true"] .x-zen-outline-anchor:nth-child(3n) .x-zen-outline-label::after {
         content: "Your feed, your pace" !important;
       }
     \`;
@@ -131,8 +131,8 @@ const { data } = await send("Page.captureScreenshot", {
 await writeFile(OUTPUT_PATH, Buffer.from(data, "base64"));
 await send("Runtime.evaluate", {
   expression: `(() => {
-    delete document.documentElement.dataset.xPimpStoreCapture;
-    document.getElementById("x-pimp-store-capture-privacy")?.remove();
+    delete document.documentElement.dataset.xZenStoreCapture;
+    document.getElementById("x-zen-store-capture-privacy")?.remove();
   })()`
 });
 await send("Emulation.clearDeviceMetricsOverride");

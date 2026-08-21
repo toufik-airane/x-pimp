@@ -1,8 +1,8 @@
 (function startOffscreenAudio() {
   "use strict";
 
-  const PLAY_MESSAGE = "x-pimp-play-hourly-bell";
-  const STOP_MESSAGE = "x-pimp-stop-hourly-bell";
+  const PLAY_MESSAGE = "x-zen-play-hourly-bell";
+  const STOP_MESSAGE = "x-zen-stop-hourly-bell";
   const ENABLED_KEY = "hourlyBellEnabled";
   const audio = new Audio(chrome.runtime.getURL("assets/audio/hourly-bell.mp3"));
   audio.preload = "auto";
@@ -32,7 +32,7 @@
   chrome.runtime.onMessage.addListener((message) => {
     if (message?.type === PLAY_MESSAGE) {
       void playIfEnabled().catch((error) => {
-        console.error("x-pimp could not play the hourly bell", error);
+        console.error("x-zen could not play the hourly bell", error);
       });
     } else if (message?.type === STOP_MESSAGE) {
       stopAudio();

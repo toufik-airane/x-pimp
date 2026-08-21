@@ -6,7 +6,7 @@ import { fileURLToPath } from "node:url";
 const projectDir = resolve(dirname(fileURLToPath(import.meta.url)), "..");
 const manifest = JSON.parse(readFileSync(resolve(projectDir, "manifest.json"), "utf8"));
 const outputDir = resolve(projectDir, "dist");
-const outputFile = resolve(outputDir, `x-pimp-${manifest.version}.zip`);
+const outputFile = resolve(outputDir, `x-zen-${manifest.version}.zip`);
 const files = [
   "README.md",
   "manifest.json",

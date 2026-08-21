@@ -60,5 +60,5 @@
       : clipped;
   }
 
-  global.X_PIMP_OUTLINE_LABELS = Object.freeze({ getAnchorLabel });
+  global.X_ZEN_OUTLINE_LABELS = Object.freeze({ getAnchorLabel });
 })(globalThis);

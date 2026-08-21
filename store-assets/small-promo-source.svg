@@ -1,6 +1,6 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="440" height="280" viewBox="0 0 440 280" role="img" aria-labelledby="title desc">
-  <title id="title">x-pimp small promotional tile</title>
-  <desc id="desc">The x-pimp logo and the message A calmer X.com feed.</desc>
+  <title id="title">x-zen small promotional tile</title>
+  <desc id="desc">The x-zen logo and the message A calmer X.com feed.</desc>
   <defs>
     <linearGradient id="bg" x1="0" y1="0" x2="440" y2="280" gradientUnits="userSpaceOnUse"><stop stop-color="#07120F"/><stop offset="1" stop-color="#111817"/></linearGradient>
     <radialGradient id="glow" cx="0" cy="0" r="1" gradientTransform="translate(33 254) rotate(-34) scale(250 190)" gradientUnits="userSpaceOnUse"><stop stop-color="#34D399" stop-opacity=".26"/><stop offset="1" stop-color="#34D399" stop-opacity="0"/></radialGradient>
@@ -16,7 +16,7 @@
       <path d="M512 790c-9-185-9-391 0-611" fill="none" stroke="#FF8FA3" stroke-opacity=".86" stroke-linecap="round" stroke-width="30"/><path d="M512 790c4 38 1 74-10 108" fill="none" stroke="#6EE7B7" stroke-opacity=".82" stroke-linecap="round" stroke-width="30"/>
     </g>
   </g>
-  <text x="190" y="103" fill="#F8FAF9" font-family="Inter, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="42" font-weight="800" letter-spacing="-1.8">x-pimp</text>
+  <text x="190" y="103" fill="#F8FAF9" font-family="Inter, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="42" font-weight="800" letter-spacing="-1.8">x-zen</text>
   <text x="190" y="137" fill="#A9B7B1" font-family="Inter, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="17" font-weight="600">A calmer X.com feed.</text>
   <g transform="translate(190 160)"><rect width="88" height="28" rx="14" fill="#D1FAE5" fill-opacity=".08" stroke="#D1FAE5" stroke-opacity=".14"/><circle cx="15" cy="14" r="3" fill="#6EE7B7"/><text x="25" y="18" fill="#D8E2DE" font-family="Inter, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="11" font-weight="650">Less noise</text></g>
   <circle cx="398" cy="44" r="5" fill="#FF8FA3"/>

@@ -1,14 +1,14 @@
-# x-pimp
+# x-zen
 
-![x-pimp logo](assets/icons/icon128.png)
+![x-zen logo](assets/icons/icon128.png)
 
 A small Chrome extension that removes the complete right rail from desktop
 X.com. This includes modules such as **Live on X**, **Today’s News**, and
 **What’s happening**. The main timeline becomes wider when space permits.
 
-**[Install x-pimp from the Chrome Web Store](https://chromewebstore.google.com/detail/x-pimp/nonemmfagigefdfmgebidhnebidanedg)**
+**[Install x-zen from the Chrome Web Store](https://chromewebstore.google.com/detail/x-zen/nonemmfagigefdfmgebidhnebidanedg)**
 
-Current source version: **1.0.7**. See [CHANGELOG.md](CHANGELOG.md) for release
+Current source version: **1.0.8**. See [CHANGELOG.md](CHANGELOG.md) for release
 notes and [SECURITY.md](SECURITY.md) for vulnerability reporting.
 
 The left Home control is replaced by a lean, translucent X-style refresh control
@@ -80,36 +80,37 @@ of softly blurred green foliage beneath a dark translucent veil and restrained
 emerald ambient light. The feed stays opaque for readability, while the
 left-side cards use restrained backdrop blur.
 
-When X opens a photo, video, profile photo, or header photo, x-pimp yields the
+When X opens a photo, video, profile photo, or header photo, x-zen yields the
 complete screen to the media viewer. The plant canvas becomes solid black, and
 the focus cards, outline, floating controls, and moved account control stay
 hidden until the viewer closes.
 
 ## Install
 
-Install x-pimp from the
-[Chrome Web Store](https://chromewebstore.google.com/detail/x-pimp/nonemmfagigefdfmgebidhnebidanedg).
+Install x-zen from the
+[Chrome Web Store](https://chromewebstore.google.com/detail/x-zen/nonemmfagigefdfmgebidhnebidanedg).
 
 To load the source checkout directly:
 
 1. Open `chrome://extensions` in Chrome.
 2. Enable **Developer mode**.
 3. Select **Load unpacked**.
-4. Select this `x-pimp` directory.
+4. Select this `x-zen` directory.
 5. Reload an open X.com tab.
 
 Use the extension button to restore or remove the right rail at any time.
 
 ## Privacy
 
-x-pimp runs only on `x.com`. It stores display preferences with
+x-zen runs only on `x.com`. It stores display preferences with
 `chrome.storage.sync` and timer/weather state with `chrome.storage.local`. It
-reads only the first words needed for outline labels and does not store or
-transmit account content. Weather remains opt-in; when enabled, rounded
-coordinates are sent only to Open-Meteo and are not stored.
+processes only the short excerpts and visible article titles needed for outline
+labels and does not store or transmit account content. Weather remains opt-in;
+when enabled, rounded coordinates are sent only to Open-Meteo and are not
+stored.
 See [PRIVACY.md](PRIVACY.md) for the complete privacy policy.
 
-Public policy URL: <https://toufik-airane.github.io/x-pimp/>
+Public policy URL: <https://toufik-airane.github.io/x-zen/>
 
 ## Publish
 
@@ -121,7 +122,7 @@ node scripts/package.mjs
 ```
 
 Pushing a signed tag whose name matches the manifest version, such as
-`v1.0.7`, runs the release workflow. GitHub verifies the source, runs Semgrep,
+`v1.0.8`, runs the release workflow. GitHub verifies the source, runs Semgrep,
 builds the ZIP, writes its SHA-256 file, and publishes both assets in a GitHub
 Release. A mismatched tag and manifest version fails before packaging.
 
