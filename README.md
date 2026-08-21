@@ -6,6 +6,8 @@ A small Chrome extension that removes the complete right rail from desktop
 X.com. This includes modules such as **Live on X**, **Today’s News**, and
 **What’s happening**. The main timeline becomes wider when space permits.
 
+**[Install x-pimp from the Chrome Web Store](https://chromewebstore.google.com/detail/x-pimp/nonemmfagigefdfmgebidhnebidanedg)**
+
 Current source version: **1.0.7**. See [CHANGELOG.md](CHANGELOG.md) for release
 notes and [SECURITY.md](SECURITY.md) for vulnerability reporting.
 
