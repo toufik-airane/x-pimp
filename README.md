@@ -15,7 +15,8 @@ Current version: **1.0.8** · Requires Chrome 116 or later
 - Removes the right rail, promoted posts, Grok controls, the Chat drawer, and
   most left navigation.
 - Centers the feed at an adjustable width from 560 to 900 pixels.
-- Adds compact Home and Refresh controls with a six-second refresh cooldown.
+- Adds compact Home and Refresh controls that reveal pending posts and use a
+  six-second refresh cooldown.
 - Adds a local clock and a persistent 15, 30, or 45-minute Pomodoro timer.
 - Adds an optional hourly singing-bowl bell from a bundled local audio file.
 - Adds optional local weather after explicit location consent.

@@ -4,11 +4,15 @@
   const STORAGE_KEY = "weather";
   const STALE_AFTER_MS = 30 * 60 * 1000;
   const WIDGET_GAP_PX = 14;
+  const MIN_WIDGET_HEIGHT_PX = 120;
+  const ACCOUNT_SELECTOR =
+    'header[role="banner"] [data-testid="SideNav_AccountSwitcher_Button"]';
   let weatherState = { data: null, enabled: false };
   let bootObserver;
   let loading = false;
   let observedPomodoro;
   let positionFrame;
+  let requestRevision = 0;
   let weatherTimer;
   let widgetResizeObserver;
 
@@ -19,9 +23,19 @@
       const pomodoro = document.querySelector("#x-zen-pomodoro");
       const weather = document.querySelector("#x-zen-weather");
       if (!pomodoro || !weather) return;
-      weather.style.top = `${
-        pomodoro.getBoundingClientRect().bottom + WIDGET_GAP_PX
-      }px`;
+      const top = pomodoro.getBoundingClientRect().bottom + WIDGET_GAP_PX;
+      const accountTop = document
+        .querySelector(ACCOUNT_SELECTOR)
+        ?.getBoundingClientRect().top;
+      const bottomLimit = Number.isFinite(accountTop)
+        ? accountTop - WIDGET_GAP_PX
+        : window.innerHeight - 82;
+      const availableHeight = Math.max(0, Math.floor(bottomLimit - top));
+      weather.style.top = `${top}px`;
+      weather.style.maxHeight = `${availableHeight}px`;
+      weather.dataset.hasSpace = String(
+        availableHeight >= MIN_WIDGET_HEIGHT_PX
+      );
     });
   }
 
@@ -105,11 +119,13 @@
 
   async function updateWeather() {
     if (loading) return;
+    const requestedRevision = ++requestRevision;
     loading = true;
     render();
 
     try {
       const position = await getPosition();
+      if (requestedRevision !== requestRevision) return;
       const query = new URLSearchParams({
         current: "temperature_2m,apparent_temperature,weather_code",
         daily: "temperature_2m_max,temperature_2m_min",
@@ -120,8 +136,10 @@
         timezone: "auto"
       });
       const response = await fetch(`https://api.open-meteo.com/v1/forecast?${query}`);
+      if (requestedRevision !== requestRevision) return;
       if (!response.ok) throw new Error(`Weather request failed: ${response.status}`);
       const payload = await response.json();
+      if (requestedRevision !== requestRevision) return;
       const data = sanitizeData({
         apparentTemperature: payload.current?.apparent_temperature,
         high: payload.daily?.temperature_2m_max?.[0],
@@ -131,6 +149,7 @@
         weatherCode: payload.current?.weather_code
       });
       if (!data) throw new Error("Weather response was incomplete");
+      if (requestedRevision !== requestRevision) return;
 
       weatherState = { data, enabled: true };
       await chrome.storage.local.set({ [STORAGE_KEY]: weatherState });
@@ -138,12 +157,16 @@
       if (!weatherState.data) weatherState.enabled = false;
       render(error?.code === 1 ? "Location access is off" : "Weather unavailable");
     } finally {
-      loading = false;
-      render();
+      if (requestedRevision === requestRevision) {
+        loading = false;
+        render();
+      }
     }
   }
 
   async function disableWeather() {
+    requestRevision += 1;
+    loading = false;
     weatherState = { data: null, enabled: false };
     await chrome.storage.local.remove(STORAGE_KEY);
     render();
@@ -162,7 +185,7 @@
         <button type="button" class="x-zen-weather-update" aria-label="Update local weather">↻</button>
       </div>
       <div class="x-zen-weather-consent">
-        <p>Your browser provides your location. x-zen rounds it, then sends it to Open-Meteo for current conditions. x-zen does not store your coordinates.</p>
+        <p>x-zen rounds your browser location, sends it to Open-Meteo, and does not store the coordinates.</p>
         <button type="button" class="x-zen-weather-enable">Share approximate location</button>
       </div>
       <div class="x-zen-weather-current" hidden>
@@ -192,7 +215,9 @@
     if (ensureWidget() && observeWidgetPosition()) bootObserver?.disconnect();
   }
 
+  const initialLoadRevision = requestRevision;
   chrome.storage.local.get(STORAGE_KEY).then((result) => {
+    if (initialLoadRevision !== requestRevision) return;
     weatherState = {
       data: sanitizeData(result[STORAGE_KEY]?.data),
       enabled: result[STORAGE_KEY]?.enabled === true
@@ -205,6 +230,17 @@
     ) {
       updateWeather();
     }
+  });
+
+  chrome.storage.onChanged.addListener((changes, areaName) => {
+    if (areaName !== "local" || !changes[STORAGE_KEY]) return;
+    requestRevision += 1;
+    loading = false;
+    weatherState = {
+      data: sanitizeData(changes[STORAGE_KEY].newValue?.data),
+      enabled: changes[STORAGE_KEY].newValue?.enabled === true
+    };
+    render();
   });
 
   bootObserver = new MutationObserver(bootWidgets);

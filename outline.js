@@ -201,6 +201,19 @@
     }
   }
 
+  function reconcileTrack(track, orderedButtons) {
+    const expectedButtons = new Set(orderedButtons);
+    for (const button of [...track.children]) {
+      if (!expectedButtons.has(button)) button.remove();
+    }
+    orderedButtons.forEach((button, index) => {
+      const currentButton = track.children[index];
+      if (currentButton !== button) {
+        track.insertBefore(button, currentButton ?? null);
+      }
+    });
+  }
+
   function scanTweets() {
     scanTimer = undefined;
     const outline = ensureOutline();
@@ -209,26 +222,15 @@
     const articles = getTrackableArticles();
     const currentKeys = new Set();
     const currentEntries = [];
-    articles.forEach((article, articleIndex) => {
+    articles.forEach((article) => {
       const key = getArticleKey(article);
+      if (currentKeys.has(key)) return;
       currentKeys.add(key);
       let entry = entriesByKey.get(key);
       if (!entry) {
         entry = createEntry(article, key);
         entriesByKey.set(key, entry);
-
-        let insertionIndex = outlineEntries.length;
-        for (let index = articleIndex + 1; index < articles.length; index++) {
-          const nextEntry = entriesByKey.get(getArticleKey(articles[index]));
-          if (nextEntry) {
-            insertionIndex = outlineEntries.indexOf(nextEntry);
-            break;
-          }
-        }
-        if (insertionIndex === outlineEntries.length && currentEntries.length) {
-          insertionIndex = outlineEntries.indexOf(currentEntries.at(-1)) + 1;
-        }
-        outlineEntries.splice(insertionIndex, 0, entry);
+        outlineEntries.push(entry);
       } else {
         entry.article = article;
       }
@@ -264,19 +266,22 @@
     }
 
     const track = outline.querySelector(".x-zen-outline-track");
+    const disconnectedEntries = outlineEntries.filter(
+      (entry) => !currentKeys.has(entry.key)
+    );
+    outlineEntries.splice(
+      0,
+      outlineEntries.length,
+      ...currentEntries,
+      ...disconnectedEntries
+    );
     const orderedButtons = outlineEntries.map((entry) => entry.button);
-    const currentButtons = [...track.children];
-    if (
-      currentButtons.length !== orderedButtons.length ||
-      currentButtons.some((button, index) => button !== orderedButtons[index])
-    ) {
-      track.replaceChildren(...orderedButtons);
-    }
+    reconcileTrack(track, orderedButtons);
 
     outline.dataset.empty = String(outlineEntries.length === 0);
     outline.style.setProperty(
       "--x-zen-outline-count",
-      String(currentEntries.length)
+      String(outlineEntries.length)
     );
     updateActiveAnchor();
   }

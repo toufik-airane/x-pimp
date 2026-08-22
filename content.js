@@ -6,6 +6,8 @@
   const BACKGROUND_ASSET_PATH = "assets/backgrounds/peaceful-plants.jpg";
   const HOME_LINK_SELECTOR =
     'a[data-testid="AppTabBar_Home_Link"], a[href="/home"][role="link"]';
+  const NEW_POSTS_PILL_SELECTOR =
+    '[data-testid="primaryColumn"] [data-testid="pillLabel"]';
   const HOME_BUTTON_ID = "x-zen-home";
   const REFRESH_BUTTON_ID = "x-zen-refresh";
   const REFRESH_COOLDOWN_KEY = "refreshCooldownUntil";
@@ -57,6 +59,8 @@
   let interfaceReadyTimer;
   let revealFallbackTimer;
   let revealFrame;
+  let waitingForNewPosts = false;
+  let newPostsWaitTimer;
   const cooldownReady = chrome.storage.local
     .get(REFRESH_COOLDOWN_KEY)
     .then((result) => {
@@ -108,6 +112,46 @@
     }, remainingMs);
   }
 
+  function getNewPostsButton() {
+    if (location.pathname !== "/home") return null;
+    return document
+      .querySelector(NEW_POSTS_PILL_SELECTOR)
+      ?.closest('button, [role="button"]');
+  }
+
+  function clearNewPostsWait() {
+    waitingForNewPosts = false;
+    window.clearTimeout(newPostsWaitTimer);
+    newPostsWaitTimer = undefined;
+  }
+
+  function clickHomeLink(homeLink) {
+    forwardingRefresh = true;
+    try {
+      homeLink.click();
+    } finally {
+      forwardingRefresh = false;
+    }
+  }
+
+  function refreshPendingPosts() {
+    if (!getNewPostsButton()) return false;
+    const homeLink = document.querySelector(HOME_LINK_SELECTOR);
+    if (!homeLink) return false;
+    clearNewPostsWait();
+    clickHomeLink(homeLink);
+    return true;
+  }
+
+  function waitForNewPostsButton() {
+    clearNewPostsWait();
+    waitingForNewPosts = true;
+    newPostsWaitTimer = window.setTimeout(
+      clearNewPostsWait,
+      HOME_COOLDOWN_MS
+    );
+  }
+
   async function tryRefresh(trigger) {
     await cooldownReady;
     if (Date.now() < refreshCooldownUntil) {
@@ -121,11 +165,13 @@
       [REFRESH_COOLDOWN_KEY]: refreshCooldownUntil
     });
 
+    const pendingPostsVisible = Boolean(getNewPostsButton());
     const homeLink = document.querySelector(HOME_LINK_SELECTOR);
     if (homeLink) {
-      forwardingRefresh = true;
-      homeLink.click();
-      forwardingRefresh = false;
+      if (location.pathname === "/home" && !pendingPostsVisible) {
+        waitForNewPostsButton();
+      }
+      clickHomeLink(homeLink);
     } else if (location.pathname !== "/home") {
       location.assign("/home");
     }
@@ -321,6 +367,7 @@
   function scheduleAdScan() {
     updateMediaViewerState();
     ensureInterfaceControls();
+    if (waitingForNewPosts) refreshPendingPosts();
     if (adScanFrame === undefined) {
       adScanFrame = window.requestAnimationFrame(markPromotedPosts);
     }
@@ -345,6 +392,7 @@
     "pagehide",
     () => {
       window.clearTimeout(revealFallbackTimer);
+      clearNewPostsWait();
       window.clearInterval(interfaceReadyTimer);
       window.cancelAnimationFrame(revealFrame);
     },

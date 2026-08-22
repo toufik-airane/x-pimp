@@ -55,6 +55,13 @@
     return `${String(minutes).padStart(2, "0")}:${String(seconds).padStart(2, "0")}`;
   }
 
+  function formatDuration(milliseconds) {
+    const totalSeconds = Math.max(0, Math.ceil(milliseconds / SECOND));
+    const minutes = Math.floor(totalSeconds / 60);
+    const seconds = totalSeconds % 60;
+    return `PT${minutes}M${seconds}S`;
+  }
+
   function renderClock(widget) {
     const now = new Date();
     const clock = widget.querySelector(".x-zen-clock-time");
@@ -75,7 +82,9 @@
     const remainingMs = getRemainingMs();
     const complete = remainingMs === 0;
     renderClock(widget);
-    widget.querySelector(".x-zen-pomodoro-time").textContent = formatTime(remainingMs);
+    const timer = widget.querySelector(".x-zen-pomodoro-time");
+    timer.dateTime = formatDuration(remainingMs);
+    timer.textContent = formatTime(remainingMs);
     widget.querySelector(".x-zen-pomodoro-status").textContent = complete
       ? "Done"
       : state.running

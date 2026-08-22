@@ -3,6 +3,17 @@
 All notable changes to x-zen are documented here. Versions follow
 [Semantic Versioning](https://semver.org/).
 
+## Unreleased
+
+- Make Home and Refresh automatically apply X's “Show xx posts” update when it
+  appears after X receives the refresh request.
+- Keep the right-side tweet outline in feed order without rebuilding its list
+  or collapsing rows during brief X timeline remounts.
+- Prevent the weather card from overlapping the account control, keep weather
+  disabled when an in-flight update finishes, synchronize it across X tabs,
+  expose the Pomodoro's current duration to assistive technology, and label the
+  feed-width slider for screen readers.
+
 ## 1.0.8 — 2026-08-21
 
 - Completed the x-zen brand rollout across the extension interface, internal

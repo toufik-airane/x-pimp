@@ -31,8 +31,10 @@ const sourceFiles = [
   "scripts/capture-store-screenshot.mjs",
   "scripts/package.mjs",
   "scripts/test-background.mjs",
+  "scripts/test-content.mjs",
   "scripts/test-offscreen.mjs",
   "scripts/test-outline-label.mjs",
+  "scripts/test-weather.mjs",
   "scripts/verify.mjs"
 ];
 
@@ -44,10 +46,16 @@ execFileSync(process.execPath, ["scripts/check.mjs"], { stdio: "inherit" });
 execFileSync(process.execPath, ["scripts/test-background.mjs"], {
   stdio: "inherit"
 });
+execFileSync(process.execPath, ["scripts/test-content.mjs"], {
+  stdio: "inherit"
+});
 execFileSync(process.execPath, ["scripts/test-offscreen.mjs"], {
   stdio: "inherit"
 });
 execFileSync(process.execPath, ["scripts/test-outline-label.mjs"], {
+  stdio: "inherit"
+});
+execFileSync(process.execPath, ["scripts/test-weather.mjs"], {
   stdio: "inherit"
 });
 console.log("x-zen verification passed.");
