@@ -3,8 +3,9 @@
 All notable changes to x-zen are documented here. Versions follow
 [Semantic Versioning](https://semver.org/).
 
-## Unreleased
+## 1.0.9 — 2026-08-22
 
+- Reduce the Home and Refresh cooldown from six seconds to five seconds.
 - Make Home and Refresh automatically apply X's “Show xx posts” update when it
   appears after X receives the refresh request.
 - Keep the right-side tweet outline in feed order without rebuilding its list

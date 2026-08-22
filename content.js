@@ -2,7 +2,7 @@
   "use strict";
 
   const { defaults, sanitize, storageKey } = globalThis.X_ZEN;
-  const HOME_COOLDOWN_MS = 6000;
+  const HOME_COOLDOWN_MS = 5000;
   const BACKGROUND_ASSET_PATH = "assets/backgrounds/peaceful-plants.jpg";
   const HOME_LINK_SELECTOR =
     'a[data-testid="AppTabBar_Home_Link"], a[href="/home"][role="link"]';

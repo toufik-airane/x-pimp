@@ -160,7 +160,7 @@ assert.match(styles, /header\[role="banner"\] nav\[aria-label="Primary"\]/);
 assert.match(styles, /SideNav_NewTweet_Button/);
 
 const content = await readFile(new URL("content.js", root), "utf8");
-assert.match(content, /HOME_COOLDOWN_MS = 6000/);
+assert.match(content, /HOME_COOLDOWN_MS = 5000/);
 assert.match(content, /assets\/backgrounds\/peaceful-plants\.jpg/);
 assert.match(content, /chrome\.runtime\.getURL/);
 assert.match(content, /MEDIA_VIEWER_PATH_PATTERN/);
@@ -202,16 +202,16 @@ const context = vm.createContext({ globalThis: {} });
 vm.runInContext(shared, context);
 
 let now = 1000;
-const cooldown = context.globalThis.X_ZEN.createCooldown(6000, () => now);
+const cooldown = context.globalThis.X_ZEN.createCooldown(5000, () => now);
 assert.equal(cooldown.attempt().allowed, true);
 now = 2000;
 assert.deepEqual(
   { ...cooldown.attempt() },
-  { allowed: false, remainingMs: 5000 }
+  { allowed: false, remainingMs: 4000 }
 );
-now = 6999;
+now = 5999;
 assert.equal(cooldown.attempt().allowed, false);
-now = 7000;
+now = 6000;
 assert.equal(cooldown.attempt().allowed, true);
 
 const { sanitize } = context.globalThis.X_ZEN;

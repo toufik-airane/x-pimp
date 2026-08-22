@@ -1,7 +1,7 @@
 {
   "manifest_version": 3,
   "name": "x-zen",
-  "version": "1.0.8",
+  "version": "1.0.9",
   "minimum_chrome_version": "116",
   "description": "Clean up X and stop rapid Home clicks from refreshing the feed.",
   "icons": {

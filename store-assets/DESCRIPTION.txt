@@ -4,7 +4,7 @@ WHAT IT CHANGES
 
 • Removes the right rail, promoted posts, Grok controls, the Chat drawer, and most left navigation.
 • Keeps the feed centered at the width you choose while preserving access to your account avatar.
-• Adds a quiet refresh control with a six-second cooldown to prevent accidental feed churn.
+• Adds a quiet refresh control with a five-second cooldown to prevent accidental feed churn.
 • Adds a local clock and a persistent 15, 30, or 45-minute Pomodoro timer.
 • Adds optional local weather and an optional hourly singing-bowl bell.
 • Adds a compact post outline for navigation. Article posts use their visible article title.
